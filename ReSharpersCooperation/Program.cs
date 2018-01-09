@@ -12,6 +12,7 @@ namespace ReSharpersCooperation
 {
     public class Program
     {
+        //malakismeo
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
