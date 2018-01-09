@@ -17,6 +17,7 @@ namespace ReSharpersCooperation
         //malakismeno3
         //malakismeno4
         //malakismeno5 
+        //malakismeno6
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
