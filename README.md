@@ -1,0 +1,1 @@
+# ReSharpers_Cooperation
