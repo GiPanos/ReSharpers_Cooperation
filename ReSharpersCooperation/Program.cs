@@ -13,7 +13,7 @@ namespace ReSharpersCooperation
     public class Program
     {
         //malakismeo
-        //malakismeno
+        //malakismeno!
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
