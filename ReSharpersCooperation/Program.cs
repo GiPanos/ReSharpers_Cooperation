@@ -12,7 +12,7 @@ namespace ReSharpersCooperation
 {
     public class Program
     {
-        //TA ESVISA OLA
+        //dokimi apo desktop github
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
