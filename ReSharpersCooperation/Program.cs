@@ -12,7 +12,7 @@ namespace ReSharpersCooperation
 {
     public class Program
     {
-        //ta xanaegrapsa
+       //ta espase ee, douleuei
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
