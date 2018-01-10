@@ -12,8 +12,9 @@ namespace ReSharpersCooperation
 {
     public class Program
     {
-       //test dokimi 2
-       //allaksa prin to commit sou
+       //ta espase ee, douleuei
+       //patisa commit and sync/grafw xwris na ksero oti allakses
+       //reoijhgeroigbod
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
