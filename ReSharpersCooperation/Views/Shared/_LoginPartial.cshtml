@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">Hello @UserManager.GetUserName(User)!</a>
+                   aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> @UserManager.GetUserName(User) </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="btn navbar-btn dropdown-item" asp-area="" asp-controller="Manage" asp-action="Index" title="Edit your Account">My Account </a>
                     <a class="btn btn-link navbar-btn navbar-link dropdown-item" asp-area="" asp-controller="Manage" asp-action="ViewOrders" title="View your Past Orders">My Orders </a>
