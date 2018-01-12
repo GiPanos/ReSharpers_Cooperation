@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="container">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-5 col-md-5 ">
+                <div class="col-sm-5">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
                             <div class="input-group-btn search-panel">
@@ -69,12 +69,59 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - ReSharpersCooperation</p>
-        </footer>
     </div>
-
-
+        <div class="container-fluid" id="footerr">
+            <footer class="footer-bs">
+                <div class="row">
+                    <div class="col-md-3 footer-brand animated fadeInLeft">
+                        <h2>ReSharpers Cooperation</h2>
+                        <p>  Some Words</p>
+                        <p>© 2018 ReSharpers Cooperation </p>
+                    </div>
+                    <div class="col-md-4 footer-nav animated fadeInUp">
+                        <h4>Menu —</h4>
+                        <div class="col-md-6">
+                            <ul class="pages">
+                                <li><a href="#">Option 1</a></li>
+                                <li><a href="#">Option 2</a></li>
+                                <li><a href="#">Option 3</a></li>
+                                <li><a href="#">Option 4</a></li>
+                                <li><a href="#">Option 5</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Contacts</a></li>
+                                <li><a href="#">Terms & Condition</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 footer-social animated fadeInDown">
+                        <h4>Follow Us</h4>
+                        <ul>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">RSS</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 footer-ns animated fadeInRight">
+                        <h4>Newsletter</h4>
+                        <p>Subscribe to our newsletter for Great offers</p>
+                        <p>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Your e-mail...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -95,8 +142,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
