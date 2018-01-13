@@ -1,0 +1,16 @@
+﻿@model Product
+
+<section class="card m-1 p-1">
+    <header class="bg-faded p-1">
+        <h3>
+            @Model.ProductName
+            <span class="badge badge-primary" style="float:right">
+                <small>@Model.Price.ToString("c")</small>
+            </span>
+        </h3>
+    </header>
+    <div class="card-text p-1">
+        <p>@Model.ProductDesc</p>
+        <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asp-route-productID="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
+    </div>
+</section>

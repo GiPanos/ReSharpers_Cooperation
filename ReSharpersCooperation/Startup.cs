@@ -35,7 +35,7 @@ namespace ReSharpersCooperation
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddTransient<ProductRepository>();
             services.AddMvc();
         }
 
