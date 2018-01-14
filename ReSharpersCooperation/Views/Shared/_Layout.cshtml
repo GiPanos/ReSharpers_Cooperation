@@ -18,110 +18,118 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
-        <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ReSharpersCooperation</a>
-            </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
             <div class="container">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">
-                    <form class="navbar-form col-sm-4" role="search">
-                        <div class="input-group">
-                            <div class="input-group-btn search-panel">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span id="search_concept"></span> <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#Name">Name</a></li>
-                                    <li><a href="#Category">Category</a></li>
-                                    <li><a href="#LowestPrice">Price (Lowest)</a></li>
-                                    <li><a href="#HighestPrice">Price (Highest) </a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#all">Anything</a></li>
-                                </ul>
-                            </div>
-                            <input type="hidden" name="search_param" value="all" id="search_param">
-                            <input type="text" class="form-control col-sm-4" name="x" placeholder="Search our Shop">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
-                        </div>
-                    </form>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Product" asp-action="List" class="navbar-brand">ReSharpersCooperation</a>
                 </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div class="container">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-4">
+                            <form class="navbar-form col-sm-4" role="search">
+                                <div class="input-group">
+                                    <div class="input-group-btn search-panel">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span id="search_concept"></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#Name">Name</a></li>
+                                            <li><a href="#Category">Category</a></li>
+                                            <li><a href="#LowestPrice">Price (Lowest)</a></li>
+                                            <li><a href="#HighestPrice">Price (Highest) </a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#all">Anything</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" name="search_param" value="all" id="search_param">
+                                    <input type="text" class="form-control col-sm-4" name="x" placeholder="Search our Shop">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
 
-                <ul class="nav navbar-nav navbar-right">
-                    @await Html.PartialAsync("_LoginPartial")
-                </ul>
-            </div>
-        </div>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
-        <div class="container-fluid" id="footerr">
-            <footer class="footer-bs">
-                <div class="row">
-                    <div class="col-md-3 footer-brand animated fadeInLeft">
-                        <h2>ReSharpers Cooperation</h2>
-                        <p>  Some Words</p>
-                        <p>© 2018 ReSharpers Cooperation </p>
-                    </div>
-                    <div class="col-md-4 footer-nav animated fadeInUp">
-                        <h4>Menu —</h4>
-                        <div class="col-md-6">
-                            <ul class="pages">
-                                <li><a href="#">Option 1</a></li>
-                                <li><a href="#">Option 2</a></li>
-                                <li><a href="#">Option 3</a></li>
-                                <li><a href="#">Option 4</a></li>
-                                <li><a href="#">Option 5</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="list">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contacts</a></li>
-                                <li><a href="#">Terms & Condition</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-2 footer-social animated fadeInDown">
-                        <h4>Follow Us</h4>
-                        <ul>
-                            <li><a href="#">Facebook</a></li>
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Instagram</a></li>
-                            <li><a href="#">RSS</a></li>
+                        <ul class="nav navbar-nav navbar-right">
+                            @await Html.PartialAsync("_LoginPartial")
                         </ul>
                     </div>
-                    <div class="col-md-3 footer-ns animated fadeInRight">
-                        <h4>Newsletter</h4>
-                        <p>Subscribe to our newsletter for Great offers</p>
-                        <p>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Your e-mail...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </p>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </header>
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <h1>Test</h1>
+            </div>
+            <main class="col-sm-9">
+                @RenderBody()
+            </main>
+        </div>
+    </section>
+    <div class="container-fluid" id="footerr">
+        <footer class="footer-bs">
+            <div class="row">
+                <div class="col-md-3 footer-brand animated fadeInLeft">
+                    <h2>ReSharpers Cooperation</h2>
+                    <p>  Some Words</p>
+                    <p>© 2018 ReSharpers Cooperation </p>
+                </div>
+                <div class="col-md-4 footer-nav animated fadeInUp">
+                    <h4>Menu —</h4>
+                    <div class="col-md-6">
+                        <ul class="pages">
+                            <li><a href="#">Option 1</a></li>
+                            <li><a href="#">Option 2</a></li>
+                            <li><a href="#">Option 3</a></li>
+                            <li><a href="#">Option 4</a></li>
+                            <li><a href="#">Option 5</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contacts</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
-        </div>
+                <div class="col-md-2 footer-social animated fadeInDown">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">RSS</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-ns animated fadeInRight">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to our newsletter for Great offers</p>
+                    <p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Your e-mail...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

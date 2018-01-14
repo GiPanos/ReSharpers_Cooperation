@@ -60,8 +60,13 @@ namespace ReSharpersCooperation
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                name: "pagination",
+                template: "Products/{productPage}",
+                defaults: new { Controller = "Product", Action = "List" }
+                );
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Product}/{action=List}");
             });
         }
     }
