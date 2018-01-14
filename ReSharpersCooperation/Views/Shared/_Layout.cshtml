@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - ReSharpersCooperation</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -18,56 +18,33 @@
     </environment>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Product" asp-action="List" class="navbar-brand">ReSharpersCooperation</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <div class="container">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-4">
-                            <form class="navbar-form col-sm-4" role="search">
-                                <div class="input-group">
-                                    <div class="input-group-btn search-panel">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <span id="search_concept"></span> <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#Name">Name</a></li>
-                                            <li><a href="#Category">Category</a></li>
-                                            <li><a href="#LowestPrice">Price (Lowest)</a></li>
-                                            <li><a href="#HighestPrice">Price (Highest) </a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#all">Anything</a></li>
-                                        </ul>
-                                    </div>
-                                    <input type="hidden" name="search_param" value="all" id="search_param">
-                                    <input type="text" class="form-control col-sm-4" name="x" placeholder="Search our Shop">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            @await Html.PartialAsync("_LoginPartial")
-                        </ul>
+    <nav class="navbar navbar-dark fixed-top bg-dark">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="List">ReSharpersCooperation</a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <form class="form-inline my-2 my-lg-0 ">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Name</a>
+                        <a class="dropdown-item" href="#">Category</a>
+                        <a class="dropdown-item" href="#">Highest First</a>
+                        <a class="dropdown-item" href="#">Lowest Price First</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">All</a>
                     </div>
                 </div>
-            </div><!-- /.navbar-collapse -->
-        </nav>
-    </header>
+                <input class="form-control " type="search" placeholder="Search our Shop" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                </div>
+            </div>
+
+        </form>
+
+        @await Html.PartialAsync("_LoginPartial")
+    </nav>
     <section class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
@@ -122,7 +99,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Your e-mail...">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                                <button class="btn btn-default" type="button"><span class="fa fa-envelope"></span></button>
                             </span>
                         </div><!-- /input-group -->
                     </p>
@@ -132,7 +109,7 @@
     </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
