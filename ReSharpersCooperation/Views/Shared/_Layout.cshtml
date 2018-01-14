@@ -20,36 +20,32 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark ">
         <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="List">ReSharpersCooperation</a>
-        <form class="form-inline my-2 my-lg-0 ">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By</button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Name</a>
-                        <a class="dropdown-item" href="#">Category</a>
-                        <a class="dropdown-item" href="#">Highest First</a>
-                        <a class="dropdown-item" href="#">Lowest Price First</a>
-                        <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">All</a>
+            <form class="form-inline my-2 my-lg-0 ">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Name</a>
+                            <a class="dropdown-item" href="#">Category</a>
+                            <a class="dropdown-item" href="#">Highest First</a>
+                            <a class="dropdown-item" href="#">Lowest Price First</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">All</a>
+                        </div>
+                    </div>
+                    <input class="form-control " type="search" placeholder="Search our Shop" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                     </div>
                 </div>
-                <input class="form-control " type="search" placeholder="Search our Shop" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                </div>
-            </div>
-        </form>
+            </form>
+
         @await Html.PartialAsync("_LoginPartial")
     </nav>
     <section class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3">
-                <h1>Test</h1>
-            </div>
-            <main class="col-sm-9">
-                @RenderBody()
-            </main>
-        </div>
+      
+            @RenderBody()
+
     </section>
     <div class="container-fluid" id="footerr">
         <footer class="footer-bs">
@@ -94,8 +90,8 @@
                     <p>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Your e-mail...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="fa fa-envelope"></span></button>
+                            <span class="input-group-btn input-group-append" >
+                                <button class="btn btn-default" type="button" id="newsletterbutton"><span class="fa fa-envelope"></span></button>
                             </span>
                         </div><!-- /input-group -->
                     </p>

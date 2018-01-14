@@ -4,24 +4,30 @@
 @{
     ViewData["Title"] = "List";
 }
+<div class="row">
+    <div class="col-sm-3">
+        <h1>Test</h1>
+    </div>
+    <main class="col-sm-9">
+        <h2>List</h2>
 
-<h2>List</h2>
-
-@foreach (var p in Model.Products)
-{
-    @Html.Partial("ProductSummary", p)
-}
-
-<nav class="btn-group">
-    @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
-    {
-        @if (Model.CurrentCategory == null)
+        @foreach (var p in Model.Products)
         {
-            <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
+            @Html.Partial("ProductSummary", p)
         }
-        else
-        {
-            <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
-        }
-    }
-</nav>
+
+        <nav class="btn-group">
+            @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+            {
+                @if (Model.CurrentCategory == null)
+                {
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
+                }
+                else
+                {
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
+                }
+            }
+        </nav>
+    </main>
+    </div>

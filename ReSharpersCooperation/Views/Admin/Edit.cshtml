@@ -1,0 +1,87 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                
+                Model.ModifiedDate = DateTime.Now;
+            }
+            
+            <input type="hidden" asp-for="ModifiedDate" />
+            <input type="hidden" asp-for="CreatedDate" />
+            <input type="hidden" asp-for="ProductNo" />
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDesc" class="control-label"></label>
+                <input asp-for="ProductDesc" class="form-control" />
+                <span asp-validation-for="ProductDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockNo" class="control-label"></label>
+                <input asp-for="StockNo" class="form-control" />
+                <span asp-validation-for="StockNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductImage" class="control-label"></label>
+                <input asp-for="ProductImage" class="form-control" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
