@@ -18,12 +18,10 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark">
-        <!-- Brand and toggle get grouped for better mobile display -->
+    <nav class="navbar navbar-dark fixed-top bg-dark ">
         <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="List">ReSharpersCooperation</a>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <form class="form-inline my-2 my-lg-0 ">
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By</button>
                     <div class="dropdown-menu">
@@ -40,9 +38,7 @@
                     <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                 </div>
             </div>
-
         </form>
-
         @await Html.PartialAsync("_LoginPartial")
     </nav>
     <section class="container-fluid">
