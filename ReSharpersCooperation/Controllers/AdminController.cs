@@ -46,9 +46,7 @@ namespace ReSharpersCooperation.Controllers
 
         public ViewResult Create()
         {
-            var lastproduct = _repository.Products.Last();
-            
-            return View(new Product{ ProductNo = lastproduct.ProductNo + 1 });
+            return View(new Product());
         }
 
         [HttpPost]
