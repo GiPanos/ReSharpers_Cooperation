@@ -12,89 +12,91 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductDesc)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StockNo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Rating)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsDeleted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModifiedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsFeatured)
-                </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Rating
+            </th>
+            <th>
+                Active
+            </th>
+            <th>
+                Deleted
+            </th>
+            <th>
+                Create Date
+            </th>
+            <th>
+                Last Modified
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Featured
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDesc)
-            </td>
-            <td>
-                @item.Price.ToString("C")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsFeatured)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-ProductNo="@item.ProductNo">Edit</a> |
-                <a asp-action="Details" asp-route-ProductNo="@item.ProductNo">Details</a> |
-                <form asp-action="Delete" method="post">
-                    <input type="hidden" name="ProductID" value="@item.ProductNo" />
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDesc)
+                </td>
+                <td>
+                    @item.Price.ToString("C")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFeatured)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary btn-sm"asp-route-ProductNo="@item.ProductNo">Edit</a> 
+                    <br />
+                    <a asp-action="Details" class="btn btn-primary btn-sm" asp-route-ProductNo="@item.ProductNo">Details</a> 
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="ProductID" value="@item.ProductNo" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
