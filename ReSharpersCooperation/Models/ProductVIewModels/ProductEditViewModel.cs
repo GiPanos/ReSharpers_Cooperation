@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReSharpersCooperation.Models
 {
-    public class Product
+    public class ProductEditViewModel
     {
-        [Key]
+        public IFormFile Image { get; set; }
         public int ProductNo { get; set; }
         public string ProductName { get; set; }
         public string ProductDesc { get; set; }
@@ -19,9 +20,7 @@ namespace ReSharpersCooperation.Models
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public byte[] ProductImage { get; set; }
         public bool IsFeatured { get; set; }
-
 
     }
 }
