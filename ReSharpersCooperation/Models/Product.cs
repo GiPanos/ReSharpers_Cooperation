@@ -19,7 +19,7 @@ namespace ReSharpersCooperation.Models
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public byte[] ProductImage { get; set; }
+        public string ProductImage { get; set; }
         public bool IsFeatured { get; set; }
 
 
