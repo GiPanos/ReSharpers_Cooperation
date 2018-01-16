@@ -11,7 +11,7 @@
     </header>
     <div class="card-text card-body p-1">
         <div class="card-body row">
-            @*<img class="img-fluid col-5 " src="~/images/@Model.ProductImage" />*@
+            <img class="img-fluid" width="300"src="@Model.ProductImage" />
             <p class="offset-3"style="float:right">@Model.ProductDesc</p>
         </div>
         <a class="btn btn-success btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productID="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>

@@ -16,12 +16,14 @@ namespace ReSharpersCooperation
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -36,7 +38,9 @@ namespace ReSharpersCooperation
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
+            services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

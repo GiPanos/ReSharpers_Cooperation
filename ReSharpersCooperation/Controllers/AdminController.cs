@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
 using System.Drawing;
+using Microsoft.AspNetCore.Hosting.Internal;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -15,9 +18,11 @@ namespace ReSharpersCooperation.Controllers
     public class AdminController : Controller
     {
         private ProductRepository _repository;
-        public AdminController(ProductRepository repository)
+        private IHostingEnvironment _hostingEnvironment;
+        public AdminController(ProductRepository repository,IHostingEnvironment hostingEnvironment)
         {
             _repository = repository;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public ViewResult Index()
@@ -30,8 +35,7 @@ namespace ReSharpersCooperation.Controllers
         public ViewResult Edit(int productNo)
         {
             var temp = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
-            //MemoryStream ms = new MemoryStream(temp.ProductImage);
-            //var productviewmodel = new ProductEditViewModel { Product = temp, };
+
             return View();
         }
 
@@ -40,13 +44,6 @@ namespace ReSharpersCooperation.Controllers
         {
             if (ModelState.IsValid)
             {
-                IFormFile uploadedimage = product.Image;
-                MemoryStream ms = new MemoryStream();
-                uploadedimage.OpenReadStream().CopyTo(ms);
-                //Image image = Image.FromStream(ms);
-                //product.Product.ProductImage = ms.ToArray();
-                //_repository.UpdateProduct(product.Product);
-                //TempData["Message"] = $"{product.Product.ProductName} has been updated.";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -57,8 +54,6 @@ namespace ReSharpersCooperation.Controllers
 
         public ViewResult Create()
         {
-            //var lastproduct = _repository.Products.Last();
-            //var tempproduct = new Product { ProductNo = lastproduct.ProductNo + 1 };
 
             return View(new ProductEditViewModel ());
         }
@@ -68,11 +63,26 @@ namespace ReSharpersCooperation.Controllers
         {
             if (ModelState.IsValid)
             {
-                IFormFile uploadedimage = product.Image;
-                MemoryStream ms = new MemoryStream();
-                uploadedimage.OpenReadStream().CopyTo(ms);
-                //Image image = Image.FromStream(ms);
-                var newproduct = new Product { ProductImage = ms.ToArray(),
+                long size = 0;
+                var filename = ContentDispositionHeaderValue
+                    .Parse(product.Image.ContentDisposition)
+                    .FileName
+                    .Trim('"');
+                var lastchars = filename.TakeLast(4);
+                string suffix = "";
+                foreach (var item in lastchars)
+                {
+                    suffix += item;
+                }
+                filename = _hostingEnvironment.WebRootPath + $@"\images\{product.ProductName}{suffix}";
+                size += product.Image.Length;
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    product.Image.CopyTo(fs);
+                    fs.Flush();
+                }
+
+                var newproduct = new Product { ProductImage = $"\\images\\{product.ProductName}{suffix}",
                     ProductNo = product.ProductNo,
                     ProductDesc = product.ProductDesc,
                     CreatedDate = DateTime.Now,
