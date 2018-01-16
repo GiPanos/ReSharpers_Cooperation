@@ -19,7 +19,7 @@ namespace ReSharpersCooperation.Controllers
     {
         private ProductRepository _repository;
         private IHostingEnvironment _hostingEnvironment;
-        public AdminController(ProductRepository repository,IHostingEnvironment hostingEnvironment)
+        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment)
         {
             _repository = repository;
             _hostingEnvironment = hostingEnvironment;
@@ -42,20 +42,56 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel product)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            long size = 0;
+            var filename = ContentDispositionHeaderValue
+                .Parse(product.Image.ContentDisposition)
+                .FileName
+                .Trim('"');
+            var lastchars = filename.TakeLast(4);
+            string suffix = "";
+            foreach (var item in lastchars)
             {
-                return RedirectToAction(nameof(Index));
+                suffix += item;
             }
-            else
+            filename = _hostingEnvironment.WebRootPath + $@"\images\{product.ProductName}{suffix}";
+            size += product.Image.Length;
+            using (FileStream fs = System.IO.File.Create(filename))
             {
-                return View(product);
+                product.Image.CopyTo(fs);
+                fs.Flush();
             }
+
+            var newproduct = new Product
+            {
+                ProductImage = $"\\images\\{product.ProductName}{suffix}",
+                ProductNo = product.ProductNo,
+                ProductDesc = product.ProductDesc,
+                CreatedDate = product.CreatedDate,
+                ModifiedDate = DateTime.Now,
+                IsDeleted = product.IsDeleted,
+                IsActive = product.IsActive,
+                Rating = product.Rating,
+                Price = product.Price,
+                IsFeatured = product.IsFeatured,
+                ProductName = product.ProductName,
+                StockNo = product.StockNo
+
+            };
+            _repository.UpdateProduct(newproduct);
+            return RedirectToAction(nameof(Index));
+            //}
+            //else
+            //{
+            //return View(product);
+            //}
         }
 
         public ViewResult Create()
         {
 
-            return View(new ProductEditViewModel ());
+            return View(new ProductEditViewModel());
         }
 
         [HttpPost]
@@ -82,19 +118,21 @@ namespace ReSharpersCooperation.Controllers
                     fs.Flush();
                 }
 
-                var newproduct = new Product { ProductImage = $"\\images\\{product.ProductName}{suffix}",
+                var newproduct = new Product
+                {
+                    ProductImage = $"\\images\\{product.ProductName}{suffix}",
                     ProductNo = product.ProductNo,
                     ProductDesc = product.ProductDesc,
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     IsDeleted = false,
                     IsActive = false,
-                    Rating=product.Rating,
-                    Price=product.Price,
-                    IsFeatured=product.IsFeatured,
-                    ProductName=product.ProductName,
-                    StockNo=product.StockNo
- 
+                    Rating = product.Rating,
+                    Price = product.Price,
+                    IsFeatured = product.IsFeatured,
+                    ProductName = product.ProductName,
+                    StockNo = product.StockNo
+
                 };
                 _repository.SaveProduct(newproduct);
                 return RedirectToAction(nameof(Index));
