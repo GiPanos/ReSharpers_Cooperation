@@ -74,10 +74,10 @@
                     @Html.DisplayFor(modelItem => item.IsDeleted)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate.Date)
+                    @item.CreatedDate.ToString("dd/MM/yyyy")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                    @item.ModifiedDate.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <img class="img-fluid" width="150" src="@item.ProductImage" />
