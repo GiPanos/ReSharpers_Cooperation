@@ -7,7 +7,7 @@ using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+//
 namespace ReSharpersCooperation.Controllers
 {
     public class CartController : Controller
