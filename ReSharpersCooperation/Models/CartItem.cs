@@ -24,7 +24,7 @@ namespace ReSharpersCooperation.Models
             CartId = cartID;
         }
 
-        //public Cart_Item()
-        //{ }
+        public Cart_Item()
+        { }
     }
 }

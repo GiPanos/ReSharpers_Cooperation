@@ -13,6 +13,7 @@ using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
 using Microsoft.AspNetCore.Http;
 using ReSharpersCooperation.Models.CartRepository;
+using ReSharpersCooperation.Models.ProductVIewModels;
 
 namespace ReSharpersCooperation
 {
@@ -41,6 +42,7 @@ namespace ReSharpersCooperation
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
             services.AddTransient<CartRepository>();
+            services.AddTransient<CartItemRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
@@ -77,7 +79,7 @@ namespace ReSharpersCooperation
                 routes.MapRoute(
                     name: "cart",
                     template: "Cart",
-                    defaults: new { Controller = "Cart", Action = "Index" }
+                    defaults: new { Controller = "Cart", Action = "Index"}
                 );
                 routes.MapRoute(
                     name: "default",

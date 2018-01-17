@@ -18,11 +18,12 @@ namespace ReSharpersCooperation.Models.CartRepository
         public IQueryable<Cart> Carts=> db.Cart;
         private List<Cart_Item> items = new List<Cart_Item>();
 
-        public virtual void AddProduct(int productNo, int quantity)
+        public virtual int AddProduct(int productNo, int quantity)
         {
+            var tempcart = new Cart();
             if (items.Count == 0)
             {
-                var tempcart = new Cart();
+                
                 db.Cart.Add(tempcart);
                 db.SaveChanges();
                 Cart_Item item = items
@@ -43,6 +44,7 @@ namespace ReSharpersCooperation.Models.CartRepository
 
 
             db.SaveChanges();
+            return tempcart.CartId;
         }
 
         public virtual void Clear()
