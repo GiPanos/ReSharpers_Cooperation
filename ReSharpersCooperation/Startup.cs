@@ -12,6 +12,7 @@ using ReSharpersCooperation.Data;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
 using Microsoft.AspNetCore.Http;
+using ReSharpersCooperation.Models.CartRepository;
 
 namespace ReSharpersCooperation
 {
@@ -39,6 +40,7 @@ namespace ReSharpersCooperation
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
+            services.AddTransient<CartRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();

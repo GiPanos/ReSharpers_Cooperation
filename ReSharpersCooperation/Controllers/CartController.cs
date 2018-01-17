@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
+using ReSharpersCooperation.Models.CartRepository;
 using ReSharpersCooperation.Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,11 +16,13 @@ namespace ReSharpersCooperation.Controllers
     public class CartController : Controller
     {
         private ProductRepository repository;
+        private CartRepository _cartrepo;
         private Cart cart = new Cart();
 
-        public CartController(ProductRepository repo)
+        public CartController(ProductRepository repo, CartRepository cartrepo)
         {
             repository = repo;
+            _cartrepo = cartrepo;
         }
 
         public ViewResult Index()
@@ -34,7 +37,8 @@ namespace ReSharpersCooperation.Controllers
 
             if (product != null)
             {
-                cart.AddProduct(product, 1);
+
+                _cartrepo.AddProduct(ProductNo, 1);
             }
             TempData["returnUrl"] = returnUrl;
             return RedirectToRoute("cart");
