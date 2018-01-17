@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ReSharpersCooperation.Data;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace ReSharpersCooperation
 {
@@ -38,6 +39,7 @@ namespace ReSharpersCooperation
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
             services.AddMemoryCache();

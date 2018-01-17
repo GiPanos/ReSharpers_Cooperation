@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
@@ -10,15 +11,15 @@ using ReSharpersCooperation.Services;
 //
 namespace ReSharpersCooperation.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private ProductRepository repository;
-        private Cart cart;
+        private Cart cart = new Cart();
 
-        public CartController(ProductRepository repo, Cart cartService)
+        public CartController(ProductRepository repo)
         {
             repository = repo;
-            cart = cartService;
         }
 
         public ViewResult Index()
