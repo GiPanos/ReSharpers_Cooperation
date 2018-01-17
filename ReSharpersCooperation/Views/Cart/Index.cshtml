@@ -1,0 +1,41 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My cart</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th class="text-right">Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Product.ProductName</td>
+            <td class="text-center">x @item.Quantity</td>
+            <td class="text-right">@(item.Product.Price * item.Quantity)</td>
+        </tr> 
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2" class="text-right">Total:</td>
+        <td class="text-right">@Model.CalculateTotalCost().ToString("c")</td>
+    </tr>
+    </tfoot>
+</table>
+@if (ViewBag.ReturnUrl != null)
+{
+    <div class="text-center">
+        <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
+        <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Checkout</a>
+    </div>
+}
+
+

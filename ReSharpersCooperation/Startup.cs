@@ -40,12 +40,14 @@ namespace ReSharpersCooperation
             services.AddTransient<ProductRepository>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
-            
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,6 +69,11 @@ namespace ReSharpersCooperation
                 name: "pagination",
                 template: "Products/{productPage}",
                 defaults: new { Controller = "Product", Action = "List" }
+                );
+                routes.MapRoute(
+                    name: "cart",
+                    template: "Cart",
+                    defaults: new { Controller = "Cart", Action = "Index" }
                 );
                 routes.MapRoute(
                     name: "default",
