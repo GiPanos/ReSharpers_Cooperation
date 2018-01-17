@@ -35,6 +35,7 @@ namespace ReSharpersCooperation.Controllers
         public ViewResult Edit(int productNo)
         {
             var temp = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
+            ViewData["img"] = temp.ProductImage;
 
             return View(new ProductEditViewModel
             {
@@ -44,11 +45,12 @@ namespace ReSharpersCooperation.Controllers
                 ProductName = temp.ProductName,
                 StockNo = temp.StockNo,
                 Rating = temp.Rating,
-                IsFeatured = temp.IsFeatured
+                IsFeatured = temp.IsFeatured,
+                CreatedDate=temp.CreatedDate
+                
             }
                 );
         }
-
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel product)
         {
@@ -65,17 +67,19 @@ namespace ReSharpersCooperation.Controllers
             {
                 suffix += item;
             }
-            filename = _hostingEnvironment.WebRootPath + $@"\images\{product.ProductName}{suffix}";
+            filename = _hostingEnvironment.WebRootPath + $@"\\images\\Products\\{product.ProductName}{suffix}";
             size += product.Image.Length;
             using (FileStream fs = System.IO.File.Create(filename))
             {
                 product.Image.CopyTo(fs);
                 fs.Flush();
+                fs.Close();
             }
+            
 
             var newproduct = new Product
             {
-                ProductImage = $"\\images\\{product.ProductName}{suffix}",
+                ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
                 ProductNo = product.ProductNo,
                 ProductDesc = product.ProductDesc,
                 CreatedDate = product.CreatedDate,
@@ -120,17 +124,19 @@ namespace ReSharpersCooperation.Controllers
                 {
                     suffix += item;
                 }
-                filename = _hostingEnvironment.WebRootPath + $@"\images\{product.ProductName}{suffix}";
+                filename = _hostingEnvironment.WebRootPath + $@"\images\Products\{product.ProductName}{suffix}";
                 size += product.Image.Length;
                 using (FileStream fs = System.IO.File.Create(filename))
                 {
                     product.Image.CopyTo(fs);
                     fs.Flush();
+                    fs.Close();
                 }
+                
 
                 var newproduct = new Product
                 {
-                    ProductImage = $"\\images\\{product.ProductName}{suffix}",
+                    ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
                     ProductNo = product.ProductNo,
                     ProductDesc = product.ProductDesc,
                     CreatedDate = DateTime.Now,
