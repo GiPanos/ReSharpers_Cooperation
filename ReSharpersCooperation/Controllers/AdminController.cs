@@ -36,14 +36,24 @@ namespace ReSharpersCooperation.Controllers
         {
             var temp = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
 
-            return View();
+            return View(new ProductEditViewModel
+            {
+                ProductNo = temp.ProductNo,
+                Price = temp.Price,
+                ProductDesc = temp.ProductDesc,
+                ProductName = temp.ProductName,
+                StockNo = temp.StockNo,
+                Rating = temp.Rating,
+                IsFeatured = temp.IsFeatured
+            }
+                );
         }
 
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel product)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
             long size = 0;
             var filename = ContentDispositionHeaderValue
                 .Parse(product.Image.ContentDisposition)
@@ -81,11 +91,11 @@ namespace ReSharpersCooperation.Controllers
             };
             _repository.UpdateProduct(newproduct);
             return RedirectToAction(nameof(Index));
-            //}
-            //else
-            //{
-            //return View(product);
-            //}
+            }
+            else
+            {
+            return View(product);
+            }
         }
 
         public ViewResult Create()
