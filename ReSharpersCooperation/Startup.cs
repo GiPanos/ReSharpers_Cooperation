@@ -14,6 +14,7 @@ using ReSharpersCooperation.Services;
 using Microsoft.AspNetCore.Http;
 using ReSharpersCooperation.Models.CartRepository;
 using ReSharpersCooperation.Models.ProductVIewModels;
+using ReSharpersCooperation.Models.Category;
 
 namespace ReSharpersCooperation
 {
@@ -43,6 +44,7 @@ namespace ReSharpersCooperation
             services.AddTransient<ProductRepository>();
             services.AddTransient<CartRepository>();
             services.AddTransient<CartItemRepository>();
+            services.AddTransient<CategoryRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
