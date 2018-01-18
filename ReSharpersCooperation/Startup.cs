@@ -13,7 +13,7 @@ using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Services;
 using Microsoft.AspNetCore.Http;
 using ReSharpersCooperation.Models.ProductVIewModels;
-using ReSharpersCooperation.Models.Category;
+
 
 namespace ReSharpersCooperation
 {
@@ -77,7 +77,7 @@ namespace ReSharpersCooperation
                 );
                 routes.MapRoute(
                     name: "cart",
-                    template: "Cart",
+                    template: "{username}/MyCart",
                     defaults: new { Controller = "Cart", Action = "Index"}
                 );
                 routes.MapRoute(

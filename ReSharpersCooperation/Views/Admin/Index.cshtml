@@ -19,6 +19,9 @@
                 Description
             </th>
             <th>
+                Category
+            </th>
+            <th>
                 Price
             </th>
             <th>
@@ -59,6 +62,9 @@
                     @Html.DisplayFor(modelItem => item.ProductDesc)
                 </td>
                 <td>
+                    @Html.DisplayFor(ModelItem => item.ProductCategory)
+                </td>
+                <td>
                     @item.Price.ToString("C")
                 </td>
                 <td>
@@ -74,10 +80,10 @@
                     @Html.DisplayFor(modelItem => item.IsDeleted)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate.Date)
+                    @item.CreatedDate.ToString("dd/MM/yyyy")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                    @item.ModifiedDate.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <img class="img-fluid" width="150" src="@item.ProductImage" />

@@ -13,8 +13,10 @@
 
         @foreach (var p in Model.Products)
         {
-            
+            if (p.IsActive)
+            {
             @Html.Partial("ProductSummary", p)
+            }
         }
 
         <nav class="btn-group">

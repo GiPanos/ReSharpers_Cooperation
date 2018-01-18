@@ -33,9 +33,9 @@ namespace ReSharpersCooperation.Controllers
             _signInManager = signInManager;
         }
 
-        public ViewResult Index( string user)
+        public ViewResult Index( string username)
         {
-            var cart = _cartItemRepo.FindUserCart(user);
+            var cart = _cartItemRepo.FindUserCart(username);
             decimal totalprice = 0M;
             List<CartSummaryViewModel> usercart = new List<CartSummaryViewModel>();
             //repository.Products.Where(p => p.ProductName == cart.Where(c=>c.ProductNo==p.ProductNo)));
@@ -64,12 +64,7 @@ namespace ReSharpersCooperation.Controllers
                 _cartItemRepo.AddToCart(ProductNo, username, 1);
             }
             TempData["returnUrl"] = returnUrl;
-            return RedirectToRoute(new
-            {
-                controller = "Cart",
-                action = "Index",
-                user = username
-            });
+            return RedirectToRoute("cart",new { username = username.ToString() });
             
         }
     }

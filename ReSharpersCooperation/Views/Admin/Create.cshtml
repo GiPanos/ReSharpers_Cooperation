@@ -12,7 +12,8 @@
     <div class="col-md-4">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="ProductNo" />
-      
+            <input type="hidden" asp-for="ImageLink" value="" />
+            <input type="hidden" asp-for="IsDeleted" value="false" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
@@ -40,19 +41,18 @@
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                    </label>
-                </div>
+                <label asp-for="ProductCategory" class="control-label"></label>
+                <input asp-for="ProductCategory" class="form-control" />
+                <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        <input asp-for="IsActive" /> List this Product
                     </label>
                 </div>
             </div>
+
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input name="Image" type="file" class="form-control" />
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit"  class="btn btn-default" />
+                <input type="submit" class="btn btn-default" />
             </div>
         </form>
     </div>
