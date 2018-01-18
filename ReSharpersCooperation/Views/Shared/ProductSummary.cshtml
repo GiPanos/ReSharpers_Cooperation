@@ -22,7 +22,7 @@
         <a class="btn btn-success btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
         @if (Model.StockNo > 0)
         {
-            <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asd-route-cartID="@UserManager" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
+            <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asp-route-username="@UserManager.GetUserName(User)" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
         }
         else
         {
