@@ -77,7 +77,7 @@ namespace ReSharpersCooperation
                 );
                 routes.MapRoute(
                     name: "cart",
-                    template: "{username}/MyCart",
+                    template: "MyCart",
                     defaults: new { Controller = "Cart", Action = "Index"}
                 );
                 routes.MapRoute(

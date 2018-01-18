@@ -16,13 +16,13 @@
     </header>
     <div class="card-text card-body p-1">
         <div class="card-body row">
-            <img width="300" height="200" src="@Model.ProductImage" />
+            <img class="rounded"width="300" height="200" src="@Model.ProductImage" />
             <p class="offset-3" style="float:right">@Model.ProductDesc</p>
         </div>
         <a class="btn btn-success btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
         @if (Model.StockNo > 0)
         {
-            <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asp-route-username="@UserManager.GetUserName(User)" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
+            <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart"  asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
         }
         else
         {
