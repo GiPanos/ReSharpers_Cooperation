@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
-using ReSharpersCooperation.Models.CartRepository;
 using ReSharpersCooperation.Models.CartViewModels;
 using ReSharpersCooperation.Models.ProductVIewModels;
 using ReSharpersCooperation.Services;
@@ -19,62 +18,56 @@ namespace ReSharpersCooperation.Controllers
     public class CartController : Controller
     {
         private ProductRepository repository;
-        private CartRepository _cartrepo;
-       // private Cart cart = new Cart();
         private CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public CartController(ProductRepository repo, CartRepository cartrepo,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager,
+        public CartController(ProductRepository repo,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             repository = repo;
-            _cartrepo = cartrepo;
             _cartItemRepo = cartItemRepo;
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        public ViewResult Index( int cartid)
+        public ViewResult Index( string user)
         {
-
-            var usercartitems = _cartItemRepo.Cart_Items.Where(x => x.CartId == cartid);
+            var cart = _cartItemRepo.FindUserCart(user);
             
-            var result = new List<CartSummaryViewModel>();
-            foreach (var item in usercartitems)
+            List<CartSummaryViewModel> usercart = new List<CartSummaryViewModel>();
+            //repository.Products.Where(p => p.ProductName == cart.Where(c=>c.ProductNo==p.ProductNo)));
+            foreach (var item in cart)
             {
-                
-                foreach (var p in repository.Products)
+                foreach (var item2 in repository.Products )
                 {
-                    if (item.ProductNo == p.ProductNo)
+                    if (item2.ProductNo == item.ProductNo)
                     {
-                        var tempcartsummaryviewmodel = new CartSummaryViewModel(p.ProductName, p.Price,item.Quantity);
-                        result.Add(tempcartsummaryviewmodel);
+                        usercart.Add(new CartSummaryViewModel(item2.ProductName, item2.Price, item.Quantity));
+
                     }
                 }
-                
             }
-            
+
             ViewBag.ReturnUrl = TempData["returnUrl"];
-            return View(result);
+            return View(usercart);
         }
 
         public RedirectToRouteResult AddToCart(int ProductNo, string username, string returnUrl)
         {
             Product product = repository.Products.SingleOrDefault(x => x.ProductNo == ProductNo);
-            int cartidx = 0;
             if (product != null)
             {
 
-                cartidx=_cartrepo.AddProduct(ProductNo, username,1);
+                _cartItemRepo.AddToCart(ProductNo, username, 1);
             }
             TempData["returnUrl"] = returnUrl;
             return RedirectToRoute(new
             {
                 controller = "Cart",
                 action = "Index",
-                cartid = cartidx
+                user = username
             });
             
         }

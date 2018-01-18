@@ -19,13 +19,11 @@ namespace ReSharpersCooperation.Controllers
     public class AdminController : Controller
     {
         private ProductRepository _repository;
-        private CategoryRepository _catrepo;
         private IHostingEnvironment _hostingEnvironment;
-        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment,CategoryRepository catrepo)
+        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment)
         {
             _repository = repository;
             _hostingEnvironment = hostingEnvironment;
-            _catrepo = catrepo;
         }
 
         public ViewResult Index()
