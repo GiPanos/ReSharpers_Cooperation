@@ -11,6 +11,7 @@ using System.Drawing;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
+using ReSharpersCooperation.Models.Category;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -18,11 +19,13 @@ namespace ReSharpersCooperation.Controllers
     public class AdminController : Controller
     {
         private ProductRepository _repository;
+        private CategoryRepository _catrepo;
         private IHostingEnvironment _hostingEnvironment;
-        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment)
+        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment,CategoryRepository catrepo)
         {
             _repository = repository;
             _hostingEnvironment = hostingEnvironment;
+            _catrepo = catrepo;
         }
 
         public ViewResult Index()
@@ -30,6 +33,11 @@ namespace ReSharpersCooperation.Controllers
 
             //var result = User.IsInRole("SuperAdmin");
             return View(_repository.Products);
+        }
+
+        public ViewResult CreateCategory()
+        {
+            return View(new Category());
         }
 
         public ViewResult Edit(int productNo)
