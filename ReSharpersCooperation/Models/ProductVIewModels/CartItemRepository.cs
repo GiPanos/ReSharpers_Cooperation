@@ -14,5 +14,6 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
             this.db = db;
         }
         public IQueryable<Cart_Item> Cart_Items => db.Cart_Item;
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Models.CartRepository;
@@ -19,21 +20,25 @@ namespace ReSharpersCooperation.Controllers
     {
         private ProductRepository repository;
         private CartRepository _cartrepo;
-        private Cart cart = new Cart();
+       // private Cart cart = new Cart();
         private CartItemRepository _cartItemRepo;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public CartController(ProductRepository repo, CartRepository cartrepo,CartItemRepository cartItemRepo)
+        public CartController(ProductRepository repo, CartRepository cartrepo,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             repository = repo;
             _cartrepo = cartrepo;
             _cartItemRepo = cartItemRepo;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public ViewResult Index( int cartid)
         {
-            //var usercart = _cartrepo.Carts.SingleOrDefault(x => x.CartId == cartid);
-            var usercart = _cartrepo.Carts.SingleOrDefault(x => x.CartId == cartid);
+
             var usercartitems = _cartItemRepo.Cart_Items.Where(x => x.CartId == cartid);
             
             var result = new List<CartSummaryViewModel>();
@@ -55,14 +60,14 @@ namespace ReSharpersCooperation.Controllers
             return View(result);
         }
 
-        public RedirectToRouteResult AddToCart(int ProductNo, string returnUrl)
+        public RedirectToRouteResult AddToCart(int ProductNo, string username, string returnUrl)
         {
             Product product = repository.Products.SingleOrDefault(x => x.ProductNo == ProductNo);
             int cartidx = 0;
             if (product != null)
             {
 
-                cartidx=_cartrepo.AddProduct(ProductNo, 1);
+                cartidx=_cartrepo.AddProduct(ProductNo, username,1);
             }
             TempData["returnUrl"] = returnUrl;
             return RedirectToRoute(new
