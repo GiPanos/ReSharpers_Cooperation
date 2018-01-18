@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -35,7 +36,7 @@ namespace ReSharpersCooperation.Controllers
         public ViewResult Index( string user)
         {
             var cart = _cartItemRepo.FindUserCart(user);
-            
+            decimal totalprice = 0M;
             List<CartSummaryViewModel> usercart = new List<CartSummaryViewModel>();
             //repository.Products.Where(p => p.ProductName == cart.Where(c=>c.ProductNo==p.ProductNo)));
             foreach (var item in cart)
@@ -45,11 +46,11 @@ namespace ReSharpersCooperation.Controllers
                     if (item2.ProductNo == item.ProductNo)
                     {
                         usercart.Add(new CartSummaryViewModel(item2.ProductName, item2.Price, item.Quantity));
-
+                        totalprice += item2.Price * item.Quantity;
                     }
                 }
             }
-
+            ViewData["totalprice"] = totalprice;
             ViewBag.ReturnUrl = TempData["returnUrl"];
             return View(usercart);
         }

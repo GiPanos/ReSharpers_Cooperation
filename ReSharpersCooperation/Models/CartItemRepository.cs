@@ -51,5 +51,11 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
                 return search;
             }
         }
+
+        public int CountCartProducts(string username)
+        {
+            return Cart_Items.Where(u => u.UserName == username).ToList().Count();
+
+        }
     }
 }
