@@ -42,5 +42,9 @@ namespace ReSharpersCooperation.Models
 
             return prod;
         }
+        public List<string> GetAllCategories()
+        {
+            return db.Product.Select(p => p.ProductCategory).Distinct().OrderBy(c => c).ToList();
+        }
     }
 }

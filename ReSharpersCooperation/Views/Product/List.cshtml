@@ -5,9 +5,9 @@
     ViewData["Title"] = "List";
 }
 <div class="row">
-    <div class="col-sm-3">
-        <h1>Filters</h1>
-    </div>
+    <aside class="col-sm-3" id="Filters">
+        @await Component.InvokeAsync("Filters")
+    </aside>
     <main class="col-sm-9">
         <h2>List</h2>
 
@@ -15,7 +15,7 @@
         {
             if (p.IsActive)
             {
-            @Html.Partial("ProductSummary", p)
+                @Html.Partial("ProductSummary", p)
             }
         }
 
@@ -33,4 +33,4 @@
             }
         </nav>
     </main>
-    </div>
+</div>
