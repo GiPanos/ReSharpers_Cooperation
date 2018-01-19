@@ -63,27 +63,6 @@ namespace ReSharpersCooperation.Controllers
             if (ModelState.IsValid)
             {
 
-<<<<<<< HEAD
-            var newproduct = new Product
-            {
-                ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
-                ProductNo = product.ProductNo,
-                ProductDesc = product.ProductDesc,
-                CreatedDate = product.CreatedDate,
-                ModifiedDate = DateTime.Now,
-                IsDeleted = product.IsDeleted,
-                IsActive = product.IsActive,
-                Rating = product.Rating,
-                Price = product.Price,
-                IsFeatured = product.IsFeatured,
-                ProductName = product.ProductName,
-                StockNo = product.StockNo
-
-            };
-            _repository.UpdateProduct(newproduct);
-            return RedirectToAction(nameof(Index));
-
-=======
                 var newproduct = new Product
                 {
                     
@@ -132,7 +111,6 @@ namespace ReSharpersCooperation.Controllers
 
                 _repository.UpdateProduct(newproduct);
                 return RedirectToAction(nameof(Index));
->>>>>>> e393c6a1681d8f82cf0952d17db540c3678f384f
             }
             else
             {
