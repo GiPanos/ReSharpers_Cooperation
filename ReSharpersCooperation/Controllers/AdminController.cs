@@ -83,6 +83,7 @@ namespace ReSharpersCooperation.Controllers
             }
             
 
+<<<<<<< HEAD
             var newproduct = new Product
             {
                 ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
@@ -102,6 +103,8 @@ namespace ReSharpersCooperation.Controllers
             _repository.UpdateProduct(newproduct);
             return RedirectToAction(nameof(Index));
 
+=======
+>>>>>>> e393c6a1681d8f82cf0952d17db540c3678f384f
             }
             else
             {
