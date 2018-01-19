@@ -5,16 +5,18 @@
     ViewData["Title"] = "List";
 }
 <div class="row">
-    <div class="col-sm-3">
-        <h1>Filters</h1>
-    </div>
+    <aside class="col-sm-3" id="Filters">
+        @await Component.InvokeAsync("Filters")
+    </aside>
     <main class="col-sm-9">
         <h2>List</h2>
 
         @foreach (var p in Model.Products)
         {
-            
-            @Html.Partial("ProductSummary", p)
+            if (p.IsActive)
+            {
+                @Html.Partial("ProductSummary", p)
+            }
         }
 
         <nav class="btn-group">
@@ -31,4 +33,4 @@
             }
         </nav>
     </main>
-    </div>
+</div>

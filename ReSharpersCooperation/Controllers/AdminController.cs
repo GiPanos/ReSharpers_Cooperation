@@ -11,7 +11,7 @@ using System.Drawing;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
-using ReSharpersCooperation.Models.Category;
+
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -33,10 +33,7 @@ namespace ReSharpersCooperation.Controllers
             return View(_repository.Products);
         }
 
-        public ViewResult CreateCategory()
-        {
-            return View(new Category());
-        }
+
 
         public ViewResult Edit(int productNo)
         {
@@ -52,8 +49,11 @@ namespace ReSharpersCooperation.Controllers
                 StockNo = temp.StockNo,
                 Rating = temp.Rating,
                 IsFeatured = temp.IsFeatured,
-                CreatedDate=temp.CreatedDate
+                CreatedDate = temp.CreatedDate,
+                ProductCategory = temp.ProductCategory,
+                ImageLink=temp.ProductImage
                 
+
             }
                 );
         }
@@ -62,26 +62,6 @@ namespace ReSharpersCooperation.Controllers
         {
             if (ModelState.IsValid)
             {
-            long size = 0;
-            var filename = ContentDispositionHeaderValue
-                .Parse(product.Image.ContentDisposition)
-                .FileName
-                .Trim('"');
-            var lastchars = filename.TakeLast(4);
-            string suffix = "";
-            foreach (var item in lastchars)
-            {
-                suffix += item;
-            }
-            filename = _hostingEnvironment.WebRootPath + $@"\\images\\Products\\{product.ProductName}{suffix}";
-            size += product.Image.Length;
-            using (FileStream fs = System.IO.File.Create(filename))
-            {
-                product.Image.CopyTo(fs);
-                fs.Flush();
-                fs.Close();
-            }
-            
 
 <<<<<<< HEAD
             var newproduct = new Product
@@ -104,11 +84,59 @@ namespace ReSharpersCooperation.Controllers
             return RedirectToAction(nameof(Index));
 
 =======
+                var newproduct = new Product
+                {
+                    
+                    ProductNo = product.ProductNo,
+                    ProductDesc = product.ProductDesc,
+                    CreatedDate = product.CreatedDate,
+                    ModifiedDate = DateTime.Now,
+                    IsDeleted = product.IsDeleted,
+                    IsActive = product.IsActive,
+                    Rating = product.Rating,
+                    Price = product.Price,
+                    IsFeatured = product.IsFeatured,
+                    ProductName = product.ProductName,
+                    StockNo = product.StockNo,
+                    ProductCategory = product.ProductCategory
+
+
+                };
+                long size = 0;
+                if (product.Image != null)
+                {
+                    var filename = ContentDispositionHeaderValue
+                                .Parse(product.Image.ContentDisposition)
+                                .FileName
+                                .Trim('"');
+                    var lastchars = filename.TakeLast(4);
+                    string suffix = "";
+                    foreach (var item in lastchars)
+                    {
+                        suffix += item;
+                    }
+                    filename = _hostingEnvironment.WebRootPath + $@"\\images\\Products\\{product.ProductName}{suffix}";
+                    size += product.Image.Length;
+                    using (FileStream fs = System.IO.File.Create(filename))
+                    {
+                        product.Image.CopyTo(fs);
+                        fs.Flush();
+                        fs.Close();
+                    }
+                    newproduct.ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}";
+                }
+                else
+                {
+                    newproduct.ProductImage = product.ImageLink;
+                }
+
+                _repository.UpdateProduct(newproduct);
+                return RedirectToAction(nameof(Index));
 >>>>>>> e393c6a1681d8f82cf0952d17db540c3678f384f
             }
             else
             {
-            return View(product);
+                return View(product);
             }
         }
 
@@ -142,7 +170,7 @@ namespace ReSharpersCooperation.Controllers
                     fs.Flush();
                     fs.Close();
                 }
-                
+
 
                 var newproduct = new Product
                 {
@@ -152,12 +180,13 @@ namespace ReSharpersCooperation.Controllers
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     IsDeleted = false,
-                    IsActive = false,
+                    IsActive = product.IsActive,
                     Rating = product.Rating,
                     Price = product.Price,
                     IsFeatured = product.IsFeatured,
                     ProductName = product.ProductName,
-                    StockNo = product.StockNo
+                    StockNo = product.StockNo,
+                    ProductCategory = product.ProductCategory
 
                 };
                 _repository.SaveProduct(newproduct);

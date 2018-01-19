@@ -1,0 +1,11 @@
+﻿@model List<string>
+
+<nav class="btn-group-vertical btn-block">
+    <a class="btn @(ViewBag.CurrentCategory == null ? "btn-primary" : "btn-secondary")" asp-route="pagination" asp-route-productPage="1">All</a>
+    @foreach (var cat in Model)
+    {
+
+        <a class="btn @(ViewBag.CurrentCategory == cat ? "btn-primary" : "btn-secondary")" asp-route="category" asp-route-category="@cat" asp-route-productPage="1">@cat</a>
+    }
+</nav>
+

@@ -11,7 +11,7 @@
     <div class="nav nav-item justify-content-end ">
         <ul class="nav nav-item ">
             <li><a class="nav-link" asp-area="" asp-controller="Manage" asp-action="ViewWishList" title="Wish List"><span class="fa fa-heart" aria-hidden="true"> (0)</span> </a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index" asp-route-user="@UserManager.GetUserName(User)" title="Cart"><span class="fa fa-shopping-cart" aria-hidden="true"> (@Repository.CountCartProducts(UserManager.GetUserName(User)))</span></a></li>
+            <li><a class="nav-link" asp-area="" asp-route="cart"  title="Cart"><span class="fa fa-shopping-cart" aria-hidden="true"> (@Repository.CountCartProducts(UserManager.GetUserName(User)))</span></a></li>
             <li><a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Checkout" title="Checkout"><span class="fa fa-credit-card" aria-hidden="true"></span> </a></li>
             <li>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="nav nav-item dropdown">

@@ -21,6 +21,7 @@ namespace ReSharpersCooperation.Models
         public DateTime ModifiedDate { get; set; }
         public string ProductImage { get; set; }
         public bool IsFeatured { get; set; }
+        public string ProductCategory { get; set; }
 
 
     }
