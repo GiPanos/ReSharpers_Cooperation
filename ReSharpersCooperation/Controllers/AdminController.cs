@@ -101,6 +101,7 @@ namespace ReSharpersCooperation.Controllers
             };
             _repository.UpdateProduct(newproduct);
             return RedirectToAction(nameof(Index));
+
             }
             else
             {

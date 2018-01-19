@@ -16,6 +16,8 @@ namespace ReSharpersCooperation.Data
         }
         public DbSet<Product> Product {get;set;}
         public DbSet<Cart_Item> Cart_Item { get; set; }
+        public DbSet<Orders> Orders { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);
