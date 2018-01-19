@@ -41,14 +41,14 @@ namespace ReSharpersCooperation.Controllers
             decimal totalprice = 0M;
             List<CartSummaryViewModel> usercart = new List<CartSummaryViewModel>();
             //repository.Products.Where(p => p.ProductName == cart.Where(c=>c.ProductNo==p.ProductNo)));
-            foreach (var item in cart)
+            foreach (var c in cart)
             {
-                foreach (var item2 in repository.Products )
+                foreach (var p in repository.Products )
                 {
-                    if (item2.ProductNo == item.ProductNo)
+                    if (p.ProductNo == c.ProductNo)
                     {
-                        usercart.Add(new CartSummaryViewModel(item2.ProductName, item2.Price, item.Quantity));
-                        totalprice += item2.Price * item.Quantity;
+                        usercart.Add(new CartSummaryViewModel(p.ProductName, p.Price, c.Quantity,p.ProductImage,p.ProductNo));
+                        totalprice += p.Price * c.Quantity;
                     }
                 }
             }
@@ -69,6 +69,18 @@ namespace ReSharpersCooperation.Controllers
             TempData["returnUrl"] = returnUrl;
             return RedirectToRoute("cart");
             
+        }
+        public async Task<IActionResult> RemoveFromCart(int ProductNo,string returnUrl)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            Product product = repository.Products.SingleOrDefault(x => x.ProductNo == ProductNo);
+            if (product != null)
+            {
+
+                _cartItemRepo.AddToCart(ProductNo, user.UserName, -1);
+            }
+            TempData["returnUrl"] = returnUrl;
+            return RedirectToRoute("cart");
         }
     }
 }

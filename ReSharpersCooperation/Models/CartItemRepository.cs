@@ -31,8 +31,11 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
             }
             else
             {
-                search.Quantity += 1;
-                
+                search.Quantity += quantity;
+                if (search.Quantity == 0)
+                {
+                    db.Cart_Item.Remove(search);
+                }
             }
             db.SaveChanges();
 
