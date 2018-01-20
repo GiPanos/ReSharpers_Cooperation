@@ -11,7 +11,7 @@ using System.Drawing;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -20,17 +20,28 @@ namespace ReSharpersCooperation.Controllers
     {
         private ProductRepository _repository;
         private IHostingEnvironment _hostingEnvironment;
-        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
         {
             _repository = repository;
             _hostingEnvironment = hostingEnvironment;
+            _userManager = usermanager;
+            _signInManager = signinmanager;
         }
 
         public ViewResult Index()
         {
 
-            //var result = User.IsInRole("SuperAdmin");
-            return View(_repository.Products);
+            if (User.IsInRole("Admin"))
+            {
+                return View(_repository.Products);
+            }
+            else
+            {
+                return View("AccessDenied");
+            }
+            
         }
 
 

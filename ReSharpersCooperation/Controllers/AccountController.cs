@@ -22,6 +22,7 @@ namespace ReSharpersCooperation.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
@@ -29,12 +30,14 @@ namespace ReSharpersCooperation.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            RoleManager<IdentityRole> rolemanager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = rolemanager;
         }
 
         [TempData]
@@ -220,8 +223,12 @@ namespace ReSharpersCooperation.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRoleAsync( user,"Admin");
+                
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

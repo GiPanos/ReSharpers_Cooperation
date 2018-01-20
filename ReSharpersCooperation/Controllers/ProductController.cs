@@ -34,6 +34,22 @@ namespace ReSharpersCooperation.Controllers
                 CurrentCategory=category,
             });
         }
+        public ViewResult SearchResult(string query,string type)
+        {
+            ViewBag.InCatalog = true;
+            var searchresults = repository.SearchProducts(query, type);
+            return View("List", new ProductListViewModel
+            {
+                Products = searchresults,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p => p.ProductCategory == null || type== null).Count() / (double)PageSize)
+                },
+                CurrentCategory = null,
+            });
+
+        }
 
     }
 }
