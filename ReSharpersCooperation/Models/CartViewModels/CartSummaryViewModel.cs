@@ -10,12 +10,16 @@ namespace ReSharpersCooperation.Models.CartViewModels
         public string ProductName { get; set; }
         public decimal Cost { get; set; }
         public int Quantity { get; set; }
+        public string ProductImage { get; set; }
+        public int ProductNo { get; set; }
 
-        public CartSummaryViewModel(string productname, decimal cost , int quantity)
+        public CartSummaryViewModel(string productname, decimal cost , int quantity,string productimage,int productNo)
         {
             ProductName = productname;
             Cost = cost;
             Quantity = quantity;
+            ProductImage = productimage;
+            ProductNo = productNo;
         }
     }
 }
