@@ -57,5 +57,16 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
             return Cart_Items.Where(u => u.UserName == username).ToList().Count();
 
         }
+
+        public virtual void Clear(string username)
+        {
+            var usercart = FindUserCart(username);
+            foreach (var item in usercart)
+            {
+                db.Cart_Item.Remove(item);
+            }
+            db.SaveChanges();
+        }
+        
     }
 }

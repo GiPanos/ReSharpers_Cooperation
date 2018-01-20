@@ -10,10 +10,10 @@ namespace ReSharpersCooperation.Models
     public class Orders
     {
         [Key]
-        public int OrdeId { get; set; }
+        public int OrderId { get; set; }
 
-        public string OrderStatusNo { get; set; }
-        public string OrderDate { get; set; }
+        public int OrderStatusNo { get; set; }
+        public DateTime OrderDate { get; set; }
 
 
         [Required(ErrorMessage = "You have to provide a name!")]
@@ -30,14 +30,10 @@ namespace ReSharpersCooperation.Models
         [BindNever]
         public bool Shipped { get; set; }
 
-        public int UserName { get; set; }
-
-
+        public string UserName { get; set; }
 
 
         public Orders()
-        {
-            
-        }
+        { }
     }
 }

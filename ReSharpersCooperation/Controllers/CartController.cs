@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Models.CartViewModels;
 using ReSharpersCooperation.Models.ProductVIewModels;
-using ReSharpersCooperation.Services;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-//
 namespace ReSharpersCooperation.Controllers
 {
     [Authorize]
     public class CartController : Controller
     {
-        private ProductRepository repository;
-        private CartItemRepository _cartItemRepo;
+        private readonly ProductRepository repository;
+        private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public CartController(ProductRepository repo,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public CartController(ProductRepository repo,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
         {
             repository = repo;
             _cartItemRepo = cartItemRepo;

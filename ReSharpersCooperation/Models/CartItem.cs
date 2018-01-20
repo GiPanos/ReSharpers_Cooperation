@@ -17,14 +17,14 @@ namespace ReSharpersCooperation.Models
         public int Quantity { get; set; }
         public string UserName { get; set; }
 
+        public Cart_Item()
+        { }
+
         public Cart_Item(int productNo, int q,string username)
         {
             ProductNo = productNo;
             Quantity = q;
             UserName = username;
         }
-
-        public Cart_Item()
-        { }
     }
 }
