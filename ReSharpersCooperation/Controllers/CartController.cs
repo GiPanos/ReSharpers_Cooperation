@@ -54,27 +54,33 @@ namespace ReSharpersCooperation.Controllers
 
         public async Task<IActionResult> AddToCart(int ProductNo, string returnUrl)
         {
+            //get username
             var user = await _userManager.GetUserAsync(User);
+            //verify product exists
             Product product = repository.Products.SingleOrDefault(x => x.ProductNo == ProductNo);
             if (product != null)
             {
-
+                //Function that adds item to cart
                 _cartItemRepo.AddToCart(ProductNo,user.UserName ,1);
             }
             TempData["returnUrl"] = returnUrl;
+            //View the cart
             return RedirectToRoute("cart");
             
         }
         public async Task<IActionResult> RemoveFromCart(int ProductNo,string returnUrl)
         {
+            //get username
             var user = await _userManager.GetUserAsync(User);
+            //verify product exists
             Product product = repository.Products.SingleOrDefault(x => x.ProductNo == ProductNo);
             if (product != null)
             {
-
+                //Function that adds item to cart with quantity -1
                 _cartItemRepo.AddToCart(ProductNo, user.UserName, -1);
             }
             TempData["returnUrl"] = returnUrl;
+
             return RedirectToRoute("cart");
         }
     }

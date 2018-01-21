@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ReSharpersCooperation.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ProductRepository _repository;
@@ -32,16 +32,7 @@ namespace ReSharpersCooperation.Controllers
 
         public ViewResult Index()
         {
-
-            if (User.IsInRole("Admin"))
-            {
-                return View(_repository.Products);
-            }
-            else
-            {
-                return View("AccessDenied");
-            }
-            
+            return View(_repository.Products);
         }
 
 
@@ -71,9 +62,15 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel product)
         {
+            //Validation for Image size
+            if (product.Image!=null && product.Image.Length > 1000)
+            {
+                ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
+                return View(product);
+            }
             if (ModelState.IsValid)
             {
-
+                //Assign View Model Values to Actual Product
                 var newproduct = new Product
                 {
                     
@@ -92,6 +89,7 @@ namespace ReSharpersCooperation.Controllers
 
 
                 };
+                //The following code takes user image and stores it on wwwroot and the imagelink is being stored to database
                 long size = 0;
                 if (product.Image != null)
                 {
@@ -115,6 +113,7 @@ namespace ReSharpersCooperation.Controllers
                     }
                     newproduct.ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}";
                 }
+                //case user didn't insert new image keep the same image link
                 else
                 {
                     newproduct.ProductImage = product.ImageLink;
@@ -138,6 +137,7 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public IActionResult Create(ProductEditViewModel product)
         {
+            //case Image is too large
             if (product.Image.Length > 1000)
             {
                 ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
@@ -145,6 +145,7 @@ namespace ReSharpersCooperation.Controllers
             }
             if (ModelState.IsValid)
             {
+                //folowing code takes image and stores it to wwwroot and stores image link to database
                 long size = 0;
                 var filename = ContentDispositionHeaderValue
                     .Parse(product.Image.ContentDisposition)
@@ -165,7 +166,7 @@ namespace ReSharpersCooperation.Controllers
                     fs.Close();
                 }
 
-
+                //Create new product according to user input
                 var newproduct = new Product
                 {
                     ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
