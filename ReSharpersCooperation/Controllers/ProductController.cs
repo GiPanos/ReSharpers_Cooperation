@@ -32,21 +32,29 @@ namespace ReSharpersCooperation.Controllers
                     TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category|| category==null).Count() / (double)PageSize)
                 },
                 CurrentCategory=category,
+                ListType=null,
+                Query=null
             });
         }
-        public ViewResult SearchResult(string query,string type)
+        public ViewResult Search(string query,string type,int productPage=1)
         {
+            
             ViewBag.InCatalog = true;
             var searchresults = repository.SearchProducts(query, type);
             return View("List", new ProductListViewModel
             {
-                Products = searchresults,
+                Products = searchresults
+                .Skip((productPage-1)*PageSize)
+                .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = 1,
-                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p => p.ProductCategory == null || type== null).Count() / (double)PageSize)
+                    CurrentPage = productPage,
+                    TotalPages = (int)Math.Ceiling((double)searchresults.Count() / (double)PageSize)
                 },
                 CurrentCategory = null,
+                ListType=type,
+                Query=query
+                
             });
 
         }

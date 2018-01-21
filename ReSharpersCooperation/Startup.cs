@@ -92,6 +92,11 @@ namespace ReSharpersCooperation
                 //    defaults: new { Controller = "Orders", Action = "Completed" }
                 //);
                 routes.MapRoute(
+                    name: "search",
+                    template: "{type}/{query}/{productPage}",
+                    defaults: new { Controller = "Product", Action = "Search" }
+                    );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Product}/{action=List}");
             });

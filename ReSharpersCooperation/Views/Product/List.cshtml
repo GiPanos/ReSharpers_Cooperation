@@ -22,13 +22,18 @@
         <nav class="btn-group">
             @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
             {
-                @if (Model.CurrentCategory == null)
+                @if (Model.CurrentCategory == null && Model.ListType==null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
                 }
-                else
+                else if(Model.CurrentCategory!=null && Model.ListType==null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
+                }
+                else
+                {
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="search" asp-route-query="@Model.Query" asp-route-type="@Model.ListType" asp-route-productPage="@i">@i</a>
+
                 }
             }
         </nav>

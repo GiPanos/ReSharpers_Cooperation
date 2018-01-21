@@ -138,6 +138,11 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public IActionResult Create(ProductEditViewModel product)
         {
+            if (product.Image.Length > 1000)
+            {
+                ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
+                return View(product);
+            }
             if (ModelState.IsValid)
             {
                 long size = 0;

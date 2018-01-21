@@ -52,7 +52,8 @@
                     </label>
                 </div>
             </div>
-
+            <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
+            <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input name="Image" type="file" class="form-control" />

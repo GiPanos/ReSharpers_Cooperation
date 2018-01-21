@@ -48,20 +48,29 @@ namespace ReSharpersCooperation.Models
         }
         public IEnumerable<Product> SearchProducts (string query,string type)
         {
+
             switch (type)
             {
                 case "Name":
-                    var res = db.Product.Where(p => p.ProductName.Contains(query)).ToList();
-                    res.AddRange(db.Product.Where(p => p.ProductDesc.Contains(query) && p.ProductName.Contains(query)==false));
-                    return res;
+                    var NameResult= db.Product.Where(p => p.ProductName.Contains(query)).ToList();
+                    NameResult.AddRange(db.Product.Where(p => p.ProductDesc.Contains(query) && p.ProductName.Contains(query)==false));
+                    return NameResult;
                 case "Category":
-                    return db.Product.Where(p => p.ProductCategory == query);
+                    return db.Product.Where(p => p.ProductCategory.Contains(query));
                 case "HighestFirst":
-                    var result = db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query));
-                    return result.OrderBy(p => p.Price);
+                    var HighestFirstResult= db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query)).OrderByDescending(p => p.Price);
+                    if (HighestFirstResult.Count()==0)
+                    {
+                        HighestFirstResult = db.Product.OrderByDescending(p => p.Price);
+                    }
+                    return HighestFirstResult;
                 case "LowestFirst":
-                    var result2 = db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query));
-                    return result2.OrderBy(p => p.Price).Reverse();
+                    var LowestFirstResult= db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query)).OrderBy(p => p.Price);
+                    if (LowestFirstResult.Count()==0)
+                    {
+                        LowestFirstResult = db.Product.OrderBy(p => p.Price);
+                    }
+                    return LowestFirstResult;
                 default:
                     break;
             }
