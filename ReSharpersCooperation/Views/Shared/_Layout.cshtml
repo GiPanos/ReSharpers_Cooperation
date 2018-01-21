@@ -20,25 +20,26 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark ">
         <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="List">ReSharpersCooperation</a>
-            <form class="form-inline my-2 my-lg-0 ">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Name</a>
-                            <a class="dropdown-item" href="#">Category</a>
-                            <a class="dropdown-item" href="#">Highest First</a>
-                            <a class="dropdown-item" href="#">Lowest Price First</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">All</a>
-                        </div>
-                    </div>
-                    <input class="form-control " type="search" placeholder="Search our Shop" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+        <form asp-controller="Product" asp-action="SearchResult" class="form-inline my-2 my-lg-0 ">
+            <div class="input-group">
+                <div class="input-group-prepend search-panel">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search_concept">Search By</span></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#Name">Name</a>
+                        <a class="dropdown-item" href="#Category">Category</a>
+                        <a class="dropdown-item" href="#HighestFirst">Highest First</a>
+                        <a class="dropdown-item" href="#LowestFirst">Lowest Price First</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">All</a>
                     </div>
                 </div>
-            </form>
+                <input type="hidden" name="type" value="all" id="search_param" />
+                <input name="query" class="form-control " type="search" placeholder="Search our Shop" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                </div>
+            </div>
+        </form>
 
         @await Html.PartialAsync("_LoginPartial")
     </nav>
@@ -96,7 +97,7 @@
                     <p>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Your e-mail...">
-                            <span class="input-group-btn input-group-append" >
+                            <span class="input-group-btn input-group-append">
                                 <button class="btn btn-default" type="button" id="newsletterbutton"><span class="fa fa-envelope"></span></button>
                             </span>
                         </div><!-- /input-group -->
@@ -108,6 +109,7 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -125,6 +127,24 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+    <environment include="Development">
+
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"
+                crossorigin="anonymous"
+                integrity="sha384-Fnqn3nxp3506LP/7Y3j/25BlWeA3PXTyT1l78LjECcPaKCV12TsZP7yyMxOe/G/k">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+                crossorigin="anonymous"
+                integrity="sha384-JrXK+k53HACyavUKOsL+NkmSesD2P+73eDMrbTtTk0h4RmOF8hF8apPlkp26JlyH">
+        </script>
+    </environment>
     @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

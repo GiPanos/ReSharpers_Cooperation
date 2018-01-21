@@ -48,7 +48,25 @@ namespace ReSharpersCooperation.Models
         }
         public IEnumerable<Product> SearchProducts (string query,string type)
         {
-            return db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query));
+            switch (type)
+            {
+                case "Name":
+                    var res = db.Product.Where(p => p.ProductName.Contains(query)).ToList();
+                    res.AddRange(db.Product.Where(p => p.ProductDesc.Contains(query) && p.ProductName.Contains(query)==false));
+                    return res;
+                case "Category":
+                    return db.Product.Where(p => p.ProductCategory == query);
+                case "HighestFirst":
+                    var result = db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query));
+                    return result.OrderBy(p => p.Price);
+                case "LowestFirst":
+                    var result2 = db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query));
+                    return result2.OrderBy(p => p.Price).Reverse();
+                default:
+                    break;
+            }
+            return db.Product;
+
         }
 
     }
