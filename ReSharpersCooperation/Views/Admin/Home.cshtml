@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1 class="text-center">Admin Panel</h1>
+<br />
+<br />
+<br />
+<br />
+<div class="row">
+    <a asp-controller="Admin" asp-action="Index" class="card col-3">
+        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text text-center">View All Shop's Products.</p>
+        </div>
+    </a>
+    <a asp-controller="Admin" asp-action="Orders" class="card col-3">
+        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text text-center">View all Orders.</p>
+        </div>
+    </a>
+    <a asp-controller="Admin" asp-action="Transactions"class="card col-3">
+        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text text-center">View all Transactions.</p>
+        </div>
+    </a>
+    <a asp-controller="Admin" asp-action="Users" class="card col-3">
+        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text text-center">View all Users.</p>
+        </div>
+    </a>
+</div>
+

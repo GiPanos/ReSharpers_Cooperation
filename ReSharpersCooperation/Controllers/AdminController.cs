@@ -35,6 +35,11 @@ namespace ReSharpersCooperation.Controllers
             return View(_repository.Products);
         }
 
+        public ViewResult Home()
+        {
+            return View();
+        }
+
 
 
         public ViewResult Edit(int productNo)
