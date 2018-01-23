@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using ReSharpersCooperation.Models.UserViewModel;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -40,6 +41,26 @@ namespace ReSharpersCooperation.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Users()
+        {
+            var users = new List<UserViewModel>();
+            foreach (var user in _userManager.Users)
+            {
+
+                if ( await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    users.Add(new UserViewModel { User = user, Balance = 0, Role = "Admin" });
+                }
+                else
+                {
+                    users.Add(new UserViewModel { User = user, Balance = 0, Role = "Client" });
+                };
+            }
+            var sortedusers = users.OrderBy(o => o.Role).ToList();
+            var allusers = new AllUserViewModel { Users = sortedusers };
+            return View(allusers);
+        }
+        
 
 
         public ViewResult Edit(int productNo)
@@ -51,6 +72,7 @@ namespace ReSharpersCooperation.Controllers
             {
                 ProductNo = temp.ProductNo,
                 Price = temp.Price,
+                IsActive = temp.IsActive,
                 ProductDesc = temp.ProductDesc,
                 ProductName = temp.ProductName,
                 StockNo = temp.StockNo,

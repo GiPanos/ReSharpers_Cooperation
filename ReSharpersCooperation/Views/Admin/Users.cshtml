@@ -1,0 +1,66 @@
+﻿@model ReSharpersCooperation.Models.UserViewModel.AllUserViewModel
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>Users</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                UserName
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                E-mail Confirmed
+            </th>
+            <th>
+                Locked Status
+            </th>
+            <th>
+                Account Balance
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Users)
+        {
+        <tr>
+            <td>
+                @item.User.UserName
+            </td>
+            <td>
+                @item.User.Email
+            </td>
+            <td>
+                @item.User.EmailConfirmed
+            </td>
+            <td>
+                @item.User.LockoutEnabled
+            </td>
+            <td>
+                @item.Balance
+            </td>
+            <td>
+                @item.Role
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>}
+
+    </tbody>
+</table>
