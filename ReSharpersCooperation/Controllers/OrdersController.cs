@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Models.ProductVIewModels;
 using System.Threading.Tasks;
+using ReSharpersCooperation.Models.OrdersViewModel;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -14,6 +16,9 @@ namespace ReSharpersCooperation.Controllers
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        //1
+        //2
+        //ela nte
 
         public OrdersController(OrdersRepository ordersRepository,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
@@ -26,23 +31,34 @@ namespace ReSharpersCooperation.Controllers
         [HttpGet]
         public ViewResult Checkout()
         {
-            return View(new Orders());
+            return View(new OrdersViewModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> Checkout(Orders order)
         {
-            var user= await _userManager.GetUserAsync(User);
+            //var o = new Orders()
+            //{
+
+            //    orderdate = datetime.now,
+            //    shipped = false,
+
+            //}
+            order.OrderStatusNo = 0;
+            order.OrderDate = DateTime.Now;
+            order.Shipped = false;
+
+            var user = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid) 
             {
                 var cart=_cartItemRepo.FindUserCart(user.UserName);
                 order.UserName = user.UserName;
                 _ordersRepository.SaveOrder(order);
-                return RedirectToAction("Completed");
+                return RedirectToRoute("order");
             }
             else
             {
-                return View(order);
+                return View(new OrdersViewModel());
             }
         }
 
