@@ -87,6 +87,11 @@ namespace ReSharpersCooperation
                     defaults: new { Controller = "Cart", Action = "Index"}
                 );
                 routes.MapRoute(
+                    name: "wishlist",
+                    template: "MyWishlist",
+                    defaults: new { Controller = "Wishlist", Action = "Index" }
+                );
+                routes.MapRoute(
                     name: "order",
                     template: "MyOrder",
                    defaults: new { Controller = "Orders", Action = "Completed" }
