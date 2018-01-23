@@ -17,6 +17,7 @@ namespace ReSharpersCooperation.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         //1
+        //2
         public OrdersController(OrdersRepository ordersRepository,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _ordersRepository = ordersRepository;
