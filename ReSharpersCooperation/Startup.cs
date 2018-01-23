@@ -42,6 +42,7 @@ namespace ReSharpersCooperation
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
             services.AddTransient<CartItemRepository>();
+            services.AddTransient<WishlistItemRepository>();
             services.AddTransient<OrdersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
@@ -85,6 +86,11 @@ namespace ReSharpersCooperation
                     name: "cart",
                     template: "MyCart",
                     defaults: new { Controller = "Cart", Action = "Index"}
+                );
+                routes.MapRoute(
+                    name: "wishlist",
+                    template: "MyWishlist",
+                    defaults: new { Controller = "Wishlist", Action = "Index" }
                 );
                 //routes.MapRoute(
                 //    name: "order",
