@@ -86,11 +86,11 @@ namespace ReSharpersCooperation
                     template: "MyCart",
                     defaults: new { Controller = "Cart", Action = "Index"}
                 );
-                //routes.MapRoute(
-                //    name: "order",
-                //    template: "MyOrder",
-                //    defaults: new { Controller = "Orders", Action = "Completed" }
-                //);
+                routes.MapRoute(
+                    name: "order",
+                    template: "MyOrder",
+                   defaults: new { Controller = "Orders", Action = "Completed" }
+                );
                 routes.MapRoute(
                     name: "search",
                     template: "{type}/{query}/{productPage}",
