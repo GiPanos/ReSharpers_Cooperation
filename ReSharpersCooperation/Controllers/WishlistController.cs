@@ -35,6 +35,17 @@ namespace ReSharpersCooperation.Controllers
 
             List<WishlistSummaryViewModel> userwishlist = new List<WishlistSummaryViewModel>();
 
+            foreach (var item in wishlist)
+            {
+                foreach (var product in _repository.Products)
+                {
+                    if (item.ProductNo == product.ProductNo)
+                    {
+                        userwishlist.Add(new WishlistSummaryViewModel(product.ProductName, product.Price, product.ProductImage, product.ProductNo));
+                    }
+                }
+            }
+
             ViewBag.ReturnUrl = TempData["returnUrl"];
             return View(userwishlist);
         }

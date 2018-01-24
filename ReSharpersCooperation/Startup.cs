@@ -42,6 +42,7 @@ namespace ReSharpersCooperation
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ProductRepository>();
             services.AddTransient<CartItemRepository>();
+            services.AddTransient<WishlistItemRepository>();
             services.AddTransient<OrdersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);

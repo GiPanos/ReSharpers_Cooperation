@@ -16,27 +16,22 @@ namespace ReSharpersCooperation.Models
             this.db = db;
         }
 
-        public IQueryable<Wishlist_Item> WishlistItems => db.Wishlist_Item;
+        public IQueryable<Wishlist_Item> Wishlist_Items => db.Wishlist_Item;
 
         public void AddToWishlist(int productNo, string username)
         {
-            var item = WishlistItems.SingleOrDefault(u => u.Username == username && u.ProductNo == productNo);
+            var item = Wishlist_Items.SingleOrDefault(u => u.Username == username && u.ProductNo == productNo);
 
             if (item == null)
             {
                 db.Wishlist_Item.Add(new Wishlist_Item(productNo, username));
-            }
-            else
-            {
-                //Item already exist in the wishlist notification
-                //should be added here
             }
             db.SaveChanges();
         }
 
         public void RemoveFromWishlist(int productNo, string username)
         {
-            var item = WishlistItems.SingleOrDefault(u => u.Username == username && u.ProductNo == productNo);
+            var item = Wishlist_Items.SingleOrDefault(u => u.Username == username && u.ProductNo == productNo);
 
             if (item != null)
             {
@@ -46,7 +41,7 @@ namespace ReSharpersCooperation.Models
 
         public List<Wishlist_Item> FindUserWishlist(string username)
         {
-            var itemList = WishlistItems.Where(u => u.Username == username).ToList();
+            var itemList = Wishlist_Items.Where(u => u.Username == username).ToList();
 
             if (itemList == null)
             {
@@ -60,7 +55,7 @@ namespace ReSharpersCooperation.Models
 
         public int CountWishlistProducts(string username)
         {
-            int itemcount = WishlistItems.Where(u => u.Username == username).ToList().Count();
+            int itemcount = Wishlist_Items.Where(u => u.Username == username).ToList().Count();
             return itemcount;
         }
 

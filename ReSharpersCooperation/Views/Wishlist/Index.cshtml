@@ -27,7 +27,7 @@
                         <img class="img-fluid" width="50" height="50" src="@item.ProductImage" />
                     </td>
                     <td class="text-center">
-                        <a asp-controller="wishlist" asp-action="RemoveFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
+                        <a asp-controller="Wishlist" asp-action="RemoveFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
                     </td>
                     <td class="text-right">@(item.Cost)</td>
                 </tr>
@@ -44,7 +44,7 @@
 }
 else
 {
-    <h2>Your Cart is Empty</h2>
+    <h2>Wishlist is Empty</h2>
 }
 @if (ViewBag.ReturnUrl != null)
 {
