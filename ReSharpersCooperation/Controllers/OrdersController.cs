@@ -16,9 +16,7 @@ namespace ReSharpersCooperation.Controllers
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //1
-        //2
-        //ela nte
+
 
         public OrdersController(OrdersRepository ordersRepository,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
@@ -37,13 +35,7 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(Orders order)
         {
-            //var o = new Orders()
-            //{
-
-            //    orderdate = datetime.now,
-            //    shipped = false,
-
-            //}
+            
             order.OrderStatusNo = 0;
             order.OrderDate = DateTime.Now;
             order.Shipped = false;
@@ -65,6 +57,8 @@ namespace ReSharpersCooperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Completed()
         {
+            // if quantity<=stock:OK afairese apo Products to stock
+            //else Minima lathous kai redirect  
             var user = await _userManager.GetUserAsync(User);
             _cartItemRepo.Clear(user.UserName);
             return View();
