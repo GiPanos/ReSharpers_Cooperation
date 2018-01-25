@@ -8,14 +8,14 @@
 
 @if (Model.Count > 0)
 {
-    <h2>My WIshlist</h2>
+    <h2>My Wishlist</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Product</th>
                 <th></th>
-                <th class="text-center">Quantity</th>
-                <th class="text-right">ItemCost</th>
+                <th class="text-center">ItemCost</th>
+                <th class="text-right"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,18 +26,19 @@
                     <td>
                         <img class="img-fluid" width="50" height="50" src="@item.ProductImage" />
                     </td>
-                    <td class="text-center">
-                        <a asp-controller="Wishlist" asp-action="RemoveFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
-                    </td>
-                    <td class="text-right">@(item.Cost)</td>
+                    <td class="text-center">@(item.Cost)</td>
+                    <td class="text-right">
+                        <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" class="btn btn-success btn-sm">Add to Cart</a>
+                    </td>                   
                 </tr>
             }
         </tbody>
         <tfoot>
-            <tr>
+            <tr class="font-weight-bold">
+                <td class="text-left" >Total Items:  @ViewData["totalitems"]</td>
+                <td class="text-center"></td>
                 <td></td>
-                <td colspan="2" class="text-right">Total:</td>
-                <td class="text-right">@ViewData["totalprice"]</td>
             </tr>
         </tfoot>
     </table>
@@ -52,5 +53,6 @@ else
         <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
     </div>
 }
+
 
 

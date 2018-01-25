@@ -37,6 +37,7 @@ namespace ReSharpersCooperation.Models
             {
                 db.Wishlist_Item.Remove(item);
             }
+            db.SaveChanges();
         }
 
         public List<Wishlist_Item> FindUserWishlist(string username)

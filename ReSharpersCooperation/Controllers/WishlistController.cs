@@ -35,17 +35,22 @@ namespace ReSharpersCooperation.Controllers
 
             List<WishlistSummaryViewModel> userwishlist = new List<WishlistSummaryViewModel>();
 
+            int itemSum = 0;
             foreach (var item in wishlist)
             {
                 foreach (var product in _repository.Products)
                 {
+                   
                     if (item.ProductNo == product.ProductNo)
                     {
                         userwishlist.Add(new WishlistSummaryViewModel(product.ProductName, product.Price, product.ProductImage, product.ProductNo));
+                        itemSum++;
                     }
+                    
                 }
             }
 
+            ViewData["totalitems"] = itemSum;
             ViewBag.ReturnUrl = TempData["returnUrl"];
             return View(userwishlist);
         }
@@ -64,7 +69,7 @@ namespace ReSharpersCooperation.Controllers
             return RedirectToRoute("wishlist");
         }
 
-        public async Task<IActionResult> RemoveFromWishlist(int productNo, string returnUrl)
+        public async Task<IActionResult> RemoveItemFromWishlist(int productNo, string returnUrl)
         {
             var user = await _userManager.GetUserAsync(User);
             Product product = _repository.Products.SingleOrDefault(x => x.ProductNo == productNo);
