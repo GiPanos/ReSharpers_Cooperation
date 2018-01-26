@@ -28,6 +28,7 @@ namespace ReSharpersCooperation.Models
         {
             db.Product.Add(product);
             db.SaveChanges();
+            
         }
 
         public Product DeleteProduct(int productNo)
@@ -74,6 +75,7 @@ namespace ReSharpersCooperation.Models
                 default:
                     break;
             }
+           
             return db.Product;
 
         }

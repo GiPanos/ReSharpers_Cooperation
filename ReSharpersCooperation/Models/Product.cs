@@ -10,6 +10,7 @@ namespace ReSharpersCooperation.Models
     {
         [Key]
         public int ProductNo { get; set; }
+        
         public string ProductName { get; set; }
         public string ProductDesc { get; set; }
         public decimal Price { get; set; }
