@@ -41,6 +41,20 @@ namespace ReSharpersCooperation.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Ban(string userid)
+        {
+            var usertoban = await _userManager.FindByIdAsync(userid);
+            await _userManager.SetLockoutEndDateAsync(usertoban, new DateTimeOffset(DateTime.Now.AddYears(10)));
+            return RedirectToAction("Users");
+        }
+        public async Task<IActionResult> UnBan(string userid)
+        {
+            var usertounban = await _userManager.FindByIdAsync(userid);
+            await _userManager.SetLockoutEndDateAsync(usertounban,null);
+            return RedirectToAction("Users");
+        }
+
+
         public async Task<IActionResult> Users()
         {
             var users = new List<UserViewModel>();

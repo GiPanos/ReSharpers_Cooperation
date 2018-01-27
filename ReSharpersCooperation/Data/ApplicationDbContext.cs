@@ -17,6 +17,7 @@ namespace ReSharpersCooperation.Data
         public DbSet<Product> Product {get;set;}
         public DbSet<Cart_Item> Cart_Item { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<Wishlist_Item> Wishlist_Item { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{

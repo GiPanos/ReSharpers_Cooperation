@@ -68,6 +68,8 @@ namespace ReSharpersCooperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Completed()
         {
+            // if quantity<=stock:OK afairese apo Products to stock
+            //else Minima lathous kai redirect  
             var user = await _userManager.GetUserAsync(User);
             _cartItemRepo.Clear(user.UserName);
             return View();

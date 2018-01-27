@@ -1,0 +1,58 @@
+﻿@using ReSharpersCooperation.Models.WishlistViewModels
+@model List<WishlistSummaryViewModel>
+
+@{
+    ViewData["Title"] = "Wishlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Count > 0)
+{
+    <h2>My Wishlist</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th></th>
+                <th class="text-center">ItemCost</th>
+                <th class="text-right"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>
+                        <img class="img-fluid" width="50" height="50" src="@item.ProductImage" />
+                    </td>
+                    <td class="text-center">@(item.Cost)</td>
+                    <td class="text-right">
+                        <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" class="btn btn-success btn-sm">Add to Cart</a>
+                    </td>                   
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="font-weight-bold">
+                <td class="text-left" >Total Items:  @ViewData["totalitems"]</td>
+                <td class="text-center"></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <h2>Wishlist is Empty</h2>
+}
+@if (ViewBag.ReturnUrl != null)
+{
+    <div class="text-center">
+        <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
+    </div>
+}
+
+
+
