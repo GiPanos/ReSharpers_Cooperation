@@ -34,6 +34,7 @@ namespace ReSharpersCooperation.Controllers
 
             var cart = _cartItemRepo.FindUserCart(user.UserName);
             decimal totalprice = 0M;
+            
             List<CartSummaryViewModel> usercart = new List<CartSummaryViewModel>();
             //repository.Products.Where(p => p.ProductName == cart.Where(c=>c.ProductNo==p.ProductNo)));
             foreach (var c in cart)

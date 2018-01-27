@@ -63,11 +63,15 @@ namespace ReSharpersCooperation.Controllers
 
                 if ( await _userManager.IsInRoleAsync(user, "Admin"))
                 {
-                    users.Add(new UserViewModel { User = user, Balance = 0, Role = "Admin" });
+                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("C2"), Role = "Admin" });
+                }
+                else if(await _userManager.IsInRoleAsync(user, "Member"))
+                {
+                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("C2"), Role = "Member" });
                 }
                 else
                 {
-                    users.Add(new UserViewModel { User = user, Balance = 0, Role = "Client" });
+                    users.Add(new UserViewModel { User = user, Balance = "N/A", Role = "Client" });
                 };
             }
             var sortedusers = users.OrderBy(o => o.Role).ToList();

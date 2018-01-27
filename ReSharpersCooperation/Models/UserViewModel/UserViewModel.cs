@@ -9,6 +9,6 @@ namespace ReSharpersCooperation.Models.UserViewModel
     {
         public ApplicationUser User { get; set; }
         public string Role { get; set; }
-        public decimal Balance { get; set; }
+        public string Balance { get; set; }
     }
 }

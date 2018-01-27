@@ -19,7 +19,6 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
         public void AddToCart(int productNo, string username, int quantity)
         {
             var search = Cart_Items.SingleOrDefault(u => u.UserName == username && u.ProductNo == productNo);
-
             if (search == null)
             {
                 db.Cart_Item.Add(new Cart_Item
