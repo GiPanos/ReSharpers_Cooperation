@@ -1,0 +1,77 @@
+﻿@model Product
+<div id="adminproddiv">
+    <img class="img-fluid" width="150" src="@Model.ProductImage"/>
+</div>
+<div>
+    <table id="adminprodtable">
+        <tr>
+            <td>Product No</td>
+            <td>@Model.ProductNo</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>@Model.ProductDesc</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>@Model.Price</td>
+        </tr>
+        <tr>
+            <td>Stock</td>
+            <td>@Model.StockNo</td>
+        <tr>
+            <td>Rating</td>
+            <td>@Model.Rating</td>
+        </tr>
+        <tr>
+            <td>Active</td>
+            <td> @Model.IsActive</td>
+        </tr>
+        <tr>
+            <td>Deleted</td>
+            <td> @Model.IsDeleted</td>
+        </tr>
+        <tr>
+            <td>Create Date</td>
+            <td>
+                @Model.CreatedDate.ToString("dd/MM/yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td>Modified Date</td>
+            <td>@Model.ModifiedDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td> Featured</td>
+            <td>@Model.IsFeatured</td>
+        <tr>
+            <td>Category</td>
+            <td>@Model.ProductCategory</td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    #adminproddiv {
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    #adminprodtable {
+        border-collapse: collapse;
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+        #adminprodtable tr:nth-child(odd) {
+            text-align: left;
+            background-color: #84ada0;
+        }
+
+        #adminprodtable td:nth-child(even) {
+            text-align: center;
+            padding-left: 50px;
+        }
+</style>

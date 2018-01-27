@@ -42,6 +42,7 @@ namespace ReSharpersCooperation.Models
 
             return prod;
         }
+
         public List<string> GetAllCategories()
         {
             return db.Product.Select(p => p.ProductCategory).Distinct().OrderBy(c => c).ToList();
@@ -78,5 +79,30 @@ namespace ReSharpersCooperation.Models
 
         }
 
+        public List<Product> CheckStock(List<Cart_Item> cart)
+        {
+            var productlist = new List<Product>();
+            foreach (var item in cart)
+            {
+                Product prod = db.Product.FirstOrDefault(p => p.ProductNo == item.ProductNo);
+                if (item.Quantity > prod.StockNo)
+                {
+                    productlist.Add(prod);
+                }
+            }
+            return productlist;
+        }
+
+        public void UpdateStock(List<Cart_Item> cart)
+        {
+            var productlist = new List<Product>();
+            foreach (var item in cart)
+            {
+                Product prod = db.Product.FirstOrDefault(p => p.ProductNo == item.ProductNo);
+                prod.StockNo -= item.Quantity;
+                UpdateProduct(prod);
+            }
+
+        }
     }
 }

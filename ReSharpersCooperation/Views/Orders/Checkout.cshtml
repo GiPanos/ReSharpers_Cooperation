@@ -3,7 +3,15 @@
 @{
     ViewData["Title"] = "Checkout";
 }
-
+@if (Model.OutOfStock != null && Model.OutOfStock.Count != 0)
+{
+    foreach (var item in Model.OutOfStock)
+    {
+        <div class="text-danger">
+            @item.ProductName is out of stock!
+        </div>
+    }
+}
 <h2>Please, complete an address</h2>
 <hr />
 <div class="row">

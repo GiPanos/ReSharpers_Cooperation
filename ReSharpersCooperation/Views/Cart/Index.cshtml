@@ -29,6 +29,16 @@
                     <td class="text-center">
                         <a asp-controller="cart" asp-action="RemoveFromCart" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">-1</a>
                         x @item.Quantity
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
                     </td>
                     <td class="text-right">@(item.Quantity * item.Cost)</td>
                 </tr>

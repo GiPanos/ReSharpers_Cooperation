@@ -92,9 +92,9 @@
                     @Html.DisplayFor(modelItem => item.IsFeatured)
                 </td>
                 <td>
-                    <a asp-action="Edit" class="btn btn-primary btn-sm"asp-route-ProductNo="@item.ProductNo">Edit</a> 
+                    <a asp-action="Edit" class="btn btn-primary btn-sm" asp-route-ProductNo="@item.ProductNo">Edit</a>
                     <br />
-                    <a asp-action="Details" class="btn btn-primary btn-sm" asp-route-ProductNo="@item.ProductNo">Details</a> 
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm details" productNo="@item.ProductNo">Details</a>
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="ProductID" value="@item.ProductNo" />
                         <button type="submit" class="btn btn-danger btn-sm">
@@ -106,3 +106,53 @@
         }
     </tbody>
 </table>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div id="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var ajaxCallURL = '/Admin/Details';
+        $(function () {
+            $(".details").click(function () {
+                var $buttonClicked = $(this);
+
+                var options = {
+                    "backdrop": "static",
+                    keyboard: true
+                };
+
+                var pn = $buttonClicked.attr('productNo');
+
+                $.ajax({
+                    type: "GET",
+                    url: ajaxCallURL,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    data: { 'productNo': pn },
+                    success: function (data) {
+
+                        $('#modal-body').html(data);
+                        $('#myModal').modal(options);
+                        $('#myModal').modal('show');
+                    },
+                    error: function () {
+                        alert("Content load failed.");
+                    }
+                });
+            });
+            $("#closbtn").click(function () {
+                $('#myModal').modal('hide');
+            });
+        });
+    </script>
+}

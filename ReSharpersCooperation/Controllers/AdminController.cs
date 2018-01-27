@@ -62,7 +62,6 @@ namespace ReSharpersCooperation.Controllers
         }
         
 
-
         public ViewResult Edit(int productNo)
         {
             var temp = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
@@ -231,6 +230,12 @@ namespace ReSharpersCooperation.Controllers
                 TempData["Message"] = $"{product.ProductName} was deleted.";
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        public PartialViewResult Details(int productNo)
+        {
+            var product = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
+            return PartialView("_Details", product);
         }
     }
 }

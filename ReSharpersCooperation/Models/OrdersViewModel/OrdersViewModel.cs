@@ -19,8 +19,10 @@ namespace ReSharpersCooperation.Models.OrdersViewModel
         public string Country { get; set; }
         [Required(ErrorMessage = "You have to provide a zip code!")]
         public int Zip { get; set; }
+        public List<Product> OutOfStock { get; set; }
 
         public OrdersViewModel()
-        { }
+        {
+        }
     }
 }

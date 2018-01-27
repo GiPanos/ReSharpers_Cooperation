@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +14,15 @@ namespace ReSharpersCooperation.Controllers
     public class OrdersController : Controller
     {
         private readonly OrdersRepository _ordersRepository;
+        private readonly ProductRepository _productRepository;
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //1
-        //2
-        //ela nte
 
-        public OrdersController(OrdersRepository ordersRepository,CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public OrdersController(OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _ordersRepository = ordersRepository;
+            _productRepository = productRepository;
             _cartItemRepo = cartItemRepo;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,24 +37,27 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(Orders order)
         {
-            //var o = new Orders()
-            //{
-
-            //    orderdate = datetime.now,
-            //    shipped = false,
-
-            //}
             order.OrderStatusNo = 0;
             order.OrderDate = DateTime.Now;
             order.Shipped = false;
 
             var user = await _userManager.GetUserAsync(User);
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-                var cart=_cartItemRepo.FindUserCart(user.UserName);
-                order.UserName = user.UserName;
-                _ordersRepository.SaveOrder(order);
-                return RedirectToRoute("order");
+                var cart = _cartItemRepo.FindUserCart(user.UserName);
+                var outofstock = _productRepository.CheckStock(cart);
+
+                if (outofstock.Count == 0)
+                {
+                    _productRepository.UpdateStock(cart);
+                    order.UserName = user.UserName;
+                    _ordersRepository.SaveOrder(order);
+                    return RedirectToRoute("order");
+                }
+                else
+                {
+                    return View(new OrdersViewModel { OutOfStock = outofstock });
+                }
             }
             else
             {
