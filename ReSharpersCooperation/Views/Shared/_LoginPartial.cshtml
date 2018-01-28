@@ -13,7 +13,7 @@
         <ul class="nav nav-item ">
             <li><a class="nav-link" asp-area="" asp-route="wishlist" title="Wish List"><span class="fa fa-heart" aria-hidden="true"> (@Wishlistrepo.CountWishlistProducts(UserManager.GetUserName(User)))</span></a></li>
             <li><a class="nav-link" asp-area="" asp-route="cart" title="Cart"><span class="fa fa-shopping-cart" aria-hidden="true"> (@Repository.CountCartProducts(UserManager.GetUserName(User)))</span></a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Checkout" title="Checkout"><span class="fa fa-credit-card" aria-hidden="true"></span> </a></li>
+            <li><a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Checkout" title="Checkout"><span class="fa fa-credit-card" aria-hidden="true"></span> </a></li>
             @if (User.IsInRole("Admin"))
             {
                 <li><a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Home" title="Admin Panel"><span class="fa fa-user-plus" aria-hidden="true"></span> Admin Panel</a></li>
@@ -26,6 +26,11 @@
                        aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> @UserManager.GetUserName(User)</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="btn navbar-btn dropdown-item" asp-area="" asp-controller="Manage" asp-action="Index" title="Edit your Account">My Account </a>
+                        @if (User.IsInRole("Member"))
+    {
+                    <a class="btn btn-link navbar-btn navbar-link dropdown-item" asp-area="" asp-controller="Member" asp-action="OfferNewProduct" title="Offer a new Product">Offer a new Product </a>
+
+}
                         <a class="btn btn-link navbar-btn navbar-link dropdown-item" asp-area="" asp-controller="Manage" asp-action="ViewOrders" title="View your Past Orders">My Orders </a>
                         <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
                     </div>

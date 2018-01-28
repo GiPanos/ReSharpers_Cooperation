@@ -107,7 +107,7 @@ namespace ReSharpersCooperation.Controllers
         public IActionResult Edit(ProductEditViewModel product)
         {
             //Validation for Image size
-            if (product.Image!=null && product.Image.Length > 1000)
+            if (product.Image!=null && product.Image.Length > 1000000)
             {
                 ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
                 return View(product);
@@ -182,7 +182,7 @@ namespace ReSharpersCooperation.Controllers
         public IActionResult Create(ProductEditViewModel product)
         {
             //case Image is too large
-            if (product.Image.Length > 1000)
+            if (product.Image.Length > 1000000)
             {
                 ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
                 return View(product);

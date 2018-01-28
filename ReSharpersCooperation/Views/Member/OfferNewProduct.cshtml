@@ -1,0 +1,67 @@
+﻿@model ReSharpersCooperation.Models.ProductEditViewModel
+
+@{
+    ViewData["Title"] = "Offer New Product";
+}
+
+<h2>Offer new</h2>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="OfferNewProduct" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ProductNo" />
+            <input type="hidden" asp-for="ImageLink" value="" />
+            <input type="hidden" asp-for="IsDeleted" value="false" />
+            <input type="hidden" asp-for="Rating" value="3" />
+            <input type="hidden" asp-for="IsActive" value="false" />
+            <input type="hidden" asp-for="IsFeatured" value="false" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDesc" class="control-label"></label>
+                <textarea asp-for="ProductDesc" class="form-control " /></textarea>
+                <span asp-validation-for="ProductDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Offer Price</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Stock Number</label>
+                <input asp-for="StockNo" class="form-control" />
+                <span asp-validation-for="StockNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductCategory" class="control-label"></label>
+                <input asp-for="ProductCategory" class="form-control" />
+                <span asp-validation-for="ProductCategory" class="text-danger"></span>
+            </div>
+            <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
+            <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input name="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
