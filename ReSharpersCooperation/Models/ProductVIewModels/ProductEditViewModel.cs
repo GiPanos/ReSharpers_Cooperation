@@ -26,6 +26,7 @@ namespace ReSharpersCooperation.Models
         public bool IsFeatured { get; set; }
         public string ProductCategory { get; set; }
         public string ImageLink { get; set; }
+        public string UserName { get; set; }
         
 
     }

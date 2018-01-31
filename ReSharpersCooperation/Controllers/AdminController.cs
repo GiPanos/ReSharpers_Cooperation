@@ -97,7 +97,8 @@ namespace ReSharpersCooperation.Controllers
                 IsFeatured = temp.IsFeatured,
                 CreatedDate = temp.CreatedDate,
                 ProductCategory = temp.ProductCategory,
-                ImageLink=temp.ProductImage
+                ImageLink=temp.ProductImage,
+                UserName=temp.UserName
                 
 
             }
@@ -129,7 +130,8 @@ namespace ReSharpersCooperation.Controllers
                     IsFeatured = product.IsFeatured,
                     ProductName = product.ProductName,
                     StockNo = product.StockNo,
-                    ProductCategory = product.ProductCategory
+                    ProductCategory = product.ProductCategory,
+                    UserName=product.UserName
 
 
                 };
@@ -179,7 +181,7 @@ namespace ReSharpersCooperation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductEditViewModel product)
+        public async Task<IActionResult> Create(ProductEditViewModel product)
         {
             //case Image is too large
             if (product.Image.Length > 1000000)
@@ -209,7 +211,7 @@ namespace ReSharpersCooperation.Controllers
                     fs.Flush();
                     fs.Close();
                 }
-
+                var user = await _userManager.GetUserAsync(User);
                 //Create new product according to user input
                 var newproduct = new Product
                 {
@@ -225,7 +227,9 @@ namespace ReSharpersCooperation.Controllers
                     IsFeatured = product.IsFeatured,
                     ProductName = product.ProductName,
                     StockNo = product.StockNo,
-                    ProductCategory = product.ProductCategory
+                    ProductCategory = product.ProductCategory,
+                    UserName=user.UserName
+                    
 
                 };
                 _repository.SaveProduct(newproduct);

@@ -111,5 +111,10 @@ namespace ReSharpersCooperation.Models
             }
 
         }
+        public List<Product> GetOfferedProducts (string username)
+        {
+            return db.Product.Where(u => u.UserName == username).ToList();
+            
+        }
     }
 }
