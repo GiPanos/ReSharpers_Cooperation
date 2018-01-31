@@ -102,7 +102,7 @@ namespace ReSharpersCooperation.Models
 
         public void UpdateStock(List<Cart_Item> cart)
         {
-            var productlist = new List<Product>();
+            //var productlist = new List<Product>();
             foreach (var item in cart)
             {
                 Product prod = db.Product.FirstOrDefault(p => p.ProductNo == item.ProductNo);

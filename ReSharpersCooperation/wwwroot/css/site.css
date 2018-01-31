@@ -170,30 +170,16 @@
 }
 
 /*pg: style about Admin/Index/Details*/
-#myModal.modal{
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: auto;
-    overflow-y: scroll;
-}
-
-#myModal .modal-dialog {
-    position: relative;
-    padding: 10px;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 435px;
-}
 
 #myModal .modal-content {
-    position: relative;
-    background-color: #76a999;
+    background-color: #d2e0dc;
 }
 
 #myModal .modal-header {
-    border-bottom-color: #76a999;
+    border-bottom-color: #d2e0dc;
+}
+
+#modal-body {
+    padding-bottom: 42px;
 }
 
