@@ -210,7 +210,7 @@ namespace ReSharpersCooperation.Controllers
                     product.Image.CopyTo(fs);
                     fs.Flush();
                     fs.Close();
-                }
+                }/
                 var user = await _userManager.GetUserAsync(User);
                 //Create new product according to user input
                 var newproduct = new Product
