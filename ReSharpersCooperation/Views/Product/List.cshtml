@@ -9,7 +9,7 @@
         @await Component.InvokeAsync("Filters")
     </aside>
     <main class="col-sm-9">
-        <h2>List</h2>
+        <h2>Cooperation Products</h2>
 
         @foreach (var p in Model.Products)
         {
@@ -24,15 +24,15 @@
             {
                 @if (Model.CurrentCategory == null && Model.ListType==null)
                 {
-                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
                 }
                 else if(Model.CurrentCategory!=null && Model.ListType==null)
                 {
-                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
                 }
                 else
                 {
-                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" asp-route="search" asp-route-query="@Model.Query" asp-route-type="@Model.ListType" asp-route-productPage="@i">@i</a>
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="search" asp-route-query="@Model.Query" asp-route-type="@Model.ListType" asp-route-productPage="@i">@i</a>
 
                 }
             }
