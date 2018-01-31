@@ -7,16 +7,16 @@
 
 <section class="card m-1 p-1">
     <header class="bg-faded p-1">
-        <h3>
+        <h4>
             @Model.ProductName
-            <span class="badge badge-primary" style="float:right">
+            <span class="badge badge-warning" style="float:right">
                 <small>@Model.Price.ToString("C")</small>
             </span>
-        </h3>
+        </h4>
     </header>
     <div class="card-text card-body p-1">
         <div class="card-body row">
-            <img class="rounded"width="300" height="200" src="@Model.ProductImage" />
+            <img class="rounded"width="250" height="150" src="@Model.ProductImage" />
             <p class="offset-3" style="float:right">@Model.ProductDesc</p>
         </div>
         <div style="float:right">@for(int i = 0; i < Model.Rating; i++) {
@@ -28,7 +28,7 @@
 
         }
             </div>
-        <a class="btn btn-success btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
+        <a class="btn btn-warning btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
         @if (Model.StockNo > 0)
         {
             <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart"  asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
