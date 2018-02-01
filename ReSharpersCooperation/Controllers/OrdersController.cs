@@ -14,13 +14,15 @@ namespace ReSharpersCooperation.Controllers
     public class OrdersController : Controller
     {
         private readonly OrdersRepository _ordersRepository;
+        private readonly TotalOrdersRepository _totalOrdersRepository;
         private readonly ProductRepository _productRepository;
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public OrdersController(OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
+            _totalOrdersRepository = totalOrdersRepository;
             _ordersRepository = ordersRepository;
             _productRepository = productRepository;
             _cartItemRepo = cartItemRepo;
@@ -52,6 +54,7 @@ namespace ReSharpersCooperation.Controllers
                     _productRepository.UpdateStock(cart);
                     order.UserName = user.UserName;
                     _ordersRepository.SaveOrder(order);
+                    _totalOrdersRepository.SaveOrder(order, cart);
                     return RedirectToRoute("order");
                 }
                 else

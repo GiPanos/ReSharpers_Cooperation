@@ -15,9 +15,9 @@ namespace ReSharpersCooperation.Models
             this.db = db;
         }
 
+
         public void SaveOrder(Orders order)
         {
-            //db.AddRange(order); Παίζει και με το AddRange
             db.Orders.Add(order);
             db.SaveChanges();
         }

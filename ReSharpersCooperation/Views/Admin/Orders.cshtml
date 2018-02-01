@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ReSharpersCooperation.Models.TotalOrders>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Order</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                OrderId
+            </th>
+            <th>
+                ProductName
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                UserName
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

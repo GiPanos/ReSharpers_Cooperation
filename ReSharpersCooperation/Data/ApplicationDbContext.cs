@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ReSharpersCooperation.Models;
@@ -14,10 +15,19 @@ namespace ReSharpersCooperation.Data
             : base(options)
         {
         }
-        public DbSet<Product> Product {get;set;}
+        public DbSet<Product> Product { get; set; }
         public DbSet<Cart_Item> Cart_Item { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Wishlist_Item> Wishlist_Item { get; set; }
+        public DbSet<TotalOrders> TotalOrders { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TotalOrders>()
+                .HasKey(c => new { c.OrderId, c.ProductName });
+        }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{

@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ReSharpersCooperation.Models;
+using ReSharpersCooperation.Models.UserViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ReSharpersCooperation.Models;
-using System.Drawing;
-using Microsoft.AspNetCore.Hosting.Internal;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using ReSharpersCooperation.Models.UserViewModel;
+using System.Threading.Tasks;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -20,12 +17,14 @@ namespace ReSharpersCooperation.Controllers
     public class AdminController : Controller
     {
         private ProductRepository _repository;
+        private TotalOrdersRepository _totalOrderRepository;
         private IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AdminController(ProductRepository repository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
+        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrderRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
         {
             _repository = repository;
+            _totalOrderRepository = totalOrderRepository;
             _hostingEnvironment = hostingEnvironment;
             _userManager = usermanager;
             _signInManager = signinmanager;
@@ -34,6 +33,11 @@ namespace ReSharpersCooperation.Controllers
         public ViewResult Index()
         {
             return View(_repository.Products);
+        }
+
+        public ViewResult Orders()
+        {
+            return View(_totalOrderRepository.TotalOrders);
         }
 
         public ViewResult Home()
