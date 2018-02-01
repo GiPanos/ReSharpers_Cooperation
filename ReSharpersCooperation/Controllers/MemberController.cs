@@ -31,14 +31,27 @@ namespace ReSharpersCooperation.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> ViewOfferedProducts()
+        {
+            var user =await _userManager.GetUserAsync(User);
+            var offeredproducts=_repository.GetOfferedProducts(user.UserName);
+            return View(offeredproducts);
+            
+        }
+
+
+
+
         public IActionResult OfferNewProduct()
         {
             return View(new ProductEditViewModel { });
         }
 
         [HttpPost]
-        public IActionResult OfferNewProduct(ProductEditViewModel product)
+        public async Task<IActionResult> OfferNewProduct(ProductEditViewModel product)
         {
+            var user = await _userManager.GetUserAsync(User);
             //case Image is too large
             if (product.Image.Length > 1000000)
             {
@@ -79,15 +92,16 @@ namespace ReSharpersCooperation.Controllers
                     IsDeleted = false,
                     IsActive = product.IsActive,
                     Rating = product.Rating,
-                    Price = product.Price*3,
+                    Price = product.Price * 3,
                     IsFeatured = product.IsFeatured,
                     ProductName = product.ProductName,
                     StockNo = product.StockNo,
-                    ProductCategory = product.ProductCategory
-
+                    ProductCategory = product.ProductCategory,
+                    UserName = await _userManager.GetUserNameAsync(user)
+                    
                 };
                 _repository.SaveProduct(newproduct);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ViewOfferedProducts));
             }
             else
             {

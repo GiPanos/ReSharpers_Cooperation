@@ -16,6 +16,9 @@
                 Name
             </th>
             <th>
+                Creator
+            </th>
+            <th>
                 Description
             </th>
             <th>
@@ -58,6 +61,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.UserName)
+                </td>   
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductDesc)
                 </td>
