@@ -36,10 +36,7 @@ namespace ReSharpersCooperation.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             decimal totalcost = _cartItemRepo.CalculateUserCartCost(user.UserName);
-            return View(new OrdersViewModel { CurrentBalance = user.Balance, TotalCost = totalcost });
-            var totalOrders = _totalOrderRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId);
-            return View(totalOrders);
-
+            return View(new OrdersViewModel {CurrentBalance = user.Balance, TotalCost = totalcost});
         }
 
         public async Task<ViewResult> ViewOrders()
