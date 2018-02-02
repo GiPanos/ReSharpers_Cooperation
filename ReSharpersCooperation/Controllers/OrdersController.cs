@@ -20,7 +20,8 @@ namespace ReSharpersCooperation.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository,
+            ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _totalOrdersRepository = totalOrdersRepository;
             _ordersRepository = ordersRepository;
@@ -39,6 +40,13 @@ namespace ReSharpersCooperation.Controllers
             var totalOrders = _totalOrderRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId);
             return View(totalOrders);
 
+        }
+
+        public async Task<ViewResult> ViewOrders()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var totalOrders = _totalOrdersRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId); 
+            return View(totalOrders);
         }
 
         [HttpPost]
