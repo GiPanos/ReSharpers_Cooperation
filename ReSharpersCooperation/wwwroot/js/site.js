@@ -23,3 +23,13 @@ $.validator.methods.number = function (value, element) {
 }
 
 //JQUERY VALIDATION FIX END
+
+//PAYMENT METHOD DETECTION BEGIN
+function yesnoCheck(that) {
+    if (that.value == "creditcard") {
+        document.getElementById("ifYes").style.display = "block";
+    } else {
+        document.getElementById("ifYes").style.display = "none";
+    }
+}
+//PAYMENT METHOD DETECTION END 
