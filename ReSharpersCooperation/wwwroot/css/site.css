@@ -149,24 +149,23 @@
         border-left: solid 1px rgba(255,255,255,0.10);
     }
 }
-#footerr{
-    padding-left:0px;
-    padding-right:0px;
+
+#footerr {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 /*FOOTER CSS END*/
-.nav-link
-{
-    color:white;
+.nav-link {
+    color: white;
 }
 
-#newsletterbutton 
-{
-    background-color:white;
-    border-color:white;
+#newsletterbutton {
+    background-color: white;
+    border-color: white;
 }
-#Filters
-{
-    margin-top:3rem;
+
+#Filters {
+    margin-top: 3rem;
 }
 
 /*pg: style about Admin/Index/Details*/
@@ -183,3 +182,37 @@
     padding-bottom: 42px;
 }
 
+/*pg: style about orders*/
+table.tborders {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 2%;
+}
+
+table.tbOrdersHead {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f7f7f7;
+    border: 1px solid #d0d0d0;
+}
+
+    table.tbOrdersHead th {
+        width: 33%;
+    }
+
+#tbOrdersHead-admin.tbOrdersHead th{
+    width: 25%;
+}
+
+table.tbOrdersBody {
+    width: 100%;
+    text-align: left;
+    vertical-align: middle;
+}
+
+    table.tbOrdersBody td {
+        width: 50%;
+    }

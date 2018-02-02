@@ -4,21 +4,20 @@
     ViewData["Title"] = "Orders";
 }
 
-<h2 style="margin-bottom: 3%; text-align: center; text-decoration: underline">Total Orders</h2>
+<h2 style="margin-bottom: 3%; text-align: center; text-decoration: underline">My Orders</h2>
 
 @foreach (var item in Model)
 {
     <table class="tborders">
         <tr>
             <td>
-                <table id="tbOrdersHead-admin" class="tbOrdersHead">
+                <table class="tbOrdersHead">
                     <thead>
-                    <tr>
-                        <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
-                        <th>Total: </th>
-                        <th>Dispatch To: @item.Select(x => x.UserName).First()</th>
-                        <th>Order # @item.Key</th>
-                    </tr>
+                        <tr>
+                            <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
+                            <th>Total: </th>
+                            <th>Order # @item.Key</th>
+                        </tr>
                     </thead>
                 </table>
             </td>

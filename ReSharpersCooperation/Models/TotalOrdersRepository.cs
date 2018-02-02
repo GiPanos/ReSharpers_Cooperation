@@ -25,12 +25,19 @@ namespace ReSharpersCooperation.Models
                 {
                     OrderId = order.OrderId,
                     ProductNo = temp.ProductNo,
+                    OrderDate = order.OrderDate,
                     ProductName = temp.ProductName,
                     Quantity = item.Quantity,
                     UserName = order.UserName
                 });
             }
             db.SaveChanges();
+        }
+
+        public List<TotalOrders> ViewOrders(string username)
+        {
+            var myOrders = db.TotalOrders.Where(x => x.UserName == username).ToList();
+            return myOrders;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,20 +15,27 @@ namespace ReSharpersCooperation.Controllers
     public class OrdersController : Controller
     {
         private readonly OrdersRepository _ordersRepository;
-        private readonly TotalOrdersRepository _totalOrdersRepository;
+        private readonly TotalOrdersRepository _totalOrderRepository;
         private readonly ProductRepository _productRepository;
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public OrdersController(TotalOrdersRepository totalOrderRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _totalOrdersRepository = totalOrdersRepository;
+            _totalOrderRepository = totalOrderRepository;
             _ordersRepository = ordersRepository;
             _productRepository = productRepository;
             _cartItemRepo = cartItemRepo;
             _userManager = userManager;
             _signInManager = signInManager;
+        }
+
+        public async Task<ViewResult> ViewOrders()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var totalOrders = _totalOrderRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId);
+            return View(totalOrders);
         }
 
         [HttpGet]
@@ -54,7 +62,7 @@ namespace ReSharpersCooperation.Controllers
                     _productRepository.UpdateStock(cart);
                     order.UserName = user.UserName;
                     _ordersRepository.SaveOrder(order);
-                    _totalOrdersRepository.SaveOrder(order, cart);
+                    _totalOrderRepository.SaveOrder(order, cart);
                     return RedirectToRoute("order");
                 }
                 else
