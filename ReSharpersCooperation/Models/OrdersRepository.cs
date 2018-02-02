@@ -21,6 +21,8 @@ namespace ReSharpersCooperation.Models
             db.Orders.Add(order);
             db.SaveChanges();
         }
-        
+
+
+
     }
 }

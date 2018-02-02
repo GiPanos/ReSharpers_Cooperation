@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +6,7 @@ using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Models.ProductVIewModels;
 using System.Threading.Tasks;
 using ReSharpersCooperation.Models.OrdersViewModel;
+using System.Linq;
 
 namespace ReSharpersCooperation.Controllers
 {
@@ -15,15 +14,15 @@ namespace ReSharpersCooperation.Controllers
     public class OrdersController : Controller
     {
         private readonly OrdersRepository _ordersRepository;
-        private readonly TotalOrdersRepository _totalOrderRepository;
+        private readonly TotalOrdersRepository _totalOrdersRepository;
         private readonly ProductRepository _productRepository;
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public OrdersController(TotalOrdersRepository totalOrderRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository, ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _totalOrderRepository = totalOrderRepository;
+            _totalOrdersRepository = totalOrdersRepository;
             _ordersRepository = ordersRepository;
             _productRepository = productRepository;
             _cartItemRepo = cartItemRepo;
@@ -31,26 +30,20 @@ namespace ReSharpersCooperation.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<ViewResult> ViewOrders()
+        [HttpGet]
+        public async Task<ViewResult> Checkout()
         {
             var user = await _userManager.GetUserAsync(User);
+            decimal totalcost = _cartItemRepo.CalculateUserCartCost(user.UserName);
+            return View(new OrdersViewModel { CurrentBalance = user.Balance, TotalCost = totalcost });
             var totalOrders = _totalOrderRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId);
             return View(totalOrders);
 
         }
 
-        [HttpGet]
-        public ViewResult Checkout()
-        {
-            return View(new OrdersViewModel());
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Checkout(Orders order)
+        public async Task<IActionResult> Checkout(OrdersViewModel order)
         {
-            order.OrderStatusNo = 0;
-            order.OrderDate = DateTime.Now;
-            order.Shipped = false;
 
             var user = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
@@ -60,11 +53,38 @@ namespace ReSharpersCooperation.Controllers
 
                 if (outofstock.Count == 0)
                 {
-                    _productRepository.UpdateStock(cart);
-                    order.UserName = user.UserName;
-                    _ordersRepository.SaveOrder(order);
-                    _totalOrderRepository.SaveOrder(order, cart);
-                    return RedirectToRoute("order");
+                    if (user.Balance >= order.TotalCost)
+                    {
+                        
+                        _productRepository.UpdateStock(cart);
+                        var neworder = new Orders
+                        {
+                            City = order.City,
+                            Country = order.Country,
+                            Address = order.Address,
+                            OrderDate = DateTime.Now,
+                            OrderName = order.OrderName,
+                            OrderStatusNo = 0,
+                            Shipped = false,
+                            UserName = user.UserName,
+                            Zip = order.Zip
+
+                        };
+                        _ordersRepository.SaveOrder(neworder);
+                        
+                         _totalOrdersRepository.SaveOrder(neworder, cart);
+                        var members = await _userManager.GetUsersInRoleAsync("Member");
+                        var membernames = members.Select(u => u.UserName).ToList();
+                        _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
+                        _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
+                        return RedirectToRoute("order");
+                    }
+                    else
+                    {
+                        ViewData["Error"] = "Not Enough Money";
+                        return View(new OrdersViewModel { });
+                    };
+
                 }
                 else
                 {
@@ -80,8 +100,6 @@ namespace ReSharpersCooperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Completed()
         {
-            // if quantity<=stock:OK afairese apo Products to stock
-            //else Minima lathous kai redirect  
             var user = await _userManager.GetUserAsync(User);
             _cartItemRepo.Clear(user.UserName);
             return View();

@@ -12,11 +12,13 @@
         </div>
     }
 }
+<p class="text-danger">@ViewData["Error"]</p>
 <h2>Please, complete an address</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Checkout">
+            <input type="hidden" asp-for="TotalCost" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="OrderName" class="control-label"></label>
@@ -43,6 +45,13 @@
                 <input asp-for="Zip" class="form-control" />
                 <span asp-validation-for="Zip" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="PaymentMethod" class="control-label"></label>
+                <input asp-for="PaymentMethod" class="form-control" />
+                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+            </div>
+            <p>Current Balance:@Model.CurrentBalance.ToString("C")</p>
+            <p>Total Cost:@Model.TotalCost.ToString("C")</p>
             <div class="form-group">
                 <input asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
             </div>
