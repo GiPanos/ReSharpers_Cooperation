@@ -37,7 +37,8 @@ namespace ReSharpersCooperation.Controllers
 
         public ViewResult Orders()
         {
-            return View(_totalOrderRepository.TotalOrders);
+            var totalOrders = _totalOrderRepository.TotalOrders.GroupBy(i => i.OrderId);
+            return View(totalOrders);
         }
 
         public ViewResult Home()
