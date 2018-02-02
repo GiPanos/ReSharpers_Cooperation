@@ -36,6 +36,7 @@ namespace ReSharpersCooperation.Controllers
             var user = await _userManager.GetUserAsync(User);
             var totalOrders = _totalOrderRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId);
             return View(totalOrders);
+
         }
 
         [HttpGet]
