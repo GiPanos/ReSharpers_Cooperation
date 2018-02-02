@@ -31,6 +31,7 @@ namespace ReSharpersCooperation.Models
                     ProductNo = temp.ProductNo,
                     ProductName = temp.ProductName,
                     Quantity = item.Quantity,
+                    OrderDate = order.OrderDate,
                     UserName = order.UserName
                 });
             }
@@ -59,8 +60,14 @@ namespace ReSharpersCooperation.Models
             db.SaveChanges();
         }
 
+        public List<TotalOrders> ViewOrders(string username)
+        {
+            var myOrders = db.TotalOrders.Where(x => x.UserName == username).ToList();
+            return myOrders;
+        }
 
-        
+
+
 
     }
 }
