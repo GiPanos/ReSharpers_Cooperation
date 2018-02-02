@@ -53,6 +53,16 @@ namespace ReSharpersCooperation.Models.ProductVIewModels
                 return search;
             }
         }
+        public decimal CalculateUserCartCost(string username)
+        {
+            decimal totalcost = 0M;
+            var usercart = FindUserCart(username);
+            foreach (var item in usercart)
+            {
+                totalcost += item.Quantity * (db.Product.SingleOrDefault(p => p.ProductNo == item.ProductNo).Price);
+            }
+            return totalcost;
+        }
 
         public int CountCartProducts(string username)
         {
