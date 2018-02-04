@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IGrouping<int, ReSharpersCooperation.Models.TotalOrders>>
+﻿@model IEnumerable<IGrouping<int, ReSharpersCooperation.Models.TotalOrdersViewModel.TotalOrdersViewModel>>
 
 @{
     ViewData["Title"] = "Orders";
@@ -16,7 +16,7 @@
                     <tr>
                         <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
                         <th>Total: </th>
-                        <th>Dispatch To: @item.Select(x => x.UserName).First()</th>
+                        <th>Dispatch To: @item.Select(x => x.Username).First()</th>
                         <th>Order # @item.Key</th>
                     </tr>
                     </thead>
@@ -28,10 +28,11 @@
                 <table class="tbOrdersBody table-hover">
                     @foreach (var order in item)
                     {
-                        <tr>
-                            <td>@order.ProductName</td>
-                            <td>Quantity: @order.Quantity</td>
-                        </tr>
+                    <tr>
+                        <td>@order.ProductName</td>
+                        <td>Quantity: @order.Quantity</td>
+                        <td>Shipped: @order.Shipped</td>
+                    </tr>
                     }
                 </table>
             </td>

@@ -209,10 +209,10 @@ table.tbOrdersHead {
 
 table.tbOrdersBody {
     width: 100%;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
 }
 
     table.tbOrdersBody td {
-        width: 50%;
+        width: 33%;
     }

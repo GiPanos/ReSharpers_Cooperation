@@ -13,7 +13,7 @@ namespace ReSharpersCooperation.Models.CartViewModels
         public string ProductImage { get; set; }
         public int ProductNo { get; set; }
 
-        public CartSummaryViewModel(string productname, decimal cost , int quantity,string productimage,int productNo)
+        public CartSummaryViewModel(string productname, decimal cost , int quantity, string productimage, int productNo)
         {
             ProductName = productname;
             Cost = cost;

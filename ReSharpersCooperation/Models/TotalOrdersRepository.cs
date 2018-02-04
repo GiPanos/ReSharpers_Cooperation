@@ -2,6 +2,7 @@
 using ReSharpersCooperation.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Identity;
 
 namespace ReSharpersCooperation.Models
@@ -17,24 +18,12 @@ namespace ReSharpersCooperation.Models
             _userManager = userManager;
         }
 
-        public IQueryable<TotalOrders> TotalOrders => db.TotalOrders; 
-        
+        public IQueryable<TotalOrders> TotalOrders => db.TotalOrders;
+
 
         public void SaveOrder(Orders order, List<Cart_Item> cart)
         {
-            foreach (var item in cart)
-            {
-                var temp = db.Product.Single(x => x.ProductNo == item.ProductNo);
-                db.TotalOrders.Add(new TotalOrders
-                {
-                    OrderId = order.OrderId,
-                    ProductNo = temp.ProductNo,
-                    ProductName = temp.ProductName,
-                    Quantity = item.Quantity,
-                    OrderDate = order.OrderDate,
-                    UserName = order.UserName
-                });
-            }
+            cart.ToList().ForEach(item => db.TotalOrders.Add(new TotalOrders{OrderId = order.OrderId, ProductNo = item.ProductNo, Quantity = item.Quantity, TotalCost = 0, UserName = item.UserName}));
             db.SaveChanges();
         }
         public void ShareProfits(List<string> members,string admin,decimal totalcost)
@@ -60,14 +49,32 @@ namespace ReSharpersCooperation.Models
             db.SaveChanges();
         }
 
-        public List<TotalOrders> ViewOrders(string username)
+        public List<TotalOrdersViewModel.TotalOrdersViewModel> ViewMyOrders(string username)
         {
-            var myOrders = db.TotalOrders.Where(x => x.UserName == username).ToList();
-            return myOrders;
+            var totalorders = db.TotalOrders.Where(x => x.UserName == username).ToList();
+            var totalordersVm = new List<TotalOrdersViewModel.TotalOrdersViewModel>();
+
+            foreach (var item in totalorders)
+            {
+                var product = db.Product.Single(x => x.ProductNo == item.ProductNo);
+                var order = db.Orders.Single(x => x.OrderId == item.OrderId);
+                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, item.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, username));
+            }
+            return totalordersVm;
         }
 
+        public List<TotalOrdersViewModel.TotalOrdersViewModel> ViewOrdersAsAdmin()
+        {
+            var totalorders = db.TotalOrders.ToList();
+            var totalordersVm = new List<TotalOrdersViewModel.TotalOrdersViewModel>();
 
-
-
+            foreach (var item in totalorders)
+            {
+                var product = db.Product.Single(x => x.ProductNo == item.ProductNo);
+                var order = db.Orders.Single(x => x.OrderId == item.OrderId);
+                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, item.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, order.UserName));
+            }
+            return totalordersVm;
+        }
     }
 }

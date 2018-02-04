@@ -17,14 +17,14 @@ namespace ReSharpersCooperation.Controllers
     public class AdminController : Controller
     {
         private ProductRepository _repository;
-        private TotalOrdersRepository _totalOrderRepository;
+        private TotalOrdersRepository _totalOrdersRepository;
         private IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrderRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
+        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrdersRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
         {
             _repository = repository;
-            _totalOrderRepository = totalOrderRepository;
+            _totalOrdersRepository = totalOrdersRepository;
             _hostingEnvironment = hostingEnvironment;
             _userManager = usermanager;
             _signInManager = signinmanager;
@@ -35,10 +35,10 @@ namespace ReSharpersCooperation.Controllers
             return View(_repository.Products);
         }
 
-        public ViewResult Orders()
+        public ViewResult AdminViewTotalOrders()
         {
-            var totalOrders = _totalOrderRepository.TotalOrders.GroupBy(i => i.OrderId);
-            return View(totalOrders);
+            var myorders = _totalOrdersRepository.ViewOrdersAsAdmin().GroupBy(i => i.OrderId);
+            return View(myorders);
         }
 
         public ViewResult Home()

@@ -26,7 +26,7 @@ namespace ReSharpersCooperation.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TotalOrders>()
-                .HasKey(c => new { c.OrderId, c.ProductName });
+                .HasKey(c => new { c.OrderId, c.ProductNo });
         }
 
         //protected override void OnModelCreating(ModelBuilder builder)

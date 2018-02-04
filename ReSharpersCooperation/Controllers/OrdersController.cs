@@ -31,19 +31,19 @@ namespace ReSharpersCooperation.Controllers
             _signInManager = signInManager;
         }
 
+        public async Task<ViewResult> ViewMyOrders()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var myorders = _totalOrdersRepository.ViewMyOrders(user.UserName).GroupBy(i => i.OrderId);
+            return View(myorders);
+        }
+
         [HttpGet]
         public async Task<ViewResult> Checkout()
         {
             var user = await _userManager.GetUserAsync(User);
             decimal totalcost = _cartItemRepo.CalculateUserCartCost(user.UserName);
             return View(new OrdersViewModel {CurrentBalance = user.Balance, TotalCost = totalcost});
-        }
-
-        public async Task<ViewResult> ViewOrders()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var totalOrders = _totalOrdersRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId); 
-            return View(totalOrders);
         }
 
         [HttpPost]
@@ -76,8 +76,7 @@ namespace ReSharpersCooperation.Controllers
 
                         };
                         _ordersRepository.SaveOrder(neworder);
-                        
-                         _totalOrdersRepository.SaveOrder(neworder, cart);
+                        _totalOrdersRepository.SaveOrder(neworder,cart);
                         var members = await _userManager.GetUsersInRoleAsync("Member");
                         var membernames = members.Select(u => u.UserName).ToList();
                         _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
