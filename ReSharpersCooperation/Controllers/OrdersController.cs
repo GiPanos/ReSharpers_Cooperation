@@ -41,11 +41,12 @@ namespace ReSharpersCooperation.Controllers
             return View(new OrdersViewModel {CurrentBalance = user.Balance, TotalCost = totalcost});
         }
 
-        public async Task<ViewResult> ViewOrders()
+
+        public async Task<ViewResult> ViewMyOrders()
         {
             var user = await _userManager.GetUserAsync(User);
-            var totalOrders = _totalOrdersRepository.ViewOrders(user.UserName).GroupBy(i => i.OrderId); 
-            return View(totalOrders);
+            var myorders = _totalOrdersRepository.ViewMyOrders(user.UserName).GroupBy(i => i.OrderId);
+            return View(myorders);
         }
 
         [HttpPost]
@@ -83,13 +84,7 @@ namespace ReSharpersCooperation.Controllers
                         var members = await _userManager.GetUsersInRoleAsync("Member");
                         var membernames = members.Select(u => u.UserName).ToList();
                         _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
-                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", order.TotalCost, "Admin Share", neworderid);
-                        foreach (var member in members)
-                        {
-                            _transactionRepository.RegisterTransaction("resharper@gmail.com", member.UserName, (order.TotalCost / 3) / members.Count, "Member Sale Share", null, neworderid);
-                        }
-                        
-                        
+                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", (order.TotalCost*2)/3, "Admin Order Share",null, neworderid);
                         if (order.PaymentMethod == "sitebalance")
                         {
                             _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
