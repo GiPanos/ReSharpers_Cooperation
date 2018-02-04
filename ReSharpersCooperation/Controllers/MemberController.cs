@@ -97,7 +97,9 @@ namespace ReSharpersCooperation.Controllers
                     ProductName = product.ProductName,
                     StockNo = product.StockNo,
                     ProductCategory = product.ProductCategory,
-                    UserName = await _userManager.GetUserNameAsync(user)
+                    UserName = await _userManager.GetUserNameAsync(user),
+                    isPaid = false
+                    
                     
                 };
                 _repository.SaveProduct(newproduct);

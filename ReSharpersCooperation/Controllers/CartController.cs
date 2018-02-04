@@ -43,7 +43,7 @@ namespace ReSharpersCooperation.Controllers
                 {
                     if (p.ProductNo == c.ProductNo)
                     {
-                        usercart.Add(new CartSummaryViewModel(p.ProductName, p.Price, c.Quantity,p.ProductImage,p.ProductNo));
+                        usercart.Add(new CartSummaryViewModel(p.ProductName, p.Price, c.Quantity,p.ProductImage,p.ProductNo,p.StockNo));
                         totalprice += p.Price * c.Quantity;
                     }
                 }
@@ -53,7 +53,7 @@ namespace ReSharpersCooperation.Controllers
             return View(usercart);
         }
 
-        public async Task<IActionResult> AddToCart(int ProductNo, string returnUrl)
+        public async Task<IActionResult> AddToCart(int ProductNo, string returnUrl,int quantity=1)
         {
             //get username
             var user = await _userManager.GetUserAsync(User);
@@ -62,13 +62,13 @@ namespace ReSharpersCooperation.Controllers
             if (product != null)
             {
                 //Function that adds item to cart
-                _cartItemRepo.AddToCart(ProductNo,user.UserName ,1);
+                _cartItemRepo.AddToCart(ProductNo,user.UserName ,quantity);
             }
             TempData["returnUrl"] = returnUrl;
             //View the cart
             return RedirectToRoute("cart");            
         }
-        public async Task<IActionResult> RemoveFromCart(int ProductNo,string returnUrl)
+        public async Task<IActionResult> RemoveFromCart(int ProductNo,string returnUrl,int quantity=1)
         {
             //get username
             var user = await _userManager.GetUserAsync(User);
@@ -77,7 +77,7 @@ namespace ReSharpersCooperation.Controllers
             if (product != null)
             {
                 //Function that adds item to cart with quantity -1
-                _cartItemRepo.AddToCart(ProductNo, user.UserName, -1);
+                _cartItemRepo.AddToCart(ProductNo, user.UserName, -quantity);
             }
             TempData["returnUrl"] = returnUrl;
 

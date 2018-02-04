@@ -17,9 +17,15 @@ namespace ReSharpersCooperation.Models
 
         public IQueryable<Product> Products => db.Product;
 
-        public void UpdateProduct(Product product)
+        public void UpdateProduct(Product product,bool paymember=false)
         {
-            
+            if (paymember)
+            {
+                var user = db.Users.SingleOrDefault(u => u.UserName == product.UserName);
+                user.Balance += product.Price / 3;
+                var admin = db.Users.SingleOrDefault(u => u.UserName == "resharper@gmail.com");
+                admin.Balance -= product.Price / 3;
+            }
             db.Update(product);
             db.SaveChanges();
         }
@@ -116,5 +122,6 @@ namespace ReSharpersCooperation.Models
             return db.Product.Where(u => u.UserName == username).ToList();
             
         }
+
     }
 }

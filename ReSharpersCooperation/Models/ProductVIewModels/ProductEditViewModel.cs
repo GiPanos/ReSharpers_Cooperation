@@ -27,6 +27,8 @@ namespace ReSharpersCooperation.Models
         public string ProductCategory { get; set; }
         public string ImageLink { get; set; }
         public string UserName { get; set; }
+        public bool FirstTime { get; set; }
+        public bool isPaid { get; set; }
         
 
     }

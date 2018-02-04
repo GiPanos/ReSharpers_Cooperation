@@ -19,9 +19,11 @@ namespace ReSharpersCooperation.Models.OrdersViewModel
         public string Country { get; set; }
         [Required(ErrorMessage = "You have to provide a zip code!")]
         public int Zip { get; set; }
-        public CreditCardAttribute Creditcard { get; set; }
+        [CreditCard(ErrorMessage ="Invalid Credit Card Number!")]
+        public string Creditcard { get; set; }
         public decimal CurrentBalance { get; set; }
         public decimal TotalCost { get; set; }
+        [Required]
         public string PaymentMethod { get; set; }
         public List<Product> OutOfStock { get; set; }
 

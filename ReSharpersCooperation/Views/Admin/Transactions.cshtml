@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ReSharpersCooperation.Data.Transaction>
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h2>Transactions</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SourceAccount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DestinationAccount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductNo)
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestinationAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+            @if (item.OrderId != null)
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+ 
+            </td>
+            }
+            else
+            {
+                <td>
+                    n/a
+                </td>
+            }
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductNo)
+        </td>
+        </tr>
+}
+    </tbody>
+</table>

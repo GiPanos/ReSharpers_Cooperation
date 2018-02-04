@@ -16,10 +16,11 @@ namespace ReSharpersCooperation.Models
         }
 
 
-        public void SaveOrder(Orders order)
+        public int SaveOrder(Orders order)
         {
             db.Orders.Add(order);
             db.SaveChanges();
+            return order.OrderId;
         }
 
 

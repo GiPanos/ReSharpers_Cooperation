@@ -19,9 +19,10 @@ namespace ReSharpersCooperation.Controllers
         private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly TransactionRepository _transactionRepository;
 
         public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository,
-            ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+            ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,TransactionRepository transactionRepository)
         {
             _totalOrdersRepository = totalOrdersRepository;
             _ordersRepository = ordersRepository;
@@ -29,6 +30,7 @@ namespace ReSharpersCooperation.Controllers
             _cartItemRepo = cartItemRepo;
             _userManager = userManager;
             _signInManager = signInManager;
+            _transactionRepository = transactionRepository;
         }
 
         [HttpGet]
@@ -58,7 +60,7 @@ namespace ReSharpersCooperation.Controllers
 
                 if (outofstock.Count == 0)
                 {
-                    if (user.Balance >= order.TotalCost)
+                    if (order.PaymentMethod=="sitebalance" && user.Balance >= order.TotalCost ||order.PaymentMethod=="creditcard")
                     {
                         
                         _productRepository.UpdateStock(cart);
@@ -75,30 +77,42 @@ namespace ReSharpersCooperation.Controllers
                             Zip = order.Zip
 
                         };
-                        _ordersRepository.SaveOrder(neworder);
+                        int neworderid = _ordersRepository.SaveOrder(neworder);
                         
-                         _totalOrdersRepository.SaveOrder(neworder, cart);
+                        _totalOrdersRepository.SaveOrder(neworder, cart);
                         var members = await _userManager.GetUsersInRoleAsync("Member");
                         var membernames = members.Select(u => u.UserName).ToList();
                         _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
-                        _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
+                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", order.TotalCost, "Admin Share", neworderid);
+                        foreach (var member in members)
+                        {
+                            _transactionRepository.RegisterTransaction("resharper@gmail.com", member.UserName, (order.TotalCost / 3) / members.Count, "Member Sale Share", null, neworderid);
+                        }
+                        
+                        
+                        if (order.PaymentMethod == "sitebalance")
+                        {
+                            _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
+                        }
+                        
                         return RedirectToRoute("order");
                     }
                     else
-                    {
+                    { 
                         ViewData["Error"] = "Not Enough Money";
-                        return View(new OrdersViewModel { });
+                        return View(new OrdersViewModel {TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance });
                     };
+                    
 
                 }
                 else
                 {
-                    return View(new OrdersViewModel { OutOfStock = outofstock });
+                    return View(new OrdersViewModel { OutOfStock = outofstock,TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance});
                 }
             }
             else
             {
-                return View(new OrdersViewModel());
+                return View(new OrdersViewModel { TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance });
             }
         }
 

@@ -17,6 +17,29 @@
             <input type="hidden" asp-for="CreatedDate" />
             <input type="hidden" asp-for="ImageLink" />
             <input type="hidden" asp-for="UserName" />
+            @if (!Model.isPaid)
+            {
+                <p class="text-danger font-weight-bold">UNBOUGHT PRODUCT</p>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label class="text-danger font-weight-bold">
+                            <input asp-for="FirstTime" />Buy and List This Product
+                        </label>
+                        <br /><p class="text-danger font-weight-bold">Asking Price: @(Model.Price / 3)<br />  Final Sell Price: @Model.Price</p> 
+                    </div>
+                </div>
+
+            }
+            else
+            { 
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsActive" /> List this Product
+                        </label>
+                    </div>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
                 <input asp-for="ProductName" class="form-control" />
@@ -26,11 +49,6 @@
                 <label asp-for="ProductDesc" class="control-label"></label>
                 <input asp-for="ProductDesc" class="form-control" />
                 <span asp-validation-for="ProductDesc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StockNo" class="control-label"></label>
@@ -47,20 +65,16 @@
                 <input asp-for="ProductCategory" class="form-control" />
                 <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsActive" /> List this Product
-                    </label>
-                </div>
-            </div>
+
+
+
             <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="IsDeleted" /> Delete this Product
                     </label>
                 </div>
-            </div>            
+            </div>
             <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
             <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
             <img src="@Model.ImageLink" />

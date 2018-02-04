@@ -21,13 +21,16 @@ namespace ReSharpersCooperation.Controllers
         private IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrderRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager)
+        private TransactionRepository _transactionRepository;
+
+        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrderRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager,TransactionRepository transactionrepository)
         {
             _repository = repository;
             _totalOrderRepository = totalOrderRepository;
             _hostingEnvironment = hostingEnvironment;
             _userManager = usermanager;
             _signInManager = signinmanager;
+            _transactionRepository = transactionrepository;
         }
 
         public ViewResult Index()
@@ -103,9 +106,8 @@ namespace ReSharpersCooperation.Controllers
                 CreatedDate = temp.CreatedDate,
                 ProductCategory = temp.ProductCategory,
                 ImageLink=temp.ProductImage,
-                UserName=temp.UserName
-                
-
+                UserName=temp.UserName,
+                isPaid=temp.isPaid
             }
                 );
         }
@@ -120,6 +122,7 @@ namespace ReSharpersCooperation.Controllers
             }
             if (ModelState.IsValid)
             {
+                
                 //Assign View Model Values to Actual Product
                 var newproduct = new Product
                 {
@@ -137,9 +140,15 @@ namespace ReSharpersCooperation.Controllers
                     StockNo = product.StockNo,
                     ProductCategory = product.ProductCategory,
                     UserName=product.UserName
-
+                    
 
                 };
+                if (product.FirstTime)
+                {
+                    newproduct.isPaid = true;
+                    newproduct.IsActive = true;
+                    
+                }
                 //The following code takes user image and stores it on wwwroot and the imagelink is being stored to database
                 long size = 0;
                 if (product.Image != null)
@@ -169,8 +178,16 @@ namespace ReSharpersCooperation.Controllers
                 {
                     newproduct.ProductImage = product.ImageLink;
                 }
-
-                _repository.UpdateProduct(newproduct);
+                if (product.FirstTime)
+                {
+                    _repository.UpdateProduct(newproduct, true);
+                    _transactionRepository.RegisterTransaction("resharper@gmail.com", newproduct.UserName, newproduct.Price / 3, "Admin Payment", newproduct.ProductNo);
+                }
+                else
+                {
+                    _repository.UpdateProduct(newproduct);
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -238,6 +255,7 @@ namespace ReSharpersCooperation.Controllers
 
                 };
                 _repository.SaveProduct(newproduct);
+                
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -263,6 +281,11 @@ namespace ReSharpersCooperation.Controllers
         {
             var product = _repository.Products.FirstOrDefault(p => p.ProductNo == productNo);
             return PartialView("_Details", product);
+        }
+
+        public IActionResult Transactions()
+        {
+            return View(_transactionRepository.GetAllTransactions());
         }
     }
 }

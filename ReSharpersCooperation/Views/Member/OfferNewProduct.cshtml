@@ -1,5 +1,6 @@
 ﻿@model ReSharpersCooperation.Models.ProductEditViewModel
 
+@inject ReSharpersCooperation.Models.ProductRepository Repository
 @{
     ViewData["Title"] = "Offer New Product";
 }
@@ -39,8 +40,12 @@
                 <span asp-validation-for="StockNo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductCategory" class="control-label"></label>
-                <input asp-for="ProductCategory" class="form-control" />
+                <select asp-for="ProductCategory" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
+                    <option label="Choose Category"></option>
+                    @foreach (var category in Repository.GetAllCategories())
+                    {
+                        <option value="@category">@category</option>}
+                </select>
                 <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
             <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>

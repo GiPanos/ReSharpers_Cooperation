@@ -24,26 +24,37 @@
                 <tr>
                     <td>
                         @item.ProductName
-                        <div class="dropdown">
-                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+
                     </td>
                     <td>
                         <img class="img-fluid" width="75" height="75" src="@item.ProductImage" />
                     </td>
                     <td class="text-center">
-                            <a asp-controller="cart" asp-action="RemoveFromCart" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">-</a>                                              
-                        x @item.Quantity
-                        <a asp-controller="cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" class="btn btn-success btn-sm">+</a>            
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                X @item.Quantity
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @for (int i = 1; i <= item.Quantity && i < item.StockNo; i++)
+                                {
+                                    <a asp-controller="cart" asp-action="RemoveFromCart" asp-route-productNo="@item.ProductNo" asp-route-quantity="@(item.Quantity-i)" class="dropdown-item">@i</a>
+                                }
+                                @for (int i = item.Quantity + 1; i <= item.StockNo && i <= 10; i++)
+                                {
+
+                                    <a asp-controller="cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" asp-route-quantity="@(i-item.Quantity)" class="dropdown-item">@i</a>
+                                }
+
+                            </div>
+                        </div>
+                        <a asp-controller="cart" asp-action="RemoveFromCart" asp-route-productNo="@item.ProductNo" asp-route-quantity="@(item.Quantity)"><i class="fa fa-times-circle fa-2x"></i></a>
+
                     </td>
-                    <td class="text-right">@(item.Quantity * item.Cost)</td>
+                    <td class="text-right">
+                        @(item.Quantity * item.Cost)
+                    </td>
 
                 </tr>
             }
@@ -66,6 +77,12 @@ else
 {
     <div class="text-center">
         <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <a class="btn btn-primary" asp-controller="Product" asp-action="List">Continue shopping</a>
     </div>
 }
 

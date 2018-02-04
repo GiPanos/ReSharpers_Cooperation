@@ -19,6 +19,7 @@
     <div class="col-md-4">
         <form asp-action="Checkout">
             <input type="hidden" asp-for="TotalCost" />
+            <input type="hidden" asp-for="CurrentBalance" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="OrderName" class="control-label"></label>
@@ -47,24 +48,25 @@
             </div>
             <br />
             <div class="form-group">
-                <select asp-for="PaymentMethod" class="form-control" onchange="yesnoCheck(this);">
-                    <option selected>Choose Payment Option</option>
+                <select asp-for="PaymentMethod" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
+                    <option label="Select Payment Option"></option>
                     <option value="creditcard">Credit Card</option>
                     <option value="sitebalance">Site Balance</option>
                 </select>
                 <span asp-validation-for="PaymentMethod" class="text-danger"></span>
             </div>
+            <span asp-validation-for="Creditcard" class="text-danger"></span>
             <div id="ifYes" style="display: none;">
                 <label asp-for="Creditcard" class="control-label">Credit Card Number</label>
                 <input asp-for="Creditcard" class="form-control" />
-                <span asp-validation-for="Creditcard" class="text-danger"></span>
+
             </div>
 
-                <p>Current Balance:@Model.CurrentBalance.ToString("C")</p>
-                <p>Total Cost:@Model.TotalCost.ToString("C")</p>
-                <div class="form-group">
-                    <input asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
-                </div>
+            <p>Current Balance:@Model.CurrentBalance.ToString("C")</p>
+            <p>Total Cost:@Model.TotalCost.ToString("C")</p>
+            <div class="form-group">
+                <input asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
+            </div>
         </form>
     </div>
 </div>

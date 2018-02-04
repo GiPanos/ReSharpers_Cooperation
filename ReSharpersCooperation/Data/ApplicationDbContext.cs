@@ -20,6 +20,7 @@ namespace ReSharpersCooperation.Data
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Wishlist_Item> Wishlist_Item { get; set; }
         public DbSet<TotalOrders> TotalOrders { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

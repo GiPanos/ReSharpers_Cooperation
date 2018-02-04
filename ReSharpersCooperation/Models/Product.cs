@@ -16,14 +16,19 @@ namespace ReSharpersCooperation.Models
         public decimal Price { get; set; }
         public int StockNo { get; set; }
         public int Rating { get; set; }
+        [UIHint("Bool")]
         public bool IsActive { get; set; }
+        [UIHint("Bool")]
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string ProductImage { get; set; }
+        [UIHint("Bool")]
         public bool IsFeatured { get; set; }
         public string ProductCategory { get; set; }
         public string UserName { get; set; }
+        [UIHint("Bool")]
+        public bool isPaid { get; set; }
 
 
     }

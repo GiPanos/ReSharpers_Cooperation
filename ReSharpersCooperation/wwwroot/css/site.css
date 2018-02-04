@@ -216,3 +216,12 @@ table.tbOrdersBody {
     table.tbOrdersBody td {
         width: 50%;
     }
+
+.fa-check-circle
+{
+    color:green;
+}
+.fa-times-circle
+{
+    color:red;
+}

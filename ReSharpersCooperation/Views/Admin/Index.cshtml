@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-responsive">
     <thead>
         <tr>
             <th>
@@ -32,6 +32,9 @@
             </th>
             <th>
                 Rating
+            </th>
+            <th>
+                Paid
             </th>
             <th>
                 Active
@@ -78,6 +81,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.isPaid)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsActive)

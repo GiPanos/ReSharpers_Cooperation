@@ -26,10 +26,10 @@ $.validator.methods.number = function (value, element) {
 
 //PAYMENT METHOD DETECTION BEGIN
 function yesnoCheck(that) {
-    if (that.value == "creditcard") {
+    if (that.value === "creditcard") {
         document.getElementById("ifYes").style.display = "block";
     } else {
         document.getElementById("ifYes").style.display = "none";
     }
 }
-//PAYMENT METHOD DETECTION END 
+//PAYMENT METHOD DETECTION END
