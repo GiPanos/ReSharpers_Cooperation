@@ -15,7 +15,6 @@ namespace ReSharpersCooperation.Models
         public int OrderId { get; set; }
         public int ProductNo { get; set; }
         public int Quantity{ get; set; }
-        public decimal TotalCost{ get; set; }
         public string UserName { get; set; }
 
 

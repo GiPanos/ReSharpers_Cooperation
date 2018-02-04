@@ -26,10 +26,9 @@ namespace ReSharpersCooperation.Models
         public string Country { get; set; }
         [Required(ErrorMessage = "You have to provide a zip code!")]
         public int Zip { get; set; }
-
         [BindNever]
         public bool Shipped { get; set; }
-
+        public decimal TotalCost { get; set; }
         public string UserName { get; set; }
 
 

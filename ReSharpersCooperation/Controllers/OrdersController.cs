@@ -75,8 +75,8 @@ namespace ReSharpersCooperation.Controllers
                             OrderStatusNo = 0,
                             Shipped = false,
                             UserName = user.UserName,
-                            Zip = order.Zip
-
+                            Zip = order.Zip,
+                            TotalCost = order.TotalCost
                         };
                         int neworderid = _ordersRepository.SaveOrder(neworder);
                         

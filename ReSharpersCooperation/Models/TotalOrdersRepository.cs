@@ -23,7 +23,7 @@ namespace ReSharpersCooperation.Models
 
         public void SaveOrder(Orders order, List<Cart_Item> cart)
         {
-            cart.ToList().ForEach(item => db.TotalOrders.Add(new TotalOrders{OrderId = order.OrderId, ProductNo = item.ProductNo, Quantity = item.Quantity, TotalCost = 0, UserName = item.UserName}));
+            cart.ToList().ForEach(item => db.TotalOrders.Add(new TotalOrders{OrderId = order.OrderId, ProductNo = item.ProductNo, Quantity = item.Quantity, UserName = item.UserName}));
             db.SaveChanges();
         }
         public void ShareProfits(List<string> members,string admin,decimal totalcost)
@@ -58,7 +58,7 @@ namespace ReSharpersCooperation.Models
             {
                 var product = db.Product.Single(x => x.ProductNo == item.ProductNo);
                 var order = db.Orders.Single(x => x.OrderId == item.OrderId);
-                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, item.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, username));
+                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, order.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, order.OrderName));
             }
             return totalordersVm;
         }
@@ -72,7 +72,7 @@ namespace ReSharpersCooperation.Models
             {
                 var product = db.Product.Single(x => x.ProductNo == item.ProductNo);
                 var order = db.Orders.Single(x => x.OrderId == item.OrderId);
-                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, item.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, order.UserName));
+                totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, order.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, order.OrderName));
             }
             return totalordersVm;
         }

@@ -15,8 +15,8 @@
                     <thead>
                     <tr>
                         <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
-                        <th>Total: </th>
-                        <th>Dispatch To: @item.Select(x => x.Username).First()</th>
+                        <th>Total: @item.Select(x => x.TotalCost).First()</th>
+                        <th>Dispatch To: @item.Select(x => x.OrderName).First()</th>
                         <th>Order # @item.Key</th>
                     </tr>
                     </thead>

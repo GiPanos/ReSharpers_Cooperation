@@ -10,23 +10,23 @@ namespace ReSharpersCooperation.Models.TotalOrdersViewModel
     {
 
         public DateTime OrderDate { get; set; }
-        public decimal Total { get; set; }
+        public decimal TotalCost { get; set; }
         [Key]
         public int OrderId { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
         public bool Shipped { get; set; }
-        public string Username { get; set; }
+        public string OrderName { get; set; }
 
-        public TotalOrdersViewModel(DateTime orderDate, decimal total, int orderId, string productName, int quantity, bool shipped, string username)
+        public TotalOrdersViewModel(DateTime orderDate, decimal totalcost, int orderId, string productName, int quantity, bool shipped, string ordername)
         {
             OrderDate = orderDate;
-            Total = total;
+            TotalCost = totalcost;
             OrderId = orderId;
             ProductName = productName;
             Quantity = quantity;
             Shipped = shipped;
-            Username = username;
+            OrderName = ordername;
         }
     }
 }
