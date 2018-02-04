@@ -6,58 +6,82 @@
 
 <h2>MyTransactions</h2>
 
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.SourceAccount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DestinationAccount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Amount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TransactionType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductNo)
-                </th>
+            <th>@Html.DisplayNameFor(model => model.TransactionNo)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.SourceAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DestinationAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductNo)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SourceAccount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DestinationAccount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductNo)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TransactionNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SourceAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DestinationAccount)
+                </td>
+                <td>
+                    @item.Amount.ToString("C")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                @if (item.OrderId != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderId)
+
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        N/A
+                    </td>
+                }
+                @if (item.ProductNo != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductNo)
+
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        N/A
+                    </td>
+                }
+            </tr>
+        }
     </tbody>
 </table>

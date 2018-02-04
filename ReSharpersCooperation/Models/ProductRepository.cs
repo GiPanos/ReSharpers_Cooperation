@@ -40,10 +40,11 @@ namespace ReSharpersCooperation.Models
         public Product DeleteProduct(int productNo)
         {
             Product prod = db.Product.FirstOrDefault(p => p.ProductNo == productNo);
-
+            prod.IsDeleted = true;
+            prod.IsActive = false;
             if (prod != null)
             {
-                db.Product.Remove(prod);
+                db.Product.Update(prod);
                 db.SaveChanges();
             }
 
@@ -119,7 +120,7 @@ namespace ReSharpersCooperation.Models
         }
         public List<Product> GetOfferedProducts (string username)
         {
-            return db.Product.Where(u => u.UserName == username).ToList();
+            return db.Product.Where(u => u.UserName == username && !u.IsDeleted).ToList();
             
         }
 

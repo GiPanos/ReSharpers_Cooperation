@@ -225,3 +225,10 @@ table.tbOrdersBody {
 {
     color:red;
 }
+
+/*GOOGLE MAPS CSS BEGIN*/
+    .map {
+            height: 300px;
+            width: 100%;
+        }
+/*GOOGLE MAPS CSS END*/

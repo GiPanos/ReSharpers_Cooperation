@@ -37,7 +37,6 @@ namespace ReSharpersCooperation.Controllers
             var user =await _userManager.GetUserAsync(User);
             var offeredproducts=_repository.GetOfferedProducts(user.UserName);
             return View(offeredproducts);
-            
         }
 
 
@@ -80,7 +79,8 @@ namespace ReSharpersCooperation.Controllers
                     fs.Flush();
                     fs.Close();
                 }
-
+               
+              
                 //Create new product according to user input
                 var newproduct = new Product
                 {
@@ -98,9 +98,10 @@ namespace ReSharpersCooperation.Controllers
                     StockNo = product.StockNo,
                     ProductCategory = product.ProductCategory,
                     UserName = await _userManager.GetUserNameAsync(user),
-                    isPaid = false
-                    
-                    
+                    isPaid = false,
+                    CatchType=product.CatchType,
+                    Latitude= product.Latitude/10000000,
+                    Longitude = product.Longitude/10000000
                 };
                 _repository.SaveProduct(newproduct);
                 return RedirectToAction(nameof(ViewOfferedProducts));

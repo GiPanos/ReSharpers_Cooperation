@@ -1,4 +1,5 @@
 ﻿@model IndexViewModel
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Profile";
     ViewData.AddActivePage(ManageNavPages.Index);
@@ -6,8 +7,15 @@
 
 <h4>@ViewData["Title"]</h4>
 @Html.Partial("_StatusMessage", Model.StatusMessage)
+
+
 <div class="row">
     <div class="col-md-6">
+        @if (User.IsInRole("Admin") || User.IsInRole("Member"))
+        {
+        <h4>Account Balance:@UserManager.Users.SingleOrDefault(u=>u.UserName==UserManager.GetUserName(User)).Balance.ToString("C")</h4>
+        }
+
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -17,17 +25,17 @@
             <div class="form-group">
                 <label asp-for="Email"></label>
                 @if (Model.IsEmailConfirmed)
-                {
-                    <div class="input-group">
-                        <input asp-for="Email" class="form-control" />
-                        <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
-                    </div>
-                }
-                else
-                {
+            {
+                <div class="input-group">
                     <input asp-for="Email" class="form-control" />
-                    <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
+                    <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                </div>
+        }
+        else
+        {
+            <input asp-for="Email" class="form-control" />
+            <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+    }
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
