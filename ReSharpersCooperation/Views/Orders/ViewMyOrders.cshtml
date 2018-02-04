@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IGrouping<int, ReSharpersCooperation.Models.TotalOrders>>
+﻿@model IEnumerable<IGrouping<int, ReSharpersCooperation.Models.TotalOrdersViewModel.TotalOrdersViewModel>>
 
 @{
     ViewData["Title"] = "Orders";
@@ -30,6 +30,7 @@
                         <tr>
                             <td>@order.ProductName</td>
                             <td>Quantity: @order.Quantity</td>
+                            <td>Shipped: @order.Shipped</td>
                         </tr>
                     }
                 </table>
