@@ -33,3 +33,31 @@ function yesnoCheck(that) {
     }
 }
 //PAYMENT METHOD DETECTION END
+
+//GOOGLE MAPS JS BEGIN
+
+var maps = [];
+var markers = [];
+function initMap() {
+    var $maps = $('.map');
+    $.each($maps, function (i, value) {
+        var spot = { lat: parseFloat($(value).attr('lat')), lng: parseFloat($(value).attr('lng')) };
+
+        var mapDivId = $(value).attr('id');
+
+        maps[mapDivId] = new google.maps.Map(document.getElementById(mapDivId), {
+            zoom: 10,
+            center: spot
+        });
+        markers[mapDivId] = new google.maps.Marker({
+            position: spot,
+            map: maps[mapDivId]
+        });
+    })
+}
+
+//GOOGLE MAPS JS END
+
+$('#long').rules('remove');
+
+

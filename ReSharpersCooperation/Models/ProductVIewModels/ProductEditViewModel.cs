@@ -29,7 +29,10 @@ namespace ReSharpersCooperation.Models
         public string UserName { get; set; }
         public bool FirstTime { get; set; }
         public bool isPaid { get; set; }
-        
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public string CatchType { get; set; }
+
 
     }
 }

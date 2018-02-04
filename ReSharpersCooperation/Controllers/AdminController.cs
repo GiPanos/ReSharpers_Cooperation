@@ -35,7 +35,7 @@ namespace ReSharpersCooperation.Controllers
 
         public ViewResult Index()
         {
-            return View(_repository.Products);
+            return View(_repository.Products.Where(p=>!p.IsDeleted));
         }
 
         public ViewResult AdminViewTotalOrders()
@@ -107,7 +107,10 @@ namespace ReSharpersCooperation.Controllers
                 ProductCategory = temp.ProductCategory,
                 ImageLink=temp.ProductImage,
                 UserName=temp.UserName,
-                isPaid=temp.isPaid
+                isPaid=temp.isPaid,
+                Longitude=temp.Longitude,
+                Latitude=temp.Latitude,
+                CatchType=temp.CatchType
             }
                 );
         }
@@ -139,9 +142,10 @@ namespace ReSharpersCooperation.Controllers
                     ProductName = product.ProductName,
                     StockNo = product.StockNo,
                     ProductCategory = product.ProductCategory,
-                    UserName=product.UserName
-                    
-
+                    UserName=product.UserName,
+                    Longitude=product.Longitude,
+                    Latitude=product.Latitude,
+                    CatchType=product.CatchType
                 };
                 if (product.FirstTime)
                 {

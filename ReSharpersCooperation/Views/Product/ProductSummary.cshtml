@@ -16,8 +16,14 @@
     </header>
     <div class="card-text card-body p-1">
         <div class="card-body row">
-            <img class="rounded"width="250" height="150" src="@Model.ProductImage" />
+            <img class="rounded" width="250" height="150" src="@Model.ProductImage" />
+            <iframe width="600"
+                    height="400"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=@Model.Latitude.ToString().Replace(',','.'),@Model.Longitude.ToString().Replace(',','.')&zoom=12" allowfullscreen></iframe>
             <p class="offset-3" style="float:right">@Model.ProductDesc</p>
+
+
         </div>
         <div style="float:right">@for(int i = 0; i < Model.Rating; i++) {
             <i class="fa fa-star"></i> 
