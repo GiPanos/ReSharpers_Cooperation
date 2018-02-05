@@ -23,13 +23,13 @@ namespace ReSharpersCooperation.Controllers
             return View(new ProductListViewModel
             {
                 Products = repository.Products
-                            .Where(p=>p.ProductCategory==category || category==null)
+                            .Where(p=>p.ProductCategory==category&&p.IsActive==true&&p.IsDeleted==false || category==null)
                             .Skip((productPage - 1) * PageSize)
                             .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
-                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category|| category==null).Count() / (double)PageSize)
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category && p.IsActive == true && p.IsDeleted == false || category==null).Count() / (double)PageSize)
                 },
                 CurrentCategory=category,
                 ListType=null,

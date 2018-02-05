@@ -22,8 +22,9 @@ namespace ReSharpersCooperation.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private TransactionRepository _transactionRepository;
+        private OrdersRepository _ordersRepository;
 
-        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrdersRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager,TransactionRepository transactionrepository)
+        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrdersRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager,TransactionRepository transactionrepository,OrdersRepository ordersRepository)
         {
             _repository = repository;
             _totalOrdersRepository = totalOrdersRepository;
@@ -31,6 +32,7 @@ namespace ReSharpersCooperation.Controllers
             _userManager = usermanager;
             _signInManager = signinmanager;
             _transactionRepository = transactionrepository;
+            _ordersRepository = ordersRepository;
         }
 
         public ViewResult Index()
@@ -290,6 +292,11 @@ namespace ReSharpersCooperation.Controllers
         public IActionResult Transactions()
         {
             return View(_transactionRepository.GetAllTransactions());
+        }
+        public RedirectToActionResult ShipThisOrder(int OrderId)
+        {
+            _ordersRepository.ShipThisOrder(OrderId);
+            return RedirectToAction(nameof(AdminViewTotalOrders));
         }
     }
 }

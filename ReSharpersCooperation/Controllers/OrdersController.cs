@@ -118,5 +118,8 @@ namespace ReSharpersCooperation.Controllers
             _cartItemRepo.Clear(user.UserName);
             return View();
         }
+
+
+        
     }
 }

@@ -13,29 +13,52 @@
             <td>
                 <table id="tbOrdersHead-admin" class="tbOrdersHead">
                     <thead>
-                    <tr>
-                        <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
-                        <th>Total: @item.Select(x => x.TotalCost).First()</th>
-                        <th>Dispatch To: @item.Select(x => x.OrderName).First()</th>
-                        <th>Order # @item.Key</th>
-                    </tr>
-                    </thead>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table class="tbOrdersBody table-hover">
-                    @foreach (var order in item)
-                    {
-                    <tr>
-                        <td>@order.ProductName</td>
-                        <td>Quantity: @order.Quantity</td>
-                        <td>Shipped: @order.Shipped</td>
-                    </tr>
-                    }
-                </table>
-            </td>
-        </tr>
-    </table>
-}
+                        <tr>
+                            <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
+                            <th>Total: @item.Select(x => x.TotalCost).First().ToString("C")</th>
+                            <th>Dispatch To: @item.Select(x => x.OrderName).First()</th>
+                            <th>Order # @item.Key</th>
+                            <th>
+                                @if (item.Select(x => x.Shipped).First())
+                                {
+                                <th>
+                                    <btn class=" btn-success btn-sm">Completed</btn>
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="ShipThisOrder" asp-route-OrderId=@item.Select(x => x.OrderId).First()>Ship This Order   </a>
+                                </th>
+                            }
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="tbOrdersBody table-hover">
+                        @foreach (var order in item)
+                        {
+                            <tr>
+                                <td>@order.ProductName</td>
+                                <td>Quantity: @order.Quantity</td>
+                                @*@if (order.Shipped)
+                                    {
+                                        <td><btn class=" btn-success btn-sm">Completed</btn></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a class="btn btn-primary" asp-controller="Admin" asp-action="ShipThisOrder" asp-route-OrderId=@order.OrderId>Ship This Order   </a></td>
+
+                                    }*@
+
+
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+    }
