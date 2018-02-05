@@ -20,18 +20,14 @@
                             @if (item.Select(x => x.Shipped).First())
                             {
                                 <th>
-                                
-                                    <btn class=" btn-success btn-sm">Completed</btn>
-                                
+                                    <a class="btn-success btn-sm">Completed</a>
                                 </th>
                             }
                             else
                             {
                                 <th>
-                                <btn class="btn-danger btn-sm">In Progress.</btn>
-                                </th>
-                            }
-
+                                    <a class="btn-danger btn-sm">In Progress</a>
+                                </th>}
                         </tr>
                     </thead>
                 </table>
@@ -45,7 +41,6 @@
                         <tr>
                             <td>@order.ProductName</td>
                             <td>Quantity: @order.Quantity</td>
-                            <td>Shipped: @order.Shipped</td>
                         </tr>
                     }
                 </table>
