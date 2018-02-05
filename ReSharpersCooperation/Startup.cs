@@ -80,6 +80,11 @@ namespace ReSharpersCooperation
                 defaults: new { Controller = "Product", Action = "List" }
                 );
                 routes.MapRoute(
+                name: "catchtype",
+                template: "Products/{catchType}/{productPage}/{category}",
+                defaults: new { Controller = "Product", Action = "List" }
+                );
+                routes.MapRoute(
                 name: "pagination",
                 template: "Products/{productPage}",
                 defaults: new { Controller = "Product", Action = "List" }
@@ -87,7 +92,7 @@ namespace ReSharpersCooperation
                 routes.MapRoute(
                     name: "cart",
                     template: "MyCart",
-                    defaults: new { Controller = "Cart", Action = "Index"}
+                    defaults: new { Controller = "Cart", Action = "Index" }
                 );
                 routes.MapRoute(
                     name: "wishlist",

@@ -1,11 +1,26 @@
-﻿@model List<string>
+﻿@model ReSharpersCooperation.Models.FiltersViewModel.FiltersViewModel
 
-<nav class="btn-group-vertical btn-block">
-    <a class="btn @(ViewBag.CurrentCategory == null ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="1">All</a>
-    @foreach (var cat in Model)
-    {
+<a class="btn btn-block @(ViewBag.CurrentCategory == null ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="1">All</a>
+<nav class="btn-group-vertical btn-block" id="accordionOne">
 
-        <a class="btn @(ViewBag.CurrentCategory == cat ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@cat" asp-route-productPage="1">@cat</a>
-    }
+    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseOne">Categories</a>
+    <div id="collapseOne" class="collapse-show @(ViewBag.CurrentCategory ==null||ViewBag.CurrentCatchType!=null ? "collapse" : "btn-secondary")  btn-block" data-parent="#accordionOne">
+        @foreach (var cat in Model.Categories)
+        {
+
+            <a class="btn @(ViewBag.CurrentCategory == cat ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@cat" asp-route-productPage="1">@cat</a>
+        }
+    </div>
+</nav>
+
+<nav class="btn-group-vertical btn-block" id="accordionTwo">
+    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseTwo">Catch Type</a>
+    <div id="collapseTwo" class="collapse-show @(ViewBag.CurrentCatchType ==null ? "collapse" : "btn-secondary") btn-block" data-parent="#accordionTwo">
+        @foreach (var type in Model.CatchTypes)
+        {
+
+            <a class="btn  @(ViewBag.CurrentCatchType == type ? "btn-warning" : "btn-secondary")" asp-route="catchtype" asp-route-category=null asp-route-catchType="@type" asp-route-productPage="1">@type</a>
+        }
+    </div>
 </nav>
 

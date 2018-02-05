@@ -28,7 +28,7 @@ namespace ReSharpersCooperation.Models
         }
         public void ShareProfits(List<string> members,string admin,decimal totalcost)
         {
-            decimal coefficient = 3M;
+            decimal coefficient = 2M;
             decimal membershare = (totalcost  / coefficient)/ (members.Count());
             foreach (var user in db.Users)
             {

@@ -84,7 +84,11 @@ namespace ReSharpersCooperation.Controllers
                         var members = await _userManager.GetUsersInRoleAsync("Member");
                         var membernames = members.Select(u => u.UserName).ToList();
                         _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
-                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", (order.TotalCost*2)/3, "Admin Order Share",null, neworderid);
+                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", (order.TotalCost/2), "Admin Order Share",null, neworderid);
+                        foreach (var mem in members)
+                        {
+                            _transactionRepository.RegisterTransaction(user.UserName, mem.UserName, (order.TotalCost / 2) / (members.Count()), "Member Order Share", null, neworderid);
+                        }
                         if (order.PaymentMethod == "sitebalance")
                         {
                             _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
