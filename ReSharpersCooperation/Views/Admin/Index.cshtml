@@ -10,109 +10,112 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-    <table class="table table-striped table-sm text-center">
-        <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Creator
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Stock
-                </th>
-                <th>
-                    Rating
-                </th>
-                <th>
-                    Paid
-                </th>
-                <th>
-                    Active
-                </th>
-                <th>
-                    Create Date
-                </th>
-                <th>
-                    Last Modified
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Featured
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(ModelItem => item.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductDesc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductCategory)
-                    </td>
-                    <td>
-                        @item.Price.ToString("C")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StockNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rating)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.isPaid)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsActive)
-                    </td>
-                    <td>
-                        @item.CreatedDate.ToString("dd/MM/yyyy")
-                    </td>
-                    <td>
-                        @item.ModifiedDate.ToString("dd/MM/yyyy")
-                    </td>
-                    <td>
-                        <img class="img-fluid" width="150" src="@item.ProductImage" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsFeatured)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" class="btn btn-primary btn-sm" asp-route-ProductNo="@item.ProductNo">Edit</a>
-                        <br />
-                        <a href="javascript:void(0)" class="btn btn-primary btn-sm details" productNo="@item.ProductNo">Details</a>
+<table class="table table-striped  table-sm text-center" id="productTable">
+    <thead class="thead-dark">
+        <tr>
+            <th onclick="sortTable(0)">
+                Name
+            </th>
+            <th onclick="sortTable(1)">
+                Creator
+            </th>
+            <th onclick="sortTable(2)">
+                Description
+            </th>
+            <th onclick="sortTable(3)">
+                Category
+            </th>
+            <th onclick="sortTable(4)">
+                Price
+            </th>
+            <th onclick="sortTable(5)">
+                Stock
+            </th>
+            <th onclick="sortTable(6)">
+                Rating
+            </th>
+            <th nclick="sortTable(7)">
+                Paid
+            </th>
+            <th nclick="sortTable(8)">
+                Active
+            </th>
+            <th onclick="sortTable(9)">
+                Create Date
+            </th>
+            <th onclick="sortTable(10)">
+                Last Modified
+            </th>
+            <th>
+                Image
+            </th>
+            <th nclick="sortTable(12)">
+                Featured
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr class="@(item.StockNo==0 ? "table-danger" : "")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCategory)
+                </td>
+                <td>
+                    @item.Price.ToString("C")
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @item.CreatedDate.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.ModifiedDate.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <img class="img-fluid" width="150" src="@item.ProductImage" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFeatured)
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <a asp-action="Edit" class="btn btn-primary btn-sm btn-block" asp-route-ProductNo="@item.ProductNo">Edit</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-block details " productNo="@item.ProductNo">Details</a>
                         <form asp-action="Delete" method="post">
                             <input type="hidden" name="ProductID" value="@item.ProductNo" />
-                            <button type="submit" class="btn btn-danger btn-sm">
+                            <button type="submit" class="btn btn-danger btn-sm btn-block">
                                 Delete
                             </button>
                         </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

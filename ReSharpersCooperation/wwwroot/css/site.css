@@ -241,3 +241,10 @@ table.tbOrdersBody {
     width: 100%;
 }
 /*GOOGLE MAPS CSS END*/
+
+/*PRODUCT TABLE CSS BEGIN*/
+
+#productTable th
+{
+    cursor:pointer;
+}
