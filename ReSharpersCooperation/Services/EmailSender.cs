@@ -23,6 +23,7 @@ namespace ReSharpersCooperation.Services
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
+            apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
