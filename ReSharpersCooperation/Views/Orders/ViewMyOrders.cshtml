@@ -4,7 +4,23 @@
     ViewData["Title"] = "Orders";
 }
 
-<h2 style="margin-bottom: 3%; text-align: center; text-decoration: underline">My Orders</h2>
+<div id="inline">
+    <div class="one"><h2>My Orders</h2></div>
+    <div class="two">
+        <div class="dropdown">
+            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Year
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @for (int i = 2018; i >= 2015; i--)
+                {
+                    <a asp-controller="Orders" asp-action="Search" asp-route-year="@i" class="dropdown-item">@i</a>
+                }
+                <a asp-controller="Orders" asp-action="Search" asp-route-year="" class="dropdown-item">All</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 @foreach (var item in Model)
 {

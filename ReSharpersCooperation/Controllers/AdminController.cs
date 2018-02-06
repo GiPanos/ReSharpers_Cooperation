@@ -298,5 +298,12 @@ namespace ReSharpersCooperation.Controllers
             _ordersRepository.ShipThisOrder(OrderId);
             return RedirectToAction(nameof(AdminViewTotalOrders));
         }
+
+        public ViewResult Search(string year)
+        {
+            var myorders = _totalOrdersRepository.ViewOrdersAsAdmin().ToList();
+            var searchresults = _totalOrdersRepository.SearchOrders(year, myorders).GroupBy(i => i.OrderId);
+            return View("AdminViewTotalOrders", searchresults);
+        }
     }
 }
