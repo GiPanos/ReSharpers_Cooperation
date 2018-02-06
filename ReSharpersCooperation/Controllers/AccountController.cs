@@ -14,6 +14,7 @@ using ReSharpersCooperation.Models;
 using ReSharpersCooperation.Models.AccountViewModels;
 using ReSharpersCooperation.Services;
 
+
 namespace ReSharpersCooperation.Controllers
 {
     [Authorize]
@@ -62,6 +63,18 @@ namespace ReSharpersCooperation.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                // Require the user to have a confirmed email before they can log on.
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    if (!await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError(string.Empty,
+                                      "Please confirm your account before you log in for the first time.");
+                        return View(model);
+                    }
+                }
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
@@ -235,7 +248,7 @@ namespace ReSharpersCooperation.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -247,7 +260,7 @@ namespace ReSharpersCooperation.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -388,8 +401,11 @@ namespace ReSharpersCooperation.Controllers
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                await _emailSender.SendEmailAsync(model.Email, $"Password Reset request for {user.Email} account - Resharpers e-shop",
+                   $"Dear {user.Email}, It appears that you have requested a password reset in your Resharpers e-shop account." +
+                   $"If you want to reset your password please click at the following link: <a href='{callbackUrl}'>Reset Password</a>" +
+                   $"If this password reset wasn't requested by you please don't respond to this email." +
+                   $"Kind regards,Resharpers e-shop Team");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 

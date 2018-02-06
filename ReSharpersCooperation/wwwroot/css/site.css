@@ -258,3 +258,10 @@ table.tbOrdersBody {
         width: 15%;
     }
 /*pg: END*/
+
+/*PRODUCT TABLE CSS BEGIN*/
+
+#productTable th
+{
+    cursor:pointer;
+}
