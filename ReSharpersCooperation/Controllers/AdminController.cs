@@ -68,6 +68,7 @@ namespace ReSharpersCooperation.Controllers
             var usertoapprove = await _userManager.FindByIdAsync(userid);
             var roleresult=await _userManager.AddToRoleAsync(usertoapprove, "Member");
             var updateresult=await _userManager.UpdateAsync(usertoapprove);
+            _userRepository.ApproveMember(userid);
             return RedirectToAction("Users");
         }
         public async Task<IActionResult> UnBan(string userid)

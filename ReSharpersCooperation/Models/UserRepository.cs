@@ -20,13 +20,16 @@ namespace ReSharpersCooperation.Models
             _userManager = usermanager;
         }
 
-        public async Task ApproveMember(string userid)
+        public void ApproveMember(string userid)
         {
             db.Users.SingleOrDefault(u => u.Id == userid).HasRequestedMember=false;
-            var user = db.Users.Single(u => u.Id == userid);
-            var wait = await _userManager.AddToRoleAsync(user, "Member");
             db.SaveChanges();
             
+        }
+        public void RequestMembership(string userid)
+        {
+            db.Users.SingleOrDefault(u => u.Id == userid).HasRequestedMember = true;
+            db.SaveChanges();
         }
     }
 }
