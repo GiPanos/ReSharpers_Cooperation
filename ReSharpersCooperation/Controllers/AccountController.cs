@@ -223,20 +223,30 @@ namespace ReSharpersCooperation.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Balance=0};
+                ApplicationUser user = null;
+                if (role == "Member")
+                {
+                     user = new ApplicationUser { UserName = model.Email, Email = model.Email, Balance = 0,HasRequestedMember=true};
+                }
+                else
+                {
+                     user = new ApplicationUser { UserName = model.Email, Email = model.Email, Balance = 0 };
+                }
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded && role=="Member")
                 {
-                    await _userManager.AddToRoleAsync(user, "Member");
-                    _logger.LogInformation("User created a new account with password.");
+                    
+                    //await _userManager.AddToRoleAsync(user, "Member");
+                    _logger.LogInformation("Account Created./nRequest for Approval to be upgraded to member account has been send to Admin.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Account Created./nRequest for Approval to be upgraded to member account has been send to Admin.");
                     return RedirectToLocal(returnUrl);
                 }
                 else if (result.Succeeded)
