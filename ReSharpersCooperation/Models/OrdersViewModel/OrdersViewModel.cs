@@ -27,8 +27,5 @@ namespace ReSharpersCooperation.Models.OrdersViewModel
         public string PaymentMethod { get; set; }
         public List<Product> OutOfStock { get; set; }
 
-        public OrdersViewModel()
-        {
-        }
     }
 }

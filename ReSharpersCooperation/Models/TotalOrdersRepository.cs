@@ -23,13 +23,13 @@ namespace ReSharpersCooperation.Models
 
         public void SaveOrder(Orders order, List<Cart_Item> cart)
         {
-            cart.ToList().ForEach(item => db.TotalOrders.Add(new TotalOrders{OrderId = order.OrderId, ProductNo = item.ProductNo, Quantity = item.Quantity, UserName = item.UserName}));
+            cart.ToList().ForEach(item => db.TotalOrders.Add(new TotalOrders { OrderId = order.OrderId, ProductNo = item.ProductNo, Quantity = item.Quantity, UserName = item.UserName }));
             db.SaveChanges();
         }
-        public void ShareProfits(List<string> members,string admin,decimal totalcost)
+        public void ShareProfits(List<string> members, string admin, decimal totalcost)
         {
             decimal coefficient = 2M;
-            decimal membershare = (totalcost  / coefficient)/ (members.Count());
+            decimal membershare = (totalcost / coefficient) / (members.Count());
             foreach (var user in db.Users)
             {
                 if (members.Contains(user.UserName))
@@ -43,7 +43,7 @@ namespace ReSharpersCooperation.Models
             }
             db.SaveChanges();
         }
-        public void RemoveMoney(string username,decimal totalcost)
+        public void RemoveMoney(string username, decimal totalcost)
         {
             db.Users.SingleOrDefault(u => u.UserName == username).Balance -= totalcost;
             db.SaveChanges();
@@ -75,6 +75,30 @@ namespace ReSharpersCooperation.Models
                 totalordersVm.Add(new TotalOrdersViewModel.TotalOrdersViewModel(order.OrderDate, order.TotalCost, item.OrderId, product.ProductName, item.Quantity, order.Shipped, order.OrderName));
             }
             return totalordersVm;
+        }
+
+        public List<TotalOrdersViewModel.TotalOrdersViewModel> SearchOrders(string year,
+            List<TotalOrdersViewModel.TotalOrdersViewModel> myorders)
+        {
+            var totalordersVm = new List<TotalOrdersViewModel.TotalOrdersViewModel>();
+
+            List<string> yearsList = new List<string> { "2018", "2017", "2016", "2015" };
+
+            foreach (var item in yearsList)
+            {
+                if (item == year)
+                {
+                    foreach (var item2 in myorders)
+                    {
+                        if (item2.OrderDate.Year == int.Parse(item))
+                        {
+                            totalordersVm.Add(item2);
+                        }
+                    }
+                    return totalordersVm;
+                }
+            }
+            return myorders;
         }
     }
 }
