@@ -1,0 +1,10 @@
+﻿@model List<string>
+
+<nav class="btn-group-vertical btn-block">
+    <a class="btn @(ViewBag.CurrentCategory == null ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="1">All</a>
+    @foreach (var type in Model)
+    {
+
+        <a class="btn @(ViewBag.CurrentCatchType == type ? "btn-warning" : "btn-secondary")" asp-route="catchtype" asp-route-catchType="@type" asp-route-productPage="1">@type</a>
+    }
+</nav>

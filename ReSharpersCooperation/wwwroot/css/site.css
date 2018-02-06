@@ -200,12 +200,22 @@ table.tbOrdersHead {
 }
 
     table.tbOrdersHead th {
-        width: 33%;
+        width: 25%;
     }
 
-#tbOrdersHead-admin.tbOrdersHead th{
-    width: 25%;
+        table.tbOrdersHead th.btn {
+            width: 31%;
+            text-align: center;
+        }
+
+#tbOrdersHead-admin.tbOrdersHead th {
+    width: 20%;
 }
+
+    #tbOrdersHead-admin.tbOrdersHead th.btn {
+        width: 31%;
+        text-align: center;
+    }
 
 table.tbOrdersBody {
     width: 100%;
@@ -214,21 +224,27 @@ table.tbOrdersBody {
 }
 
     table.tbOrdersBody td {
-        width: 33%;
+        width: 50%;
     }
 
-.fa-check-circle
-{
-    color:green;
+.fa-check-circle {
+    color: green;
 }
-.fa-times-circle
-{
-    color:red;
+
+.fa-times-circle {
+    color: red;
 }
 
 /*GOOGLE MAPS CSS BEGIN*/
-    .map {
-            height: 300px;
-            width: 100%;
-        }
+.map {
+    height: 300px;
+    width: 100%;
+}
 /*GOOGLE MAPS CSS END*/
+
+/*PRODUCT TABLE CSS BEGIN*/
+
+#productTable th
+{
+    cursor:pointer;
+}

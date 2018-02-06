@@ -23,6 +23,13 @@ namespace ReSharpersCooperation.Models
             return order.OrderId;
         }
 
+        public void ShipThisOrder(int orderid)
+        {
+            db.Orders.SingleOrDefault(o => o.OrderId == orderid).Shipped = true;
+            db.SaveChanges();
+
+        }
+
 
 
     }

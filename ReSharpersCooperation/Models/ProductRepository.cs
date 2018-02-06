@@ -55,6 +55,10 @@ namespace ReSharpersCooperation.Models
         {
             return db.Product.Select(p => p.ProductCategory).Distinct().OrderBy(c => c).ToList();
         }
+        public List<string> GetAllCatchTypes()
+        {
+            return db.Product.Select(p => p.CatchType).Distinct().OrderBy(c => c).ToList();
+        }
         public IEnumerable<Product> SearchProducts (string query,string type)
         {
 

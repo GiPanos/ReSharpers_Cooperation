@@ -15,8 +15,19 @@
                     <thead>
                         <tr>
                             <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
-                            <th>Total: @item.Select(x => x.TotalCost).First()</th>
+                            <th>Total: @item.Select(x => x.TotalCost).First().ToString("C")</th>
                             <th>Order # @item.Key</th>
+                            @if (item.Select(x => x.Shipped).First())
+                            {
+                                <th>
+                                    <a class="btn-success btn-sm">Completed</a>
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    <a class="btn-danger btn-sm">In Progress</a>
+                                </th>}
                         </tr>
                     </thead>
                 </table>
@@ -30,7 +41,6 @@
                         <tr>
                             <td>@order.ProductName</td>
                             <td>Quantity: @order.Quantity</td>
-                            <td>Shipped: @order.Shipped</td>
                         </tr>
                     }
                 </table>

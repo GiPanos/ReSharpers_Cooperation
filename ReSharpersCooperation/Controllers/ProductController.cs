@@ -17,19 +17,19 @@ namespace ReSharpersCooperation.Controllers
             repository = repo;
         }
 
-        public ViewResult List(string category=null,int productPage = 1)
+        public ViewResult List(string category=null,string catchType=null,int productPage = 1)
         {
             ViewBag.InCatalog = true;
             return View(new ProductListViewModel
             {
                 Products = repository.Products
-                            .Where(p=>p.ProductCategory==category || category==null)
+                            .Where(p=>p.ProductCategory==category&&p.IsActive==true&&p.IsDeleted==false || category==null||p.CatchType==catchType&&p.IsActive&&p.IsDeleted==false)
                             .Skip((productPage - 1) * PageSize)
                             .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
-                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category|| category==null).Count() / (double)PageSize)
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category && p.IsActive == true && p.IsDeleted == false || category==null || p.CatchType == catchType && p.IsActive && p.IsDeleted == false).Count() / (double)PageSize)
                 },
                 CurrentCategory=category,
                 ListType=null,
