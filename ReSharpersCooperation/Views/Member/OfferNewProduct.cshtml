@@ -21,15 +21,19 @@
             <input type="hidden" id="long" asp-for="Longitude" value="" />
             <input type="hidden" id="lat" asp-for="Latitude" value="" />
             <button class="btn btn-primary" onclick="getLocation()">Verify Your Location</button>
+            <div id="x"></div>
             <script type="text/javascript">
                 var lg = document.getElementById("long");
                 var lt = document.getElementById("lat");
                 function getLocation() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(showPosition);
-                    } else {
-                        x.innerHTML = "Geolocation is not supported by this browser.";
-                    }
+                    
+                    var position = navigator.geolocation.getCurrentPosition(function (position) {
+                        var lg1 = position.coords.longitude.toFixed(7);
+                        var lt1 = position.coords.latitude.toFixed(7);
+                        var x = document.getElementById("x"); 
+                        x.innerHTML = `<iframe width="600" height="400" frameborder="0" style="border:0"
+                    src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
+                    });   
                 }
                 function showPosition(position) {
                     lg.value = position.coords.longitude.toFixed(7);

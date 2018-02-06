@@ -76,6 +76,7 @@ namespace ReSharpersCooperation.Controllers
             var usertounban = await _userManager.FindByIdAsync(userid);
             await _userManager.SetLockoutEndDateAsync(usertounban,null);
             return RedirectToAction("Users");
+            
         }
 
 
