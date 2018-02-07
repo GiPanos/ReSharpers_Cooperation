@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Create a new Client account.</h4>
-            <p>(Register as Client if you are only interested in visiting and buying from our e-shop)</p>
+            <p class="small">(Register as Client if you are only interested in visiting and buying from our e-shop)</p>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -33,7 +33,7 @@
     <div class="col-md-4">
         <form asp-route-role="Member" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Create a new Member account.</h4>
-            <p>(Member's account is only for product providers and requires admin approval)</p>
+            <p class="small">(Member's account is only for product providers and requires admin approval)</p>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">

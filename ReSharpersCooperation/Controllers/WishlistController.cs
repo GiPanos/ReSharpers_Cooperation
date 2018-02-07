@@ -43,7 +43,7 @@ namespace ReSharpersCooperation.Controllers
                    
                     if (item.ProductNo == product.ProductNo)
                     {
-                        userwishlist.Add(new WishlistSummaryViewModel(product.ProductName, product.Price, product.ProductImage, product.ProductNo));
+                        userwishlist.Add(new WishlistSummaryViewModel(product.ProductName, product.Price, product.ProductImage, product.ProductNo, product.StockNo));
                         itemSum++;
                     }
                     
