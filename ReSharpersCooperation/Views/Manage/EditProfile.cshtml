@@ -1,0 +1,40 @@
+﻿@model ReSharpersCooperation.Models.UserProfileEditViewModel
+
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+<h2>Edit Your Profile</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <img width="50" height="50" src="@Model.ImgPath" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="UserName" class="form-control" />
+
+            <div class="text-danger font-weight-bold">Η Φωτογραφία πρέπει να έχει μέγεθος εως 1 MB.</div>
+            <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
+            <div class="form-group">
+                <label class="control-label">Φωτογραφία</label>
+                <input name="ProfilePic" type="file" class="form-control" />
+                <span asp-validation-for="ProfilePic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
