@@ -1,36 +1,35 @@
 ﻿
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Admin Panel";
 }
 
-<h1 class="text-center">Admin Panel</h1>
-<br />
-<br />
-<br />
-<br />
+<div id="inline">
+    <div class="one"><h2>Admin Panel</h2></div>
+</div>
+
 <div class="row">
     <a asp-controller="Admin" asp-action="Index" class="card col-3">
-        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <img class="card-img-top" src="~/images/Admin/Admin_Home_Products.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text text-center">View All Shop's Products.</p>
+            <p class="card-text text-center" style="font-weight: bold">View All Shop's Products.</p>
         </div>
     </a>
     <a asp-controller="Admin" asp-action="AdminViewTotalOrders" class="card col-3">
-        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <img class="card-img-top" src="~/images/Admin/Admin_Home_Orders.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text text-center">View all Orders.</p>
+            <p class="card-text text-center" style="font-weight: bold">View all Orders.</p>
         </div>
     </a>
     <a asp-controller="Admin" asp-action="Transactions"class="card col-3">
-        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <img class="card-img-top" src="~/images/Admin/Admin_Home_Transactions.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text text-center">View all Transactions.</p>
+            <p class="card-text text-center" style="font-weight: bold">View all Transactions.</p>
         </div>
     </a>
     <a asp-controller="Admin" asp-action="Users" class="card col-3">
-        <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
+        <img class="card-img-top" src="~/images/Admin/Admin_Home_Users.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text text-center">View all Users.</p>
+            <p class="card-text text-center" style="font-weight: bold">View all Users.</p>
         </div>
     </a>
 </div>

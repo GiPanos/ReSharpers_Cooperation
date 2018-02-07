@@ -4,11 +4,12 @@
     ViewData["Title"] = "Users";
 }
 
-<h2>Users</h2>
+<div id="inline">
+    <div class="one"><h2>Users</h2></div>
+</div>
 
-
-<table class="table">
-    <thead>
+<table class="table  table-hover">
+    <thead style="background-color: #b2e3f9;">
         <tr>
             <th>
                 UserName
@@ -33,7 +34,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody  style="background-color: #edf8fe; font-weight: 500;">
 
         @foreach (var item in Model.Users)
         {
@@ -57,12 +58,10 @@
                 @item.Role
                 @if (item.User.HasRequestedMember)
                 {
-                    <a class="btn btn-primary"asp-controller="Admin" asp-action="ApproveMember" asp-route-userid="@item.User.Id">Approve Member</a>
-
+                    <a class="btn btn-primary" asp-controller="Admin" asp-action="ApproveMember" asp-route-userid="@item.User.Id">Approve As Member</a>
                 }
             </td>
             <td>
-        
                 @if (item.User.LockoutEnd == null)
                 {
                 <a asp-action="Ban" class="btn btn-danger btn-sm" asp-route-userid="@item.User.Id">Ban</a>
@@ -71,9 +70,6 @@
                 {
                 <a asp-action="UnBan" class="btn btn-danger btn-sm" asp-route-userid="@item.User.Id">UnBan</a>
                 }
-
-
-
             </td>
         </tr>
         }
