@@ -5,49 +5,49 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
+<div class="row"  style="background-image: url(/images/Background/bg.jpg);">
+    <div class="col-md-4" style="background-color: #056675e6">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Create a new Client account.</h4>
             <p>(Register as Client if you are only interested in visiting and buying from our e-shop)</p>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
+                <label style="color: black; font-weight: 500" asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password"></label>
+                <label style="color: black; font-weight: 500"  asp-for="Password"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
+                <label style="color: black; font-weight: 500" asp-for="ConfirmPassword"></label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="background-color: #056675e6">
         <form asp-route-role="Member" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Create a new Member account.</h4>
             <p>(Member's account is only for product providers and requires admin approval)</p>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
+                <label style="color: black; font-weight: 500" asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password"></label>
+                <label style="color: black; font-weight: 500" asp-for="Password"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
+                <label style="color: black; font-weight: 500" asp-for="ConfirmPassword"></label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>

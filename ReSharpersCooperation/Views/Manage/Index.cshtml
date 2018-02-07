@@ -9,8 +9,8 @@
 @Html.Partial("_StatusMessage", Model.StatusMessage)
 
 
-<div class="row">
-    <div class="col-md-6">
+<div class="row" style="background-image: url(/images/Background/bg.jpg);">
+    <div class="col-md-6" class="col-md-4" style="background-color: #056675e6;">
         @if (User.IsInRole("Admin") || User.IsInRole("Member"))
         {
         <h4>Account Balance:@UserManager.Users.SingleOrDefault(u=>u.UserName==UserManager.GetUserName(User)).Balance.ToString("C")</h4>
