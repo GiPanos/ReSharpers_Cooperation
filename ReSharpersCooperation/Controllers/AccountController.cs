@@ -405,7 +405,7 @@ namespace ReSharpersCooperation.Controllers
                    $"Dear {user.Email}, It appears that you have requested a password reset in your Resharpers e-shop account." +
                    $"If you want to reset your password please click at the following link: <a href='{callbackUrl}'>Reset Password</a>" +
                    $"If this password reset wasn't requested by you please don't respond to this email." +
-                   $"Kind regards,Resharpers e-shop Team");
+                   $" Kind regards,Resharpers e-shop Team");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
