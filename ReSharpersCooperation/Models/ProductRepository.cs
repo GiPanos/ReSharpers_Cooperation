@@ -127,6 +127,10 @@ namespace ReSharpersCooperation.Models
             return db.Product.Where(u => u.UserName == username && !u.IsDeleted).ToList();
             
         }
+        public List<string> GetAllLocations()
+        {
+            return db.Product.Select(l => l.Location).Distinct().OrderBy(l => l).ToList();
+        }
 
     }
 }

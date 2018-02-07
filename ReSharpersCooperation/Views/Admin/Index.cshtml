@@ -2,17 +2,16 @@
 @inject WishlistItemRepository wishlistRepo
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Products";
 }
 
-<h2>Index</h2>
+<div id="inline">
+    <div class="one"><h2>All Products</h2></div>
+    <div class="two" style="font-weight: 900;"><a asp-action="Create">Create New</a></div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<table class="table table-striped  table-sm text-center" id="productTable">
-    <thead class="thead-dark">
+<table class="table table-hover  table-sm text-center" id="productTable">
+    <thead style="background-color: #b2e3f9;">
         <tr>
             <th onclick="sortTable(0)">
                 Name
@@ -56,7 +55,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: #edf8fe; font-weight: 500;">
         @foreach (var item in Model)
         {
 

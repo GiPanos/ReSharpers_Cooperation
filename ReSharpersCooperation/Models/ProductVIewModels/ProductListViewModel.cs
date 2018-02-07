@@ -9,6 +9,8 @@ namespace ReSharpersCooperation.Models
         public string CurrentCategory { get; set; }
         public string ListType { get; set; }
         public string Query { get; set; }
+        public string CurrentLocation { get; set; }
+        public string CurrentCatchType { get; set; }
     }
     
 }

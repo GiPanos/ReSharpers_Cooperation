@@ -209,6 +209,7 @@ table.tbOrdersHead {
         }
 
 #tbOrdersHead-admin.tbOrdersHead th {
+    background-color: #b2e3f9;
     width: 20%;
 }
 
@@ -261,12 +262,26 @@ table.tbOrdersBody {
 
 /*PRODUCT TABLE CSS BEGIN*/
 
-#productTable th
-{
-    cursor:pointer;
+#productTable th {
+    cursor: pointer;
 }
 
-/*pg: pg: style about first paze*/
-.card-body.div {
+/*pg: style*/
+#inline {
+    padding-top: 2%;
 }
+
+    #inline .one {
+        text-align: left;
+    }
+
+        #inline .one h2 {
+            font-weight: 700;
+            text-decoration: underline;
+            color: #117a8b;
+        }
+
+    #inline .two {
+        text-align: center;
+    }
 /*pg: END*/

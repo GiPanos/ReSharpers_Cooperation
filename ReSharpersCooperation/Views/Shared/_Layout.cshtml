@@ -19,7 +19,7 @@
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark ">
-        <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="List">ReSharpersCooperation</a>
+        <a class="navbar-brand" href="/">ReSharpersCooperation</a>
         <form asp-controller="Product" asp-action="Search" class="form-inline my-2 my-lg-0 ">
             <div class="input-group">
                 <div class="input-group-prepend search-panel">
@@ -43,12 +43,12 @@
 
         @await Html.PartialAsync("_LoginPartial")
     </nav>
-    <section class="container-fluid" style="background-image: url(/images/Background/bg.jpg)">
+    <section class="container-fluid" >
 
         @RenderBody()
 
     </section>
-    <div class="container-fluid" id="footerr">
+    <div class="container-fluid " id="footerr">
         <footer class="footer-bs">
             <div class="row">
                 <div class="col-md-3 footer-brand animated fadeInLeft">

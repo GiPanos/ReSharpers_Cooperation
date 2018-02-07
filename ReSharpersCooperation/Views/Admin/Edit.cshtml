@@ -81,7 +81,7 @@ else
             </div>
             <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
             <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
-            <img src="@Model.ImageLink" />
+            <img style="width: 100%; height: 50%"src="@Model.ImageLink" />
 
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>

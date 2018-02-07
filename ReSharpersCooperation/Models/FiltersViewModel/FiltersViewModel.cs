@@ -9,5 +9,6 @@ namespace ReSharpersCooperation.Models.FiltersViewModel
     {
         public List<string> Categories { get; set; }
         public List<string> CatchTypes { get; set; }
+        public List<string> Locations { get; set; }
     }
 }

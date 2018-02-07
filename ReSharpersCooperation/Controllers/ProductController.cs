@@ -17,23 +17,86 @@ namespace ReSharpersCooperation.Controllers
             repository = repo;
         }
 
-        public ViewResult List(string category=null,string catchType=null,int productPage = 1)
+        public ViewResult List(int productPage = 1)
         {
             ViewBag.InCatalog = true;
             return View(new ProductListViewModel
             {
                 Products = repository.Products
-                            .Where(p=>p.ProductCategory==category&&p.IsActive==true&&p.IsDeleted==false || category==null||p.CatchType==catchType&&p.IsActive&&p.IsDeleted==false)
+                            .Where(p =>  p.IsActive == true && p.IsDeleted == false )
                             .Skip((productPage - 1) * PageSize)
                             .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
-                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=>p.ProductCategory==category && p.IsActive == true && p.IsDeleted == false || category==null || p.CatchType == catchType && p.IsActive && p.IsDeleted == false).Count() / (double)PageSize)
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p=> p.IsActive == true && p.IsDeleted == false ).Count() / (double)PageSize)
                 },
-                CurrentCategory=category,
+                CurrentLocation = null,
+                CurrentCategory=null,
                 ListType=null,
                 Query=null
+            });
+        }
+
+        public ViewResult ListCategory(string category, int productPage=1)
+        {
+            ViewBag.InCatalog = true;
+            return View("List", new ProductListViewModel
+            {
+                Products = repository.Products
+                            .Where(p => p.ProductCategory == category && p.IsActive == true && p.IsDeleted == false)
+                            .Skip((productPage - 1) * PageSize)
+                            .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p => p.ProductCategory == category && p.IsActive == true && p.IsDeleted == false).Count() / (double)PageSize)
+                },
+                CurrentCategory = category,
+                CurrentLocation = null,
+                ListType = null,
+                Query = null
+            });
+        }
+
+        public ViewResult ListLocation(string location, int productPage = 1)
+        {
+            ViewBag.InCatalog = true;
+            return View("List",new ProductListViewModel
+            {
+                Products = repository.Products
+                            .Where(p => p.Location == location && p.IsActive == true && p.IsDeleted == false)
+                            .Skip((productPage - 1) * PageSize)
+                            .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p => p.Location == location && p.IsActive == true && p.IsDeleted == false).Count() / (double)PageSize)
+                },
+                CurrentLocation = location,
+                ListType = null,
+                Query = null
+            });
+        }
+        public ViewResult ListCatchType(string catchtype, int productPage = 1)
+        {
+            ViewBag.InCatalog = true;
+            return View("List", new ProductListViewModel
+            {
+                Products = repository.Products
+                            .Where(p => p.CatchType ==catchtype && p.IsActive == true && p.IsDeleted == false)
+                            .Skip((productPage - 1) * PageSize)
+                            .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    TotalPages = (int)Math.Ceiling((double)repository.Products.Where(p => p.CatchType==catchtype && p.IsActive == true && p.IsDeleted == false).Count() / (double)PageSize)
+                },
+                CurrentLocation = null,
+                ListType = null,
+                Query = null,
+                CurrentCatchType=catchtype
+                
             });
         }
         public ViewResult Search(string query,string type,int productPage=1)

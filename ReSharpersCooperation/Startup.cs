@@ -50,6 +50,7 @@ namespace ReSharpersCooperation
             services.AddTransient<TotalOrdersRepository>();
             services.AddTransient<TransactionRepository>();
             services.AddTransient<UserRepository>();
+            services.AddTransient<UserProfileRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();
@@ -80,15 +81,25 @@ namespace ReSharpersCooperation
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                name: "category",
-                template: "Products/{category}/{productPage}",
-                defaults: new { Controller = "Product", Action = "List" }
+                name: "location",
+                template: "Products/{Location}/{productPage}",
+                defaults: new { Controller = "Product", Action = "ListLocation" }
                 );
                 routes.MapRoute(
                 name: "catchtype",
-                template: "Products/{catchType}/{productPage}/{category}",
-                defaults: new { Controller = "Product", Action = "List" }
+                template: "Products/CatchType/{CatchType}/{productPage}",
+                defaults: new { Controller = "Product", Action = "ListCatchType" }
                 );
+                routes.MapRoute(
+                name: "category",
+                template: "Products/Category/{Category}/{productPage}",
+                defaults: new { Controller = "Product", Action = "ListCategory" }
+                );
+                //routes.MapRoute(
+                //name: "catchtype",
+                //template: "Products/{catchType}/{productPage}/{category}",
+                //defaults: new { Controller = "Product", Action = "List" }
+                //);
                 routes.MapRoute(
                 name: "pagination",
                 template: "Products/{productPage}",

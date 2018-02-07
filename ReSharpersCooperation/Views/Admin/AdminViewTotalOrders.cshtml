@@ -8,7 +8,7 @@
     <div class="one"><h2>Total Orders</h2></div>
     <div class="two">
         <div class="dropdown">
-            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Year
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -27,7 +27,7 @@
     <table class="tborders">
         <tr>
             <td>
-                <table id="tbOrdersHead-admin" class="tbOrdersHead">
+                <table id="tbOrdersHead-admin" class="tbOrdersHead" style="background-color: #b2e3f9;">
                     <thead>
                         <tr>
                             <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
@@ -54,7 +54,7 @@
         </tr>
         <tr>
             <td>
-                <table class="tbOrdersBody table-hover">
+                <table class="tbOrdersBody table-hover" style="background-color: #edf8fe; font-weight: bold;">
                     @foreach (var order in item)
                     {
                         <tr>

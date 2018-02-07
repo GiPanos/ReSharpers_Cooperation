@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,6 +28,8 @@ namespace ReSharpersCooperation.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private IHostingEnvironment _hostingEnvironment;
+        private readonly UserProfileRepository _userProfileRepository;
 
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
@@ -33,13 +38,17 @@ namespace ReSharpersCooperation.Controllers
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IHostingEnvironment hostingEnvironment,
+          UserProfileRepository userProfileRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            _hostingEnvironment = hostingEnvironment;
+            _userProfileRepository = userProfileRepository;
         }
 
         [TempData]
@@ -465,42 +474,101 @@ namespace ReSharpersCooperation.Controllers
             return View(model);
         }
 
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
+        public async Task<IActionResult> EditProfile()
         {
-            foreach (var error in result.Errors)
+            var user = await _userManager.GetUserAsync(User);
+            return View(new UserProfileEditViewModel
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                UserName = user.UserName,
+                Name = _userProfileRepository.GetName(user.UserName),
+                ImgPath = _userProfileRepository.GetProfilePic(user.UserName)
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(UserProfileEditViewModel profile)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            //case Image is too large
+            if (profile.ProfilePic.Length > 1000000)
+            {
+                ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
+                return View(profile);
+            }
+            if (ModelState.IsValid)
+            {
+                //folowing code takes image and stores it to wwwroot and stores image link to database
+                long size = 0;
+                var filename = ContentDispositionHeaderValue
+                    .Parse(profile.ProfilePic.ContentDisposition)
+                    .FileName
+                    .Trim('"');
+                var lastchars = filename.TakeLast(4);
+                string suffix = "";
+                foreach (var item in lastchars)
+                {
+                    suffix += item;
+                }
+                filename = _hostingEnvironment.WebRootPath + $@"\images\Profiles\{profile.UserName}{suffix}";
+                size += profile.ProfilePic.Length;
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    profile.ProfilePic.CopyTo(fs);
+                    fs.Flush();
+                    fs.Close();
+                }
+                var newprofile = new UserProfile
+                {
+                    ImgPath = $@"\images\Profiles\{profile.UserName}{suffix}",
+                    Name = profile.Name,
+                    UserName = profile.UserName
+                };
+                _userProfileRepository.EditUserProfile(newprofile);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(profile);
             }
         }
 
-        private string FormatKey(string unformattedKey)
-        {
-            var result = new StringBuilder();
-            int currentPosition = 0;
-            while (currentPosition + 4 < unformattedKey.Length)
+
+            #region Helpers
+
+            private void AddErrors(IdentityResult result)
             {
-                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
-                currentPosition += 4;
-            }
-            if (currentPosition < unformattedKey.Length)
-            {
-                result.Append(unformattedKey.Substring(currentPosition));
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
-            return result.ToString().ToLowerInvariant();
-        }
+            private string FormatKey(string unformattedKey)
+            {
+                var result = new StringBuilder();
+                int currentPosition = 0;
+                while (currentPosition + 4 < unformattedKey.Length)
+                {
+                    result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
+                    currentPosition += 4;
+                }
+                if (currentPosition < unformattedKey.Length)
+                {
+                    result.Append(unformattedKey.Substring(currentPosition));
+                }
 
-        private string GenerateQrCodeUri(string email, string unformattedKey)
-        {
-            return string.Format(
-                AuthenicatorUriFormat,
-                _urlEncoder.Encode("ReSharpersCooperation"),
-                _urlEncoder.Encode(email),
-                unformattedKey);
-        }
+                return result.ToString().ToLowerInvariant();
+            }
 
-        #endregion
-    }
-}
+            private string GenerateQrCodeUri(string email, string unformattedKey)
+            {
+                return string.Format(
+                    AuthenicatorUriFormat,
+                    _urlEncoder.Encode("ReSharpersCooperation"),
+                    _urlEncoder.Encode(email),
+                    unformattedKey);
+            }
+
+            #endregion
+        }
+    } 
