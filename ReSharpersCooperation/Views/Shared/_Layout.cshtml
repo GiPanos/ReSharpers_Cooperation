@@ -43,23 +43,17 @@
 
         @await Html.PartialAsync("_LoginPartial")
     </nav>
-    <br />
-    <br />
-
-    <section class="container-fluid">
+    <section class="container-fluid" style="background-image: url(/images/Background/bg.jpg)">
 
         @RenderBody()
 
     </section>
-    <br />
-    <br />
-
     <div class="container-fluid" id="footerr">
         <footer class="footer-bs">
             <div class="row">
                 <div class="col-md-3 footer-brand animated fadeInLeft">
                     <h2>ReSharpers Cooperation</h2>
-                    <p>  Some Words</p>
+                    <p> Some Words</p>
                     <p>© 2018 ReSharpers Cooperation </p>
                 </div>
                 <div class="col-md-4 footer-nav animated fadeInUp">
@@ -138,6 +132,6 @@
         </script>
     </environment>
     @RenderSection("Scripts", required: false)
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

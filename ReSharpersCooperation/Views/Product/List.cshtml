@@ -5,12 +5,13 @@
     ViewData["Title"] = "List";
 }
 <div class="row">
-    <aside class="col-sm-3" id="Filters">
-        @await Component.InvokeAsync("Filters")
+    <aside class="col-sm-2" id="Filters">
+        <div style="background-image: url(/images/Background/logo.jpg); height: 10%; width: 100%; background-repeat: no-repeat; background-size: contain; background-position: center;"></div>
+        <div style="margin-top: 20%">
+            <div>@await Component.InvokeAsync("Filters")</div>
+        </div>
     </aside>
-    <main class="col-sm-9">
-        <h2>Cooperation Products</h2>
-
+    <main class="col-sm-10">
         @foreach (var p in Model.Products)
         {
             if (p.IsActive)
@@ -22,11 +23,11 @@
         <nav class="btn-group">
             @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
             {
-                @if (Model.CurrentCategory == null && Model.ListType==null)
+                @if (Model.CurrentCategory == null && Model.ListType == null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
                 }
-                else if(Model.CurrentCategory!=null && Model.ListType==null)
+                else if (Model.CurrentCategory != null && Model.ListType == null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
                 }
