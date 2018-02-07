@@ -27,7 +27,7 @@
     <table class="tborders">
         <tr>
             <td>
-                <table class="tbOrdersHead">
+                <table class="tbOrdersHead" style="background-color: #b2e3f9">
                     <thead>
                         <tr>
                             <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <td>
-                <table class="tbOrdersBody table-hover">
+                <table class="tbOrdersBody table-hover" style="background-color: #edf8fe; font-weight: bold;">
                     @foreach (var order in item)
                     {
                         <tr>

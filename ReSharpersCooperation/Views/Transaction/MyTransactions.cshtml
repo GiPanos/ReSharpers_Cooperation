@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<ReSharpersCooperation.Data.Transaction>
 
 @{
-    ViewData["Title"] = "MyTransactions";
+    ViewData["Title"] = "My Transactions";
 }
 
-<h2>MyTransactions</h2>
+<div id="inline">
+    <div class="one"><h2>My Transactions</h2></div>
+</div>
 
-<table class="table text-center">
-    <thead>
+<table class="table table-hover">
+    <thead style="background-color: #b2e3f9;">
         <tr>
             <th>@Html.DisplayNameFor(model => model.TransactionNo)</th>
             <th>
@@ -31,10 +33,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ProductNo)
             </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: #edf8fe; font-weight: 500;">
         @foreach (var item in Model)
         {
             <tr>

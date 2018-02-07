@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<ReSharpersCooperation.Data.Transaction>
 
 @{
-    ViewData["Title"] = "Transactions";
+    ViewData["Title"] = "All Transactions";
 }
 
-<h2>Transactions</h2>
+<div id="inline">
+    <div class="one"><h2>All Transactions</h2></div>
+</div>
 
-
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead style="background-color: #b2e3f9;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.SourceAccount)
@@ -33,7 +34,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: #edf8fe; font-weight: 500;">
         @foreach (var item in Model)
         {
             <tr>

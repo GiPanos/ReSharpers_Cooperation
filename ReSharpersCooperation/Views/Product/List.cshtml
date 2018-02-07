@@ -4,10 +4,12 @@
 @{
     ViewData["Title"] = "List";
 }
-<div class="row">
+<div class="row" style="background-image: url(/images/Background/bg.jpg)">
     <aside class="col-sm-2" id="Filters">
-        <div style="background-image: url(/images/Background/logo.jpg); height: 10%; width: 100%; background-repeat: no-repeat; background-size: contain; background-position: center;"></div>
-        <div style="margin-top: 20%">
+        <div style="text-align: -webkit-center;">
+            <div style="background-image: url(/images/Background/logo.jpg); background-repeat: no-repeat; background-position: center; background-size: 100%; width: 12em; height: 13em"></div>
+        </div>
+        <div>
             <div>@await Component.InvokeAsync("Filters")</div>
         </div>
     </aside>
