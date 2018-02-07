@@ -101,7 +101,8 @@ namespace ReSharpersCooperation.Controllers
                     isPaid = false,
                     CatchType=product.CatchType,
                     Latitude= product.Latitude/10000000,
-                    Longitude = product.Longitude/10000000
+                    Longitude = product.Longitude/10000000,
+                    Location = product.Location
                 };
                 _repository.SaveProduct(newproduct);
                 return RedirectToAction(nameof(ViewOfferedProducts));
