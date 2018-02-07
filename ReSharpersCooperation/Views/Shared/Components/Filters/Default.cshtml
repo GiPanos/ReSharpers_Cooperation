@@ -19,7 +19,17 @@
         @foreach (var type in Model.CatchTypes)
         {
 
-            <a class="btn  @(ViewBag.CurrentCatchType == type ? "btn-warning" : "btn-secondary")" asp-route="catchtype" asp-route-category=null asp-route-catchType="@type" asp-route-productPage="1">@type</a>
+            <a class="btn  @(ViewBag.CurrentCatchType == type ? "btn-warning" : "btn-secondary")" asp-route="catchtype"  asp-route-catchtype="@type" asp-route-productPage="1">@type</a>
+        }
+    </div>
+</nav>
+<nav class="btn-group-vertical btn-block" id="accordionThree">
+    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseThree">Location</a>
+    <div id="collapseThree" class="collapse-show @(ViewBag.CurrentLocation ==null ? "collapse" : "btn-secondary") btn-block" data-parent="#accordionThree">
+        @foreach (var type in Model.Locations)
+        {
+
+            <a class="btn  @(ViewBag.CurrentLocation == type ? "btn-warning" : "btn-secondary")" asp-route="location"  asp-route-location="@type" asp-route-productPage="1">@type</a>
         }
     </div>
 </nav>
