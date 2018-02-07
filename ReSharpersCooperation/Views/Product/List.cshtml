@@ -25,13 +25,22 @@
         <nav class="btn-group">
             @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
             {
-                @if (Model.CurrentCategory == null && Model.ListType == null)
+                @if (Model.CurrentCategory == null && Model.ListType == null && Model.CurrentLocation == null && Model.CurrentCatchType == null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="@i">@i</a>
                 }
                 else if (Model.CurrentCategory != null && Model.ListType == null)
                 {
                     <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@Model.CurrentCategory" asp-route-productPage="@i">@i</a>
+                }
+                else if (Model.CurrentCatchType!=null)
+                {
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="catchtype" asp-route-catchtype="@Model.CurrentCatchType" asp-route-productPage="@i">@i</a>
+                }
+                else if (Model.CurrentLocation != null)
+                {
+
+                    <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-warning" : "btn-secondary")" asp-route="location" asp-route-location="@Model.CurrentLocation" asp-route-productPage="@i">@i</a>
                 }
                 else
                 {

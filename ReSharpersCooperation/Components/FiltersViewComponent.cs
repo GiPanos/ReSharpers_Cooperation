@@ -15,15 +15,18 @@ namespace ReSharpersCooperation.Components
         public FiltersViewComponent(ProductRepository repo)
         {
             repository = repo;
+
         }
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.CurrentCategory = RouteData.Values["category"];
-            ViewBag.CurrentCatchType = RouteData.Values["catchtype"];
+            ViewBag.CurrentCategory = RouteData.Values["Category"];
+            ViewBag.CurrentCatchType = RouteData.Values["Catchtype"];
+            ViewBag.CurrentLocation = RouteData.Values["Location"];
             var categories = repository.GetAllCategories();
             var catchtypes = repository.GetAllCatchTypes();
-            var filterslist = new FiltersViewModel { CatchTypes = catchtypes, Categories = categories };
+            var locations = repository.GetAllLocations();
+            var filterslist = new FiltersViewModel { CatchTypes = catchtypes, Categories = categories ,Locations=locations};
             
             return View(filterslist);
         }
