@@ -4,22 +4,38 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject UserProfileRepository UserProfileRepository
 
 <section class="card m-1 p-1" style="background-image: url(/images/Background/sea.jpg)">
     <header class="bg-faded p-1">
         <h4>
             @Model.ProductName
             <span class="badge badge-warning">@Model.Price.ToString("C")/kg</span>
+
+
             <a class="btn btn-warning btn-sm" style="float:right" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
             @if (Model.StockNo > 0)
-            {
-                <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
-            }
-            else
-            {
-                <button class="btn btn-danger btn-sm" style="float:right" disabled>Out of Stock</button>
-            }
+        {
+            <a class="btn btn-success btn-sm" style="float:right" asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to cart</a>
+    }
+    else
+    {
+        <button class="btn btn-danger btn-sm" style="float:right" disabled>Out of Stock</button>
+}
         </h4>
+        <div  class ="btn btn-sm"  onmouseover="ShowPicture()">Παραγωγός : @UserProfileRepository.GetName(Model.UserName)</div>
+        <img style="display: none;" id="ProfilePic"class="rounded-circle" width="50" height="50" src="@UserProfileRepository.GetProfilePic(Model.UserName)" />
+        <script type="text/javascript">
+            function ShowPicture() {
+                var picture = document.getElementById("ProfilePic");
+                if (picture.style.display === "block") {
+                    picture.style.display = "none";
+                } else {
+                    picture.style.display = "block";
+
+                }
+            };
+        </script>
     </header>
     <div class="card-text card-body p-1">
         <div class="card-body row">
@@ -27,6 +43,7 @@
                 <img style="width: 100%; height: 50%" src="@Model.ProductImage" />
                 <p>@Model.ProductDesc</p>
                 <p>Ψαρεύτηκε πριν @(DateTime.Now.Subtract(@Model.CreatedDate).Days==0 ? "" : $"{DateTime.Now.Subtract(@Model.CreatedDate).Days.ToString()} Ημέρες ,")  @DateTime.Now.Subtract(@Model.CreatedDate).Hours Ώρες,@DateTime.Now.Subtract(@Model.CreatedDate).Minutes Λεπτά</p>
+                <p>Θαλλάσια Περιοχή: @Model.Location</p>
             </div>
             <div class="col-sm-7">
                 <iframe width="100%"
