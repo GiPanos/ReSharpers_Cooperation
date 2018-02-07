@@ -66,7 +66,8 @@ namespace ReSharpersCooperation.Controllers
             }
             TempData["returnUrl"] = returnUrl;
             //View the cart
-            return RedirectToRoute("cart");            
+            //return RedirectToRoute("cart");
+            return Redirect(returnUrl);
         }
         public async Task<IActionResult> RemoveFromCart(int ProductNo,string returnUrl,int quantity=1)
         {

@@ -22,7 +22,9 @@ namespace ReSharpersCooperation.Controllers
         private readonly TransactionRepository _transactionRepository;
 
         public OrdersController(TotalOrdersRepository totalOrdersRepository, OrdersRepository ordersRepository,
-            ProductRepository productRepository, CartItemRepository cartItemRepo, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,TransactionRepository transactionRepository)
+            ProductRepository productRepository, CartItemRepository cartItemRepo,
+            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            TransactionRepository transactionRepository)
         {
             _totalOrdersRepository = totalOrdersRepository;
             _ordersRepository = ordersRepository;
@@ -61,9 +63,10 @@ namespace ReSharpersCooperation.Controllers
 
                 if (outofstock.Count == 0)
                 {
-                    if (order.PaymentMethod=="sitebalance" && user.Balance >= order.TotalCost ||order.PaymentMethod=="creditcard")
+                    if (order.PaymentMethod == "sitebalance" && user.Balance >= order.TotalCost ||
+                        order.PaymentMethod == "creditcard")
                     {
-                        
+
                         _productRepository.UpdateStock(cart);
                         var neworder = new Orders
                         {
@@ -79,39 +82,51 @@ namespace ReSharpersCooperation.Controllers
                             TotalCost = order.TotalCost
                         };
                         int neworderid = _ordersRepository.SaveOrder(neworder);
-                        
+
                         _totalOrdersRepository.SaveOrder(neworder, cart);
                         var members = await _userManager.GetUsersInRoleAsync("Member");
                         var membernames = members.Select(u => u.UserName).ToList();
-                        _totalOrdersRepository.ShareProfits(membernames,"resharper@gmail.com",order.TotalCost);
-                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com", (order.TotalCost/2), "Admin Order Share",null, neworderid);
+                        _totalOrdersRepository.ShareProfits(membernames, "resharper@gmail.com", order.TotalCost);
+                        _transactionRepository.RegisterTransaction(user.UserName, "resharper@gmail.com",
+                            (order.TotalCost / 2), "Admin Order Share", null, neworderid);
                         foreach (var mem in members)
                         {
-                            _transactionRepository.RegisterTransaction(user.UserName, mem.UserName, (order.TotalCost / 2) / (members.Count()), "Member Order Share", null, neworderid);
+                            _transactionRepository.RegisterTransaction(user.UserName, mem.UserName,
+                                (order.TotalCost / 2) / (members.Count()), "Member Order Share", null, neworderid);
                         }
                         if (order.PaymentMethod == "sitebalance")
                         {
                             _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
                         }
-                        
+
                         return RedirectToRoute("order");
                     }
                     else
-                    { 
+                    {
                         ViewData["Error"] = "Not Enough Money";
-                        return View(new OrdersViewModel {TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance });
-                    };
-                    
+                        return View(new OrdersViewModel
+                        {
+                            TotalCost = order.TotalCost,
+                            CurrentBalance = order.CurrentBalance
+                        });
+                    }
+                    ;
+
 
                 }
                 else
                 {
-                    return View(new OrdersViewModel { OutOfStock = outofstock,TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance});
+                    return View(new OrdersViewModel
+                    {
+                        OutOfStock = outofstock,
+                        TotalCost = order.TotalCost,
+                        CurrentBalance = order.CurrentBalance
+                    });
                 }
             }
             else
             {
-                return View(new OrdersViewModel { TotalCost=order.TotalCost,CurrentBalance=order.CurrentBalance });
+                return View(new OrdersViewModel {TotalCost = order.TotalCost, CurrentBalance = order.CurrentBalance});
             }
         }
 
@@ -123,7 +138,12 @@ namespace ReSharpersCooperation.Controllers
             return View();
         }
 
-
-        
+        public async Task<ViewResult> Search(string year)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var myorders = _totalOrdersRepository.ViewMyOrders(user.UserName).ToList();
+            var searchresults = _totalOrdersRepository.SearchOrders(year, myorders).GroupBy(i => i.OrderId);
+            return View("ViewMyOrders", searchresults);
+        }
     }
 }

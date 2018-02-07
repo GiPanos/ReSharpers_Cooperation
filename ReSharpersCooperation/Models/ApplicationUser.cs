@@ -10,5 +10,6 @@ namespace ReSharpersCooperation.Models
     public class ApplicationUser : IdentityUser
     {
         public decimal Balance { get; set; }
+        public bool HasRequestedMember { get; set; }
     }
 }

@@ -49,6 +49,7 @@ namespace ReSharpersCooperation
             services.AddTransient<OrdersRepository>();
             services.AddTransient<TotalOrdersRepository>();
             services.AddTransient<TransactionRepository>();
+            services.AddTransient<UserRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHostingEnvironment>(Environment);
             services.AddMvc();

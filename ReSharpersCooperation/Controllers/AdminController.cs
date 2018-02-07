@@ -23,8 +23,12 @@ namespace ReSharpersCooperation.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private TransactionRepository _transactionRepository;
         private OrdersRepository _ordersRepository;
+        private UserRepository _userRepository;
 
-        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrdersRepository, IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager, UserManager<ApplicationUser> usermanager,TransactionRepository transactionrepository,OrdersRepository ordersRepository)
+        public AdminController(ProductRepository repository, TotalOrdersRepository totalOrdersRepository, 
+            IHostingEnvironment hostingEnvironment,SignInManager<ApplicationUser> signinmanager,
+            UserManager<ApplicationUser> usermanager,TransactionRepository transactionrepository,
+            OrdersRepository ordersRepository,UserRepository userRepository)
         {
             _repository = repository;
             _totalOrdersRepository = totalOrdersRepository;
@@ -33,6 +37,7 @@ namespace ReSharpersCooperation.Controllers
             _signInManager = signinmanager;
             _transactionRepository = transactionrepository;
             _ordersRepository = ordersRepository;
+            _userRepository = userRepository;
         }
 
         public ViewResult Index()
@@ -57,11 +62,21 @@ namespace ReSharpersCooperation.Controllers
             await _userManager.SetLockoutEndDateAsync(usertoban, new DateTimeOffset(DateTime.Now.AddYears(10)));
             return RedirectToAction("Users");
         }
+
+        public async Task<IActionResult> ApproveMember(string userid)
+        {
+            var usertoapprove = await _userManager.FindByIdAsync(userid);
+            var roleresult=await _userManager.AddToRoleAsync(usertoapprove, "Member");
+            var updateresult=await _userManager.UpdateAsync(usertoapprove);
+            _userRepository.ApproveMember(userid);
+            return RedirectToAction("Users");
+        }
         public async Task<IActionResult> UnBan(string userid)
         {
             var usertounban = await _userManager.FindByIdAsync(userid);
             await _userManager.SetLockoutEndDateAsync(usertounban,null);
             return RedirectToAction("Users");
+            
         }
 
 
@@ -297,6 +312,13 @@ namespace ReSharpersCooperation.Controllers
         {
             _ordersRepository.ShipThisOrder(OrderId);
             return RedirectToAction(nameof(AdminViewTotalOrders));
+        }
+
+        public ViewResult Search(string year)
+        {
+            var myorders = _totalOrdersRepository.ViewOrdersAsAdmin().ToList();
+            var searchresults = _totalOrdersRepository.SearchOrders(year, myorders).GroupBy(i => i.OrderId);
+            return View("AdminViewTotalOrders", searchresults);
         }
     }
 }

@@ -5,9 +5,10 @@
     ViewData["Title"] = "Offer New Product";
 }
 
-<h2>Offer new</h2>
 
-<h4>Product</h4>
+<h2 class="py-5">Προσφορά Νέου Προιόντος</h2>
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,16 +21,94 @@
             <input type="hidden" asp-for="IsFeatured" value="false" />
             <input type="hidden" id="long" asp-for="Longitude" value="" />
             <input type="hidden" id="lat" asp-for="Latitude" value="" />
-            <button class="btn btn-primary" onclick="getLocation()">Verify Your Location</button>
+            <input type="hidden" id="pelagosinput" asp-for="Location" value="" />
+            <button class="btn btn-primary" onclick="getLocation()">Επαλήθευση Τοποθεσίας</button>
+            <br />
+            <br />
+            <div id="map"></div>
+            <div id="pelagos"></div>
             <script type="text/javascript">
                 var lg = document.getElementById("long");
                 var lt = document.getElementById("lat");
                 function getLocation() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(showPosition);
-                    } else {
-                        x.innerHTML = "Geolocation is not supported by this browser.";
-                    }
+
+                    var position = navigator.geolocation.getCurrentPosition(function (position) {
+                        var lg1 = position.coords.longitude.toFixed(7);
+                        var lt1 = position.coords.latitude.toFixed(7);
+                        lg.value = position.coords.longitude.toFixed(7);
+                        lt.value = position.coords.latitude.toFixed(7);
+                        var map = document.getElementById("map");
+                        map.innerHTML = `<iframe width="600" height="400" frameborder="0" style="border:0"
+                                src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
+                        var argosaronikosx = [23.2573031, 23.017847, 23.5706993, 23.8101550, 23.2573031];
+                        var argosaronikosy = [37.4397123, 37.7496875, 38.0167680, 37.7079110, 37.4397123];
+                        var voreioaigaiox = [26.08146, 24.91536, 23.85913, 23.8066, 23.58104, 25.14152, 26.70201];
+                        var voreioaigaioy = [40.08333, 40.79855, 39.90724, 39.64192, 38.21823, 38.07148, 38.41675];
+                        var kritix = [26.05948, 25.0472, 23.54052, 22.6530, 22.17479, 25.11955, 26.68004, 26.96302];
+                        var kritiy = [36.13455, 35.89051, 36.32135, 36.096, 34.91916, 34.01354, 34.37717, 35.25165];
+                        var dodekanisax = [26.6088, 28.07942, 28.49536, 28.83834, 27.29441, 25.82268, 26.60313, 26.61146];
+                        var dodekanisay = [34.44882, 34.64373, 35.37744, 36.69733, 37.4198, 36.74508, 34.46779, 34.44925];
+                        var ioniox = [18.79752, 21.71834, 21.59672, 20.68408, 20.5107, 19.48314, 18.0114, 18.79185, 18.80018];
+                        var ionioy = [37.37562, 36.45809, 37.4045, 38.27013, 39.14098, 40.23499, 39.58625, 37.39389, 37.37603];
+                        var kikladesx = [26.81685, 24.12761, 24.37583, 26.81239];
+                        var kikladesy = [38.04215, 38.03079, 36.14037, 36.85422];
+                        var z = function checkcheck(x, y, cornersX, cornersY) {
+
+                            var i, j = cornersX.length - 1;
+                            var oddNodes = false;
+
+                            var polyX = cornersX;
+                            var polyY = cornersY;
+
+                            for (i = 0; i < cornersX.length; i++) {
+                                if ((polyY[i] < y && polyY[j] >= y || polyY[j] < y && polyY[i] >= y) && (polyX[i] <= x || polyX[j] <= x)) {
+                                    oddNodes ^= (polyX[i] + (y - polyY[i]) / (polyY[j] - polyY[i]) * (polyX[j] - polyX[i]) < x);
+                                }
+                                j = i;
+                            }
+
+                            return oddNodes;
+                        }
+                        var pelagos = document.getElementById("pelagos");
+                        var pelagosinput = document.getElementById("pelagosinput");
+                        if (z(lg1, lt1, argosaronikosx, argosaronikosy)) {
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Αργοσαρωνικός</div >';
+                            pelagosinput.value = "Αργοσαρωνικός";
+                        }
+                        else if (z(lg1, lt1, voreioaigaiox, voreioaigaioy)) {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Βόρειο Αιγαίο</div >';
+                            pelagosinput.value = "Βόρειο Αιγαίο";
+                        }
+                        else if (z(lg1, lt1, kritix, kritiy)) {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Κρήτη</div >';
+                            pelagosinput.value = "Κρήτη";
+                        }
+                        else if (z(lg1, lt1, dodekanisax, dodekanisay)) {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Δωδεκάνησα</div >';
+                            pelagosinput.value = "Δωδεκάνησα";
+                        }
+                        else if (z(lg1, lt1, ioniox, ionioy)) {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Ίόνιο</div >';
+                            pelagosinput.value = "Ίόνιο";
+                        }
+                        else if (z(lg1, lt1, kikladesx, kikladesy)) {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Κυκλάδες</div >';
+                            pelagosinput.value = "Κυκλάδες";
+                        }
+                        else
+                        {
+                            
+                            pelagos.innerHTML = '<div class="alert alert-danger text-center" role="alert">Άγνωστη Θαλάσσια περιοχή</div >';
+                            pelagosinput.value = "Άγνωστη Θαλάσσια περιοχή";
+                        }
+                    });
+
+ 
                 }
                 function showPosition(position) {
                     lg.value = position.coords.longitude.toFixed(7);
@@ -39,46 +118,51 @@
 
             </script>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
+                <label class="control-label">Όνομα Προιόντος</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductDesc" class="control-label"></label>
+                <label class="control-label">Περιγραφή Προιόντος</label>
                 <textarea asp-for="ProductDesc" class="form-control " /></textarea>
                 <span asp-validation-for="ProductDesc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Offer Price</label>
+                <label class="control-label">Τιμή Προσφοράς</label>
                 <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                
             </div>
             <div class="form-group">
-                <label class="control-label">Stock Number</label>
+                <label class="control-label">Ποσότητα (Kg)</label>
                 <input asp-for="StockNo" class="form-control" />
                 <span asp-validation-for="StockNo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <select asp-for="ProductCategory" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
-                    <option label="Choose Category"></option>
+                    <option label="Κατηγορία"></option>
                     @foreach (var category in Repository.GetAllCategories())
-            {
-                <option value="@category">@category</option>}
+                    {
+                        <option value="@category">@category</option>}
                 </select>
                 <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <select asp-for="CatchType" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
-                    <option label="Choose Fishing Method"></option>
-                <option value="Καλάμι">Καλάμι</option>
+                    <option label="Τύπος Ψαριάς"></option>
+                    @foreach (var type in Repository.GetAllCatchTypes())
+                    {
+                        <option value="@type">@type</option>
+                    }
+
                 </select>
                 <span asp-validation-for="CatchType" class="text-danger"></span>
             </div>
-            <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
+            <div class="text-danger font-weight-bold">Η Φωτογραφία πρέπει να έχει μέγεθος εως 1 MB.</div>
             <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
+                <label class="control-label">Φωτογραφία</label>
                 <input name="Image" type="file" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
@@ -89,8 +173,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="py-5">
+    <a class="btn btn-primary" asp-controller="Product" asp-action="List">Επιστροφή</a>
 </div>
 
 @section Scripts {

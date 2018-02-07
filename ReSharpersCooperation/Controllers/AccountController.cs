@@ -26,19 +26,22 @@ namespace ReSharpersCooperation.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly UserRepository _userRepository;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-            RoleManager<IdentityRole> rolemanager)
+            RoleManager<IdentityRole> rolemanager,
+            UserRepository userrepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _roleManager = rolemanager;
+            _userRepository = userrepository;
         }
 
         [TempData]
@@ -241,7 +244,8 @@ namespace ReSharpersCooperation.Controllers
                 
                 if (result.Succeeded && role=="Member")
                 {
-                    await _userManager.AddToRoleAsync(user, "Member");
+                    _userRepository.RequestMembership(user.Id);
+                    // _userManager.AddToRoleAsync(user, "Member");
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

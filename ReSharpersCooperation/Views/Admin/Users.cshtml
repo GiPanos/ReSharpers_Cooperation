@@ -55,9 +55,14 @@
             </td>
             <td>
                 @item.Role
+                @if (item.User.HasRequestedMember)
+                {
+                    <a class="btn btn-primary"asp-controller="Admin" asp-action="ApproveMember" asp-route-userid="@item.User.Id">Approve Member</a>
+
+                }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        
                 @if (item.User.LockoutEnd == null)
                 {
                 <a asp-action="Ban" class="btn btn-danger btn-sm" asp-route-userid="@item.User.Id">Ban</a>

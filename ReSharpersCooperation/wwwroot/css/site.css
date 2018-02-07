@@ -169,7 +169,6 @@
 }
 
 /*pg: style about Admin/Index/Details*/
-
 #myModal .modal-content {
     background-color: #d2e0dc;
 }
@@ -181,6 +180,7 @@
 #modal-body {
     padding-bottom: 42px;
 }
+/*pg: END*/
 
 /*pg: style about orders*/
 table.tborders {
@@ -226,6 +226,7 @@ table.tbOrdersBody {
     table.tbOrdersBody td {
         width: 50%;
     }
+/*pg: END*/
 
 .fa-check-circle {
     color: green;
@@ -242,9 +243,30 @@ table.tbOrdersBody {
 }
 /*GOOGLE MAPS CSS END*/
 
+/*pg: pg: style about search orders*/
+#inline {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1%;
+}
+
+    #inline .one {
+        width: 85%
+    }
+
+    #inline .two {
+        width: 15%;
+    }
+/*pg: END*/
+
 /*PRODUCT TABLE CSS BEGIN*/
 
 #productTable th
 {
     cursor:pointer;
 }
+
+/*pg: pg: style about first paze*/
+.card-body.div {
+}
+/*pg: END*/
