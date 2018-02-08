@@ -1,6 +1,7 @@
 ﻿@using ReSharpersCooperation.Models.WishlistViewModels
 @model List<WishlistSummaryViewModel>
 
+
 @{
     ViewData["Title"] = "Wishlist";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,8 +33,15 @@
                     <td class="text-center">@(item.Cost)</td>
                     <td class="text-right">
                         <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
-                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" class="btn btn-success btn-sm">Add to Cart</a>
-                    </td>                   
+                         @if (item.StockNo > 0)
+                         {
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()" class="btn btn-success btn-sm">Add to Cart</a>
+                         }
+                         else
+                         {
+                            <button class="btn btn-danger btn-sm" disabled>Out of Stock</button>
+                         }
+                    </td>                    
                 </tr>
             }
         </tbody>

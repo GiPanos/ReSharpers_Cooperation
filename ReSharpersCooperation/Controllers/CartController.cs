@@ -53,7 +53,7 @@ namespace ReSharpersCooperation.Controllers
             return View(usercart);
         }
 
-        public async Task<IActionResult> AddToCart(int ProductNo, string returnUrl,int quantity=1)
+        public async Task<IActionResult> AddToCart(int ProductNo, string returnUrl,int quantity = 1)
         {
             //get username
             var user = await _userManager.GetUserAsync(User);

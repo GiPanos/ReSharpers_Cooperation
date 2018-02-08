@@ -69,5 +69,19 @@ namespace ReSharpersCooperation.Models
             }
             db.SaveChanges();
         }
+
+        public bool IsItemInWishlist (int productNo)
+        {
+            var item = Wishlist_Items.SingleOrDefault(p => p.ProductNo == productNo);
+
+            if (item == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

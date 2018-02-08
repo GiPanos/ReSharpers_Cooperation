@@ -11,13 +11,15 @@ namespace ReSharpersCooperation.Models.WishlistViewModels
         public decimal Cost { get; set; }        
         public string ProductImage { get; set; }
         public int ProductNo { get; set; }
+        public int StockNo { get; set; }
 
-        public WishlistSummaryViewModel(string productname, decimal cost, string productimage, int productNo)
+        public WishlistSummaryViewModel(string productname, decimal cost, string productimage, int productNo, int stockNo)
         {
             ProductName = productname;
             Cost = cost;
             ProductImage = productimage;
             ProductNo = productNo;
+            StockNo = stockNo;
         }
     }
 }
