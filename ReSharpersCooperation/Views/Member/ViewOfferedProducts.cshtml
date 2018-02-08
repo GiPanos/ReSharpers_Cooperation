@@ -5,7 +5,7 @@
 }
 
 <div id="inline">
-    <div class="one"><h2>My Offer products</h2></div>
+    <div class="one py-5"><h2>My Offered products</h2></div>
 </div>
 
 
@@ -25,9 +25,6 @@
                 @Html.DisplayNameFor(model => model.StockNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
 
@@ -39,9 +36,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsFeatured)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductCategory)
@@ -65,9 +59,6 @@
                     @Html.DisplayFor(modelItem => item.StockNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.IsActive)
                 </td>
                 <td>
@@ -78,9 +69,6 @@
                 </td>
                 <td>
                     <img class="img-fluid" width="150" src="@item.ProductImage" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsFeatured)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductCategory)

@@ -22,6 +22,8 @@
             <input type="hidden" asp-for="Latitude" />
             <input type="hidden" asp-for="CatchType" />
             <input type="hidden" asp-for="Price" />
+            <input type="hidden" asp-for="IsFeatured" />
+            <input type="hidden" asp-for="Rating" />
             @if (!Model.isPaid)
     {
         <p class="text-danger font-weight-bold">UNBOUGHT PRODUCT</p>
@@ -60,47 +62,36 @@ else
                 <input asp-for="StockNo" class="form-control" />
                 <span asp-validation-for="StockNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductCategory" class="control-label"></label>
-                <input asp-for="ProductCategory" class="form-control" />
-                <span asp-validation-for="ProductCategory" class="text-danger"></span>
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsDeleted" /> Delete this Product
-                    </label>
-                </div>
-            </div>
-            <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
-            <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
-            <img style="width: 100%; height: 50%" src="@Model.ImageLink" />
-
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input name="Image" type="file" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-default" />
-            </div>
-        </form>
+    <div class="form-group">
+        <label asp-for="ProductCategory" class="control-label"></label>
+        <input asp-for="ProductCategory" class="form-control" />
+        <span asp-validation-for="ProductCategory" class="text-danger"></span>
     </div>
+
+
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="IsDeleted" /> Delete this Product
+            </label>
+        </div>
+    </div>
+    <div class="text-danger font-weight-bold">Image cannot exceed 1 MB.</div>
+    <div class="text-danger font-weight-bold"> @ViewData["ValidationError"]</div>
+    <img style="width: 100%; height: 50%" src="@Model.ImageLink" />
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input name="Image" type="file" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" />
+    </div>
+    </form>
+</div>
 </div>
 
 <div>
