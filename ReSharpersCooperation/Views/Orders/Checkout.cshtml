@@ -19,7 +19,7 @@
 </div>
 <hr />
 <div class="row" style="background-image: url(/images/Background/bg.jpg);">
-    
+
     <div class="col-md-4" style="background-color: #056675e6">
         <p class="text-danger font-weight-bold">@ViewData["Error"]</p>
         <form asp-action="Checkout">
@@ -57,9 +57,9 @@
                     <option label="Select Payment Option"></option>
                     <option value="creditcard">Credit Card</option>
                     @if (User.IsInRole("Admin") || User.IsInRole("Member"))
-                {
-                    <option value="sitebalance">Site Balance</option>
-            }
+                    {
+                        <option value="sitebalance">Site Balance</option>
+                    }
                 </select>
                 <span asp-validation-for="PaymentMethod" class="text-danger"></span>
             </div>
@@ -125,10 +125,10 @@
 
             </div>
             @if (User.IsInRole("Admin") || User.IsInRole("Member"))
-        {
-            <p style="font-weight: bold">Current Balance:@Model.CurrentBalance.ToString("C")</p>
-            <p style="font-weight: bold">Total Cost:@Model.TotalCost.ToString("C")</p>
-    }
+            {
+                <p style="font-weight: bold">Current Balance:@Model.CurrentBalance.ToString("C")</p>
+                <p style="font-weight: bold">Total Cost:@Model.TotalCost.ToString("C")</p>
+            }
             <div class="form-group">
                 <input asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
             </div>

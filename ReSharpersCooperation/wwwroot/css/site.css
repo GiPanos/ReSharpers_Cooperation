@@ -290,4 +290,48 @@ table.tbOrdersBody {
     color: black;
     font-weight: 500
 }
-/*pg: END*/
+
+.bg-dark {
+    background-color: #062c73 !important;
+}
+
+.btn {
+    color: black;
+}
+
+.badge {
+    background-color: #86b7d4;
+    color: black;
+}
+
+.card {
+    border-color:#86b7d4 ;
+    border-width: 3px;
+}
+.btn-info {
+    background-color: #86b7d4 !important;
+}
+
+.btn-success {
+    background-color: #62e27f !important;
+    border-color: #62e27f;
+}
+
+.btn-warning {
+    background-color: #ec8e97 !important;
+    border-color: #ec8e97;
+}
+
+.btn-danger {
+    background-color: red !important;
+}
+
+.fa-shopping-cart {
+    color: #62e27f;
+}
+.fa-heart {
+    color: #ec8e97;
+}
+
+.m-1 {
+    margin: 1rem !important;
