@@ -35,7 +35,7 @@
                         <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
                          @if (item.StockNo > 0)
                          {
-                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" class="btn btn-success btn-sm">Add to Cart</a>
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()" class="btn btn-success btn-sm">Add to Cart</a>
                          }
                          else
                          {
