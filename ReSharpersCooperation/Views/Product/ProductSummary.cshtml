@@ -21,7 +21,7 @@
                 <button class="btn btn-danger btn-sm" style="float:right" disabled>Out of Stock</button>
             }
             <div class="badge" ; style="margin-left: 10%">Παραγωγός : @UserProfileRepository.GetName(Model.UserName)</div>
-            <img id="@(Model.UserName + Model.ProductNo)" class="rounded-circle" width="50" height="50" src="@UserProfileRepository.GetProfilePic(Model.UserName)" />
+            <img id="@(Model.UserName + Model.ProductNo)" class="rounded-circle" width="75" height="75" src="@UserProfileRepository.GetProfilePic(Model.UserName)" />
         </h4>
     </header>
     <div class="card-text card-body p-1">
