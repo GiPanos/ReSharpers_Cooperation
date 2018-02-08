@@ -1,35 +1,35 @@
 ﻿@model ReSharpersCooperation.Models.FiltersViewModel.FiltersViewModel
 
-<a class="btn btn-block @(ViewBag.CurrentCategory == null ? "btn-warning" : "btn-secondary")" asp-route="pagination" asp-route-productPage="1">All</a>
+<a class="btn btn-block @(ViewBag.CurrentCategory == null ? "btn-info" : "btn-light")" asp-route="pagination" asp-route-productPage="1">All</a>
 <nav class="btn-group-vertical btn-block" id="accordionOne">
 
-    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseOne">Categories</a>
-    <div id="collapseOne" class="collapse-show @(ViewBag.CurrentCategory ==null||ViewBag.CurrentCatchType!=null ? "collapse" : "btn-secondary")  btn-block" data-parent="#accordionOne">
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseOne">Categories</a>
+    <div id="collapseOne" class="collapse-show @(ViewBag.CurrentCategory ==null||ViewBag.CurrentCatchType!=null ? "collapse" : "btn-light")  btn-block" data-parent="#accordionOne">
         @foreach (var cat in Model.Categories)
         {
 
-            <a class="btn @(ViewBag.CurrentCategory == cat ? "btn-warning" : "btn-secondary")" asp-route="category" asp-route-category="@cat" asp-route-productPage="1">@cat</a>
+            <a class="btn @(ViewBag.CurrentCategory == cat ? "btn-info" : "btn-light")" asp-route="category" asp-route-category="@cat" asp-route-productPage="1">@cat</a>
         }
     </div>
 </nav>
 
 <nav class="btn-group-vertical btn-block" id="accordionTwo">
-    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseTwo">Catch Type</a>
-    <div id="collapseTwo" class="collapse-show @(ViewBag.CurrentCatchType ==null ? "collapse" : "btn-secondary") btn-block" data-parent="#accordionTwo">
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseTwo">Catch Type</a>
+    <div id="collapseTwo" class="collapse-show @(ViewBag.CurrentCatchType ==null ? "collapse" : "btn-light") btn-block" data-parent="#accordionTwo">
         @foreach (var type in Model.CatchTypes)
         {
 
-            <a class="btn  @(ViewBag.CurrentCatchType == type ? "btn-warning" : "btn-secondary")" asp-route="catchtype"  asp-route-catchtype="@type" asp-route-productPage="1">@type</a>
+            <a class="btn  @(ViewBag.CurrentCatchType == type ? "btn-info" : "btn-light")" asp-route="catchtype"  asp-route-catchtype="@type" asp-route-productPage="1">@type</a>
         }
     </div>
 </nav>
 <nav class="btn-group-vertical btn-block" id="accordionThree">
-    <a class="btn btn-warning" data-toggle="collapse" data-target="#collapseThree">Location</a>
-    <div id="collapseThree" class="collapse-show @(ViewBag.CurrentLocation ==null ? "collapse" : "btn-secondary") btn-block" data-parent="#accordionThree">
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseThree">Location</a>
+    <div id="collapseThree" class="collapse-show @(ViewBag.CurrentLocation ==null ? "collapse" : "btn-light") btn-block" data-parent="#accordionThree">
         @foreach (var type in Model.Locations)
         {
 
-            <a class="btn  @(ViewBag.CurrentLocation == type ? "btn-warning" : "btn-secondary")" asp-route="location"  asp-route-location="@type" asp-route-productPage="1">@type</a>
+            <a class="btn  @(ViewBag.CurrentLocation == type ? "btn-info" : "btn-light")" asp-route="location"  asp-route-location="@type" asp-route-productPage="1">@type</a>
         }
     </div>
 </nav>
