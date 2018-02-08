@@ -119,6 +119,7 @@ namespace ReSharpersCooperation.Controllers
                 Query=query
                 
             });
+            
 
         }
 

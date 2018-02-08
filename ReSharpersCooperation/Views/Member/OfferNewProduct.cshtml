@@ -22,8 +22,11 @@
             <input type="hidden" id="long" asp-for="Longitude" value="" />
             <input type="hidden" id="lat" asp-for="Latitude" value="" />
             <input type="hidden" id="pelagosinput" asp-for="Location" value="" />
+
             <button class="btn btn-primary" onclick="getLocation()">Επαλήθευση Τοποθεσίας</button>
+
             <br />
+            <span asp-validation-for="Location" class="text-danger"></span>
             <br />
             <div id="map"></div>
             <div id="pelagos"></div>
@@ -39,7 +42,7 @@
                         lt.value = position.coords.latitude.toFixed(7);
                         var map = document.getElementById("map");
                         map.innerHTML = `<iframe width="600" height="400" frameborder="0" style="border:0"
-                                src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
+                                                                    src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
                         var argosaronikosx = [23.2573031, 23.017847, 23.5706993, 23.8101550, 23.2573031];
                         var argosaronikosy = [37.4397123, 37.7496875, 38.0167680, 37.7079110, 37.4397123];
                         var voreioaigaiox = [26.08146, 24.91536, 23.85913, 23.8066, 23.58104, 25.14152, 26.70201];
@@ -76,39 +79,38 @@
                             pelagosinput.value = "Αργοσαρωνικός";
                         }
                         else if (z(lg1, lt1, voreioaigaiox, voreioaigaioy)) {
-                            
+
                             pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Βόρειο Αιγαίο</div >';
                             pelagosinput.value = "Βόρειο Αιγαίο";
                         }
                         else if (z(lg1, lt1, kritix, kritiy)) {
-                            
+
                             pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Κρήτη</div >';
                             pelagosinput.value = "Κρήτη";
                         }
                         else if (z(lg1, lt1, dodekanisax, dodekanisay)) {
-                            
+
                             pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Δωδεκάνησα</div >';
                             pelagosinput.value = "Δωδεκάνησα";
                         }
                         else if (z(lg1, lt1, ioniox, ionioy)) {
-                            
+
                             pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Ίόνιο</div >';
                             pelagosinput.value = "Ίόνιο";
                         }
                         else if (z(lg1, lt1, kikladesx, kikladesy)) {
-                            
+
                             pelagos.innerHTML = '<div class="alert alert-success text-center" role="alert">Κυκλάδες</div >';
                             pelagosinput.value = "Κυκλάδες";
                         }
-                        else
-                        {
-                            
+                        else {
+
                             pelagos.innerHTML = '<div class="alert alert-danger text-center" role="alert">Άγνωστη Θαλάσσια περιοχή</div >';
                             pelagosinput.value = "Άγνωστη Θαλάσσια περιοχή";
                         }
                     });
 
- 
+
                 }
                 function showPosition(position) {
                     lg.value = position.coords.longitude.toFixed(7);
@@ -118,7 +120,7 @@
 
             </script>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <div class="form-group">
                 <label class="control-label">Όνομα Προιόντος</label>
                 <input asp-for="ProductName" class="form-control" />
@@ -132,7 +134,7 @@
             <div class="form-group">
                 <label class="control-label">Τιμή Προσφοράς</label>
                 <input asp-for="Price" class="form-control" />
-                
+
             </div>
             <div class="form-group">
                 <label class="control-label">Ποσότητα (Kg)</label>
@@ -143,8 +145,8 @@
                 <select asp-for="ProductCategory" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
                     <option label="Κατηγορία"></option>
                     @foreach (var category in Repository.GetAllCategories())
-                    {
-                        <option value="@category">@category</option>}
+            {
+                <option value="@category">@category</option>}
                 </select>
                 <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
@@ -152,9 +154,9 @@
                 <select asp-for="CatchType" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
                     <option label="Τύπος Ψαριάς"></option>
                     @foreach (var type in Repository.GetAllCatchTypes())
-                    {
-                        <option value="@type">@type</option>
-                    }
+            {
+                <option value="@type">@type</option>
+    }
 
                 </select>
                 <span asp-validation-for="CatchType" class="text-danger"></span>

@@ -23,11 +23,11 @@
         <button class="btn btn-danger btn-sm" style="float:right" disabled>Out of Stock</button>
 }
         </h4>
-        <div  class ="btn btn-sm"  onmouseover="ShowPicture()">Παραγωγός : @UserProfileRepository.GetName(Model.UserName)</div>
-        <img style="display: none;" id="@Model.UserName"class="rounded-circle" width="50" height="50" src="@UserProfileRepository.GetProfilePic(Model.UserName)" />
+        <div  class ="btn btn-sm"  onmouseover="ShowPicture('@(Model.UserName + Model.ProductNo)')">Παραγωγός : @UserProfileRepository.GetName(Model.UserName)</div>
+        <img style="display: none;" id="@(Model.UserName + Model.ProductNo)" class="rounded-circle" width="50" height="50" src="@UserProfileRepository.GetProfilePic(Model.UserName)" />
         <script type="text/javascript">
-            function ShowPicture() {
-                var picture = document.getElementById("@Model.UserName");
+            function ShowPicture(e) {
+                var picture = document.getElementById(e);
                 if (picture.style.display === "block") {
                     picture.style.display = "none";
                 } else {
@@ -44,6 +44,7 @@
                 <p>@Model.ProductDesc</p>
                 <p>Ψαρεύτηκε πριν @(DateTime.Now.Subtract(@Model.CreatedDate).Days==0 ? "" : $"{DateTime.Now.Subtract(@Model.CreatedDate).Days.ToString()} Ημέρες ,")  @DateTime.Now.Subtract(@Model.CreatedDate).Hours Ώρες,@DateTime.Now.Subtract(@Model.CreatedDate).Minutes Λεπτά</p>
                 <p>Θαλλάσια Περιοχή: @Model.Location</p>
+                <p>Τρόπος Ψαρέματος: @Model.CatchType</p>
             </div>
             <div class="col-sm-7">
                 <iframe width="100%"
@@ -52,17 +53,6 @@
                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=@Model.Latitude.ToString().Replace(',', '.'),@Model.Longitude.ToString().Replace(',', '.')&zoom=12" allowfullscreen></iframe>
             </div>
         </div>
-        @*<div style="float:right">
-                    @for (int i = 0; i < Model.Rating; i++)
-                    {
-                        <i class="fa fa-star"></i>
-                    }
-                @for (int i = Model.Rating + 1; i <= 5; i++)
-                {
-                    <i class="fa fa-star-o"></i>
-
-                }
-            </div>*@
 
     </div>
 </section>

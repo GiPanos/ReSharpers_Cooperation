@@ -490,39 +490,51 @@ namespace ReSharpersCooperation.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             //case Image is too large
-            if (profile.ProfilePic.Length > 1000000)
-            {
-                ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
-                return View(profile);
-            }
+
+                if (profile.ProfilePic!=null && profile.ProfilePic.Length > 1000000)
+                {
+                    ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
+                    return View(profile);
+                }
+
+
             if (ModelState.IsValid)
             {
-                //folowing code takes image and stores it to wwwroot and stores image link to database
-                long size = 0;
-                var filename = ContentDispositionHeaderValue
-                    .Parse(profile.ProfilePic.ContentDisposition)
-                    .FileName
-                    .Trim('"');
-                var lastchars = filename.TakeLast(4);
-                string suffix = "";
-                foreach (var item in lastchars)
-                {
-                    suffix += item;
-                }
-                filename = _hostingEnvironment.WebRootPath + $@"\images\Profiles\{profile.UserName}{suffix}";
-                size += profile.ProfilePic.Length;
-                using (FileStream fs = System.IO.File.Create(filename))
-                {
-                    profile.ProfilePic.CopyTo(fs);
-                    fs.Flush();
-                    fs.Close();
-                }
                 var newprofile = new UserProfile
                 {
-                    ImgPath = $@"\images\Profiles\{profile.UserName}{suffix}",
+                    
                     Name = profile.Name,
                     UserName = profile.UserName
                 };
+                if (profile.ProfilePic != null)
+                {
+                    //folowing code takes image and stores it to wwwroot and stores image link to database
+                    long size = 0;
+                    var filename = ContentDispositionHeaderValue
+                        .Parse(profile.ProfilePic.ContentDisposition)
+                        .FileName
+                        .Trim('"');
+                    var lastchars = filename.TakeLast(4);
+                    string suffix = "";
+                    foreach (var item in lastchars)
+                    {
+                        suffix += item;
+                    }
+                    filename = _hostingEnvironment.WebRootPath + $@"\images\Profiles\{profile.UserName}{suffix}";
+                    size += profile.ProfilePic.Length;
+                    using (FileStream fs = System.IO.File.Create(filename))
+                    {
+                        profile.ProfilePic.CopyTo(fs);
+                        fs.Flush();
+                        fs.Close();
+                    }
+                    newprofile.ImgPath = $@"\images\Profiles\{profile.UserName}{suffix}";
+
+                }
+                if (profile.ProfilePic == null)
+                {
+                    newprofile.ImgPath = _userProfileRepository.GetProfilePic(user.UserName);
+                }
                 _userProfileRepository.EditUserProfile(newprofile);
                 return RedirectToAction(nameof(Index));
             }
@@ -533,42 +545,42 @@ namespace ReSharpersCooperation.Controllers
         }
 
 
-            #region Helpers
+        #region Helpers
 
-            private void AddErrors(IdentityResult result)
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
             {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                ModelState.AddModelError(string.Empty, error.Description);
             }
-
-            private string FormatKey(string unformattedKey)
-            {
-                var result = new StringBuilder();
-                int currentPosition = 0;
-                while (currentPosition + 4 < unformattedKey.Length)
-                {
-                    result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
-                    currentPosition += 4;
-                }
-                if (currentPosition < unformattedKey.Length)
-                {
-                    result.Append(unformattedKey.Substring(currentPosition));
-                }
-
-                return result.ToString().ToLowerInvariant();
-            }
-
-            private string GenerateQrCodeUri(string email, string unformattedKey)
-            {
-                return string.Format(
-                    AuthenicatorUriFormat,
-                    _urlEncoder.Encode("ReSharpersCooperation"),
-                    _urlEncoder.Encode(email),
-                    unformattedKey);
-            }
-
-            #endregion
         }
-    } 
+
+        private string FormatKey(string unformattedKey)
+        {
+            var result = new StringBuilder();
+            int currentPosition = 0;
+            while (currentPosition + 4 < unformattedKey.Length)
+            {
+                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
+                currentPosition += 4;
+            }
+            if (currentPosition < unformattedKey.Length)
+            {
+                result.Append(unformattedKey.Substring(currentPosition));
+            }
+
+            return result.ToString().ToLowerInvariant();
+        }
+
+        private string GenerateQrCodeUri(string email, string unformattedKey)
+        {
+            return string.Format(
+                AuthenicatorUriFormat,
+                _urlEncoder.Encode("ReSharpersCooperation"),
+                _urlEncoder.Encode(email),
+                unformattedKey);
+        }
+
+        #endregion
+    }
+}

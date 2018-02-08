@@ -52,39 +52,17 @@ namespace ReSharpersCooperation.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             //case Image is too large
-            if (product.Image.Length > 1000000)
+            if (product.Image != null && product.Image.Length > 1000000 )
             {
-                ViewData["ValidationError"] = "Image Size Exceeded 1 MB.Please upload another image";
+                ViewData["ValidationError"] = "Υπέρβαση στο μέγεθος της Εικόνας.";
                 return View(product);
             }
             if (ModelState.IsValid)
             {
-                //folowing code takes image and stores it to wwwroot and stores image link to database
-                long size = 0;
-                var filename = ContentDispositionHeaderValue
-                    .Parse(product.Image.ContentDisposition)
-                    .FileName
-                    .Trim('"');
-                var lastchars = filename.TakeLast(4);
-                string suffix = "";
-                foreach (var item in lastchars)
-                {
-                    suffix += item;
-                }
-                filename = _hostingEnvironment.WebRootPath + $@"\images\Products\{product.ProductName}{suffix}";
-                size += product.Image.Length;
-                using (FileStream fs = System.IO.File.Create(filename))
-                {
-                    product.Image.CopyTo(fs);
-                    fs.Flush();
-                    fs.Close();
-                }
-               
-              
                 //Create new product according to user input
                 var newproduct = new Product
                 {
-                    ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}",
+                    
                     ProductNo = product.ProductNo,
                     ProductDesc = product.ProductDesc,
                     CreatedDate = DateTime.Now,
@@ -99,16 +77,48 @@ namespace ReSharpersCooperation.Controllers
                     ProductCategory = product.ProductCategory,
                     UserName = await _userManager.GetUserNameAsync(user),
                     isPaid = false,
-                    CatchType=product.CatchType,
-                    Latitude= product.Latitude/10000000,
-                    Longitude = product.Longitude/10000000,
+                    CatchType = product.CatchType,
+                    Latitude = product.Latitude / 10000000,
+                    Longitude = product.Longitude / 10000000,
                     Location = product.Location
                 };
+                if (product.Image != null)
+                {
+                    //folowing code takes image and stores it to wwwroot and stores image link to database
+                    long size = 0;
+                    var filename = ContentDispositionHeaderValue
+                        .Parse(product.Image.ContentDisposition)
+                        .FileName
+                        .Trim('"');
+                    var lastchars = filename.TakeLast(4);
+                    string suffix = "";
+                    foreach (var item in lastchars)
+                    {
+                        suffix += item;
+                    }
+                    filename = _hostingEnvironment.WebRootPath + $@"\images\Products\{product.ProductName}{suffix}";
+                    size += product.Image.Length;
+                    using (FileStream fs = System.IO.File.Create(filename))
+                    {
+                        product.Image.CopyTo(fs);
+                        fs.Flush();
+                        fs.Close();
+                    }
+                    newproduct.ProductImage = $"\\images\\Products\\{product.ProductName}{suffix}";
+                }
+               
+              
+
                 _repository.SaveProduct(newproduct);
                 return RedirectToAction(nameof(ViewOfferedProducts));
             }
             else
             {
+                if (product.Image == null)
+                {
+
+                    ViewData["ValidationError"] = "Ξεχάσατε την Φωτογραφία";
+                }
                 return View(product);
             }
         }
