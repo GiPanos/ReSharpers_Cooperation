@@ -127,7 +127,8 @@ namespace ReSharpersCooperation.Controllers
                 isPaid=temp.isPaid,
                 Longitude=temp.Longitude,
                 Latitude=temp.Latitude,
-                CatchType=temp.CatchType
+                CatchType=temp.CatchType,
+                Location=temp.Location
             }
                 );
         }
@@ -162,7 +163,8 @@ namespace ReSharpersCooperation.Controllers
                     UserName=product.UserName,
                     Longitude=product.Longitude,
                     Latitude=product.Latitude,
-                    CatchType=product.CatchType
+                    CatchType=product.CatchType,
+                    Location=product.Location
                 };
                 if (product.FirstTime)
                 {
