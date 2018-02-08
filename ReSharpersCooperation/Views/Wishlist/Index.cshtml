@@ -30,7 +30,7 @@
                     <td>
                         <img class="img-fluid" width="50" height="50" src="@item.ProductImage" />
                     </td>
-                    <td class="text-center">@(item.Cost)</td>
+                    <td class="text-center">@(item.Cost.ToString("C"))</td>
                     <td class="text-right">
                         <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
                          @if (item.StockNo > 0)
@@ -64,7 +64,7 @@ else
 @if (ViewBag.ReturnUrl != null)
 {
     <div class="text-center">
-        <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
+        <a class="btn btn-primary py-5" href="@ViewBag.ReturnUrl">Continue shopping</a>
     </div>
 }
 
