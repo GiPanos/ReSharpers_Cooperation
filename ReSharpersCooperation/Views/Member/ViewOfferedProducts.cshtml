@@ -49,9 +49,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDesc)
-                </td>
+                @if (item.ProductDesc.Length > 40)
+                {
+                    <td>
+                        @item.ProductDesc.Substring(0, 40)...
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.ProductDesc
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
