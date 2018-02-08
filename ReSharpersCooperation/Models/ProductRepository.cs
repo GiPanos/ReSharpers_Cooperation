@@ -68,13 +68,10 @@ namespace ReSharpersCooperation.Models
                     var NameResult= db.Product.Where(p => p.ProductName.Contains(query)).ToList();
                     NameResult.AddRange(db.Product.Where(p => p.ProductDesc.Contains(query) && p.ProductName.Contains(query)==false));
                     return NameResult;
-                case "Rating":
-                    var RatingFirstResult = db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query)).OrderByDescending(p => p.Rating);
-                    if (RatingFirstResult.Count() == 0)
-                    {
-                        RatingFirstResult = db.Product.OrderByDescending(p => p.Rating);
-                    }
-                    return RatingFirstResult;
+                case "all":
+                    var AllResult = db.Product.Where(p => p.ProductName.Contains(query)).ToList();
+                    AllResult.AddRange(db.Product.Where(p => p.ProductDesc.Contains(query) && p.ProductName.Contains(query) == false));
+                    return AllResult;
                 case "HighestFirst":
                     var HighestFirstResult= db.Product.Where(p => p.ProductName.Contains(query) || p.ProductDesc.Contains(query)).OrderByDescending(p => p.Price);
                     if (HighestFirstResult.Count()==0)

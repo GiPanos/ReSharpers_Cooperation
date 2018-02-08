@@ -95,11 +95,6 @@ namespace ReSharpersCooperation
                 template: "Products/Category/{Category}/{productPage}",
                 defaults: new { Controller = "Product", Action = "ListCategory" }
                 );
-                //routes.MapRoute(
-                //name: "catchtype",
-                //template: "Products/{catchType}/{productPage}/{category}",
-                //defaults: new { Controller = "Product", Action = "List" }
-                //);
                 routes.MapRoute(
                 name: "pagination",
                 template: "Products/{productPage}",

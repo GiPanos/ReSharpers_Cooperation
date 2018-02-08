@@ -31,9 +31,6 @@
             <th onclick="sortTable(5)">
                 Stock
             </th>
-            <th onclick="sortTable(6)">
-                Rating
-            </th>
             <th nclick="sortTable(7)">
                 Paid
             </th>
@@ -71,9 +68,20 @@
                 <td>
                     @Html.DisplayFor(ModelItem => item.UserName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDesc)
-                </td>
+
+                @if (item.ProductDesc.Length > 40)
+                {
+                    <td>
+                        @item.ProductDesc.Substring(0, 40)...
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.ProductDesc
+                    </td>
+                }
+
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductCategory)
                 </td>
@@ -83,9 +91,6 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.StockNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.isPaid)

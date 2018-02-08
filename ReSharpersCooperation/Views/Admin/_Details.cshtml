@@ -3,9 +3,9 @@
     <img class="img-fluid" style="width: 150px; height:150px" src="@Model.ProductImage"/>
 </div>
 <div>
-    <table id="adminprodtable">
+    <table  id="adminprodtable">
         <tr>
-            <td>Product No</td>
+            <td>Product Number</td>
             <td>@Model.ProductNo</td>
         </tr>
         <tr>
@@ -17,23 +17,35 @@
             <td>@Model.ProductDesc</td>
         </tr>
         <tr>
+            <td>Catch Type</td>
+            <td>@Model.CatchType</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>@Model.Location</td>
+        </tr>
+        <tr>
+            <td>Latitude</td>
+            <td>@Model.Latitude</td>
+        </tr>
+        <tr>
+            <td>Longitude</td>
+            <td>@Model.Longitude</td>
+        </tr>
+        <tr>
             <td>Price</td>
-            <td>@Model.Price</td>
+            <td>@Model.Price.ToString("C")</td>
         </tr>
         <tr>
             <td>Stock</td>
             <td>@Model.StockNo</td>
         <tr>
-            <td>Rating</td>
-            <td>@Model.Rating</td>
-        </tr>
-        <tr>
             <td>Active</td>
-            <td> @Model.IsActive</td>
+            <td> @Html.DisplayFor(modelItem => Model.IsActive)</td>
         </tr>
         <tr>
             <td>Deleted</td>
-            <td> @Model.IsDeleted</td>
+            <td> @Html.DisplayFor(modelItem => Model.IsDeleted)</td>
         </tr>
         <tr>
             <td>Create Date</td>
@@ -45,12 +57,8 @@
             <td>Modified Date</td>
             <td>@Model.ModifiedDate.ToString("dd/MM/yyyy")</td>
         </tr>
-        <tr>
-            <td> Featured</td>
-            <td>@Model.IsFeatured</td>
-        <tr>
-            <td>Category</td>
-            <td>@Model.ProductCategory</td>
+        <td>Category</td>
+        <td>@Model.ProductCategory</td>
         </tr>
     </table>
 </div>

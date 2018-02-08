@@ -12,11 +12,13 @@ namespace ReSharpersCooperation.Models
     {
         public IFormFile Image { get; set; }
         public int ProductNo { get; set; }
+        [Required(ErrorMessage = "Ξεχάσατε το Όνομα Προιόντος")]
         public string ProductName { get; set; }
+        [Required(ErrorMessage = "Ξεχάσατε την Περιγραφή")]
         public string ProductDesc { get; set; }
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public decimal Price { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive stock number.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Λάθος ποσότητα")]
         public int StockNo { get; set; }
         public int Rating { get; set; }
         public bool IsActive { get; set; }
@@ -24,6 +26,7 @@ namespace ReSharpersCooperation.Models
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public bool IsFeatured { get; set; }
+        [Required(ErrorMessage = "Ξεχάσατε την Κατηγορία")]
         public string ProductCategory { get; set; }
         public string ImageLink { get; set; }
         public string UserName { get; set; }
@@ -31,7 +34,9 @@ namespace ReSharpersCooperation.Models
         public bool isPaid { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        [Required(ErrorMessage = "Ξεχάσατε τον τύπο Ψαριάς")]
         public string CatchType { get; set; }
+        [Required(ErrorMessage = "Ξεχάσατε να επαληθεύσετε την Τοποθεσίας σας")]
         public string Location { get; set; }
 
 

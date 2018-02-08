@@ -22,7 +22,7 @@
             }
         }
 
-        <nav class="btn-group">
+        <nav class="btn-group py-5">
             @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
             {
                 @if (Model.CurrentCategory == null && Model.ListType == null && Model.CurrentLocation == null && Model.CurrentCatchType == null)
