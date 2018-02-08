@@ -15,7 +15,7 @@
 }
 
 <div id="inline">
-    <div class="one"><h2>Please, complete an address</h2></div>
+    <div class="one py-3"><h2>Fill in your delivery details</h2></div>
 </div>
 <hr />
 <div class="row" style="background-image: url(/images/Background/bg.jpg);">
@@ -130,12 +130,11 @@
                 <p style="font-weight: bold">Total Cost:@Model.TotalCost.ToString("C")</p>
             }
             <div class="form-group">
-                <input asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
+                <input asp-controller="Orders" asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />
             </div>
         </form>
-        <div>
-            <a style="font-weight: 900; color: black; background-color:  #056675e6" asp-controller="Product" asp-action="List">Cancel</a>
+        <div class="py-3">
+            <a class="badge"style="font-weight: 900; color: black; background-color:  #056675e6" asp-controller="Product" asp-action="List">Cancel</a>
         </div>
     </div>
-
 </div>

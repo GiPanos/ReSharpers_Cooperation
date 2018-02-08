@@ -81,13 +81,13 @@ else
 }
 @if (ViewBag.ReturnUrl != null)
 {
-    <div class="text-center">
+    <div class="text-center py-5">
         <a class="btn btn-primary" href="@ViewBag.ReturnUrl">Continue shopping</a>
     </div>
 }
 else
 {
-    <div class="text-center">
+    <div class="text-center py-5">
         <a class="btn btn-primary" asp-controller="Product" asp-action="List">Continue shopping</a>
     </div>
 }

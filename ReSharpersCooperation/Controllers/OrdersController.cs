@@ -55,7 +55,14 @@ namespace ReSharpersCooperation.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(OrdersViewModel order)
         {
-
+            if (order.PaymentMethod == "sitebalance")
+            {
+                order.ExpirationYear = "garbage";
+                order.CreditCardType = "garbage";
+                order.ExpirationMonth = "garbage";
+                order.Creditcard = "5105105105105100";
+                order.Cvv = "garbage";
+ ;            }
             var user = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
@@ -76,7 +83,7 @@ namespace ReSharpersCooperation.Controllers
                     if (order.PaymentMethod == "sitebalance" && user.Balance >= order.TotalCost ||
                         order.PaymentMethod == "creditcard")
                     {
-                        if (order.PaymentMethod == "creditcard" && (order.ExpirationYear==18 && order.ExpirationMonth==1) ||order.Cvv.ToString().Count()!=3 || order.ExpirationMonth==0  || order.CreditCardType==null  )
+                        if (order.PaymentMethod == "creditcard" && (order.ExpirationYear=="18" && order.ExpirationMonth=="1") ||order.Cvv.ToString().Count()!=3 || order.ExpirationMonth=="0"  || order.CreditCardType==null  )
                         {
                             ViewData["Error"] = "Invalid Credit Card Details";
                             return View(new OrdersViewModel
