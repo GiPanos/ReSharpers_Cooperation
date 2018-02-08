@@ -8,9 +8,12 @@
 
 @if (Model.Count > 0)
 {
-    <h2 class="py-5">My Wishlist</h2>
-    <table class="table table-striped">
-        <thead>
+    
+    <div id="inline">
+        <div class="one"><h2>My Wishlist</h2></div>
+    </div>
+    <table class="table table-hover">
+        <thead style="background-color: #b2e3f9;">
             <tr>
                 <th>Product</th>
                 <th></th>
@@ -18,7 +21,7 @@
                 <th class="text-right"></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="background-color: #edf8fe; font-weight: 500;">
             @foreach (var item in Model)
             {
                 <tr>
@@ -45,7 +48,10 @@
 }
 else
 {
-    <h2 class="py-5">Wishlist is Empty</h2>
+    <div id="inline">
+        <div class="one"><h2>Wishlist is Empty</h2></div>
+    </div>
+
 }
 @if (ViewBag.ReturnUrl != null)
 {

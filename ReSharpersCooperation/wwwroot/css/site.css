@@ -285,4 +285,9 @@ table.tbOrdersBody {
     #inline .two {
         text-align: center;
     }
+
+.control-label {
+    color: black;
+    font-weight: 500
+}
 /*pg: END*/

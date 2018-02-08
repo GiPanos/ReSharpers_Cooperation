@@ -5,13 +5,14 @@
     ViewData["Title"] = "Offer New Product";
 }
 
-
-<h2 class="py-5">Προσφορά Νέου Προιόντος</h2>
+<div id="inline">
+    <div class="one"><h2>Offer New Product</h2></div>
+</div>
 
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="background-image: url(/images/Background/bg.jpg);">
+    <div class="col-md-4" style="background-color: #056675e6">
         <form asp-action="OfferNewProduct" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="ProductNo" />
             <input type="hidden" asp-for="ImageLink" value="" />
@@ -22,11 +23,8 @@
             <input type="hidden" id="long" asp-for="Longitude" value="" />
             <input type="hidden" id="lat" asp-for="Latitude" value="" />
             <input type="hidden" id="pelagosinput" asp-for="Location" value="" />
-
             <button class="btn btn-primary" onclick="getLocation()">Επαλήθευση Τοποθεσίας</button>
-
             <br />
-            <span asp-validation-for="Location" class="text-danger"></span>
             <br />
             <div id="map"></div>
             <div id="pelagos"></div>
@@ -42,7 +40,7 @@
                         lt.value = position.coords.latitude.toFixed(7);
                         var map = document.getElementById("map");
                         map.innerHTML = `<iframe width="600" height="400" frameborder="0" style="border:0"
-                                                                    src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
+                                            src="https:\//www.google.com/maps/embed/v1/place?key=AIzaSyBbr1yrqPmYqyBrQDEOH990JeqKo73d3aw&q=${lt1},${lg1}&zoom=12" allowfullscreen></iframe>`;
                         var argosaronikosx = [23.2573031, 23.017847, 23.5706993, 23.8101550, 23.2573031];
                         var argosaronikosy = [37.4397123, 37.7496875, 38.0167680, 37.7079110, 37.4397123];
                         var voreioaigaiox = [26.08146, 24.91536, 23.85913, 23.8066, 23.58104, 25.14152, 26.70201];
@@ -145,8 +143,8 @@
                 <select asp-for="ProductCategory" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
                     <option label="Κατηγορία"></option>
                     @foreach (var category in Repository.GetAllCategories())
-            {
-                <option value="@category">@category</option>}
+                    {
+                        <option value="@category">@category</option>}
                 </select>
                 <span asp-validation-for="ProductCategory" class="text-danger"></span>
             </div>
@@ -154,9 +152,9 @@
                 <select asp-for="CatchType" class="form-control" onselect="yesnoCheck(this)" onclick="yesnoCheck(this)">
                     <option label="Τύπος Ψαριάς"></option>
                     @foreach (var type in Repository.GetAllCatchTypes())
-            {
-                <option value="@type">@type</option>
-    }
+                    {
+                        <option value="@type">@type</option>
+                    }
 
                 </select>
                 <span asp-validation-for="CatchType" class="text-danger"></span>
@@ -175,7 +173,7 @@
     </div>
 </div>
 
-<div class="py-5">
+<div class="py-5" style="background-image: url(/images/Background/bg.jpg);">
     <a class="btn btn-primary" asp-controller="Product" asp-action="List">Επιστροφή</a>
 </div>
 

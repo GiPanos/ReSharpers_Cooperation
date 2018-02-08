@@ -10,26 +10,26 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
+<div class="row"  style="background-image: url(/images/Background/bg.jpg);">
+    <div class="col-md-4" style="background-color: #056675e6">
         <section>
             <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                 <h4>Use a local account to log in.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Email"></label>
+                    <label style="color: black; font-weight: 500" asp-for="Email"></label>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>
+                    <label style="color: black; font-weight: 500" asp-for="Password"></label>
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label asp-for="RememberMe">
+                        <label style="color: black; font-weight: 500" asp-for="RememberMe">
                             <input asp-for="RememberMe" />
                             @Html.DisplayNameFor(m => m.RememberMe)
                         </label>
@@ -40,10 +40,10 @@
                 </div>
                 <div class="form-group">
                     <p>
-                        <a asp-action="ForgotPassword">Forgot your password?</a>
+                        <a style="color: black; font-weight: bold" asp-action="ForgotPassword">Forgot your password?</a>
                     </p>
-                    <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                    <p style="color: black; font-weight: bold">
+                        <a style="color: black; font-weight: bold"  asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
                     </p>
                 </div>
             </form>
