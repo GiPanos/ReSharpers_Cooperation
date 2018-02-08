@@ -48,6 +48,7 @@ namespace ReSharpersCooperation.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var myorders = _totalOrdersRepository.ViewMyOrders(user.UserName).GroupBy(i => i.OrderId);
+            ViewData["Order"] = TempData["Order"];
             return View(myorders);
         }
 
@@ -59,6 +60,15 @@ namespace ReSharpersCooperation.Controllers
             if (ModelState.IsValid)
             {
                 var cart = _cartItemRepo.FindUserCart(user.UserName);
+                if (cart.Count==0)
+                {
+                    ViewData["Error"] = "Your Cart is Empty";
+                    return View(new OrdersViewModel
+                    {
+                        TotalCost = order.TotalCost,
+                        CurrentBalance = order.CurrentBalance
+                    });
+                }
                 var outofstock = _productRepository.CheckStock(cart);
 
                 if (outofstock.Count == 0)
@@ -66,6 +76,16 @@ namespace ReSharpersCooperation.Controllers
                     if (order.PaymentMethod == "sitebalance" && user.Balance >= order.TotalCost ||
                         order.PaymentMethod == "creditcard")
                     {
+                        if (order.PaymentMethod == "creditcard" && (order.ExpirationYear==18 && order.ExpirationMonth==1) ||order.Cvv.ToString().Count()!=3 || order.ExpirationMonth==0  || order.CreditCardType==null  )
+                        {
+                            ViewData["Error"] = "Invalid Credit Card Details";
+                            return View(new OrdersViewModel
+                            {
+                                TotalCost = order.TotalCost,
+                                CurrentBalance = order.CurrentBalance
+                            });
+
+                        }
 
                         _productRepository.UpdateStock(cart);
                         var neworder = new Orders
@@ -98,8 +118,8 @@ namespace ReSharpersCooperation.Controllers
                         {
                             _totalOrdersRepository.RemoveMoney(user.UserName, order.TotalCost);
                         }
-
-                        return RedirectToRoute("order");
+                        TempData["Order"] = "Order has been Sucessfully Placed";
+                        return RedirectToAction(nameof(Completed));
                     }
                     else
                     {
@@ -135,7 +155,7 @@ namespace ReSharpersCooperation.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             _cartItemRepo.Clear(user.UserName);
-            return View();
+            return RedirectToAction(nameof(ViewMyOrders));
         }
 
         public async Task<ViewResult> Search(string year)

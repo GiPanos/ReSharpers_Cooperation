@@ -25,7 +25,11 @@ namespace ReSharpersCooperation.Models.OrdersViewModel
         public decimal TotalCost { get; set; }
         [Required]
         public string PaymentMethod { get; set; }
+        public int ExpirationMonth { get; set; }
+        public int ExpirationYear { get; set; }
+        public int Cvv { get; set; }
         public List<Product> OutOfStock { get; set; }
+        public string CreditCardType { get; set; }
 
     }
 }
