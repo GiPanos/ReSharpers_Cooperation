@@ -164,7 +164,9 @@ namespace ReSharpersCooperation.Controllers
                     Longitude=product.Longitude,
                     Latitude=product.Latitude,
                     CatchType=product.CatchType,
-                    Location=product.Location
+                    Location=product.Location,
+                    isPaid=product.isPaid
+
                 };
                 if (product.FirstTime)
                 {

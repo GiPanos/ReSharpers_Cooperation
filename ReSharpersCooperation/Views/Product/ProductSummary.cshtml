@@ -29,9 +29,9 @@
             <div class="col-sm-5" style="inline-size: min-content;">
                 <img style="width: 100%; height: 50%" src="@Model.ProductImage" />
                 <p>@Model.ProductDesc</p>
-                <p>Ψαρεύτηκε πριν @(DateTime.Now.Subtract(@Model.CreatedDate).Days == 0 ? "" : $"{DateTime.Now.Subtract(@Model.CreatedDate).Days.ToString()} Ημέρες ,")  @DateTime.Now.Subtract(@Model.CreatedDate).Hours Ώρες,@DateTime.Now.Subtract(@Model.CreatedDate).Minutes Λεπτά</p>
-                <p>Θαλλάσια Περιοχή: @Model.Location</p>
-                <p>Τρόπος Ψαρέματος: @Model.CatchType</p>
+                <p class="font-weight-bold">Ψαρεύτηκε πριν:@(DateTime.Now.Subtract(@Model.CreatedDate).Days == 0 ? "" : $"{DateTime.Now.Subtract(@Model.CreatedDate).Days.ToString()} Ημέρες ,")  @DateTime.Now.Subtract(@Model.CreatedDate).Hours Ώρες,@DateTime.Now.Subtract(@Model.CreatedDate).Minutes Λεπτά</p>
+                <p class="font-weight-bold">Θαλλάσια Περιοχή: @Model.Location</p>
+                <p class="font-weight-bold">Τρόπος Ψαρέματος: @Model.CatchType</p>
             </div>
             <div class="col-sm-7">
                 <iframe width="100%"

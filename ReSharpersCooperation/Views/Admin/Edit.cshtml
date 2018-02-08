@@ -24,6 +24,7 @@
             <input type="hidden" asp-for="Price" />
             <input type="hidden" asp-for="IsFeatured" />
             <input type="hidden" asp-for="Rating" />
+            <input type="hidden" asp-for="isPaid" />
             @if (!Model.isPaid)
     {
         <p class="text-danger font-weight-bold">UNBOUGHT PRODUCT</p>

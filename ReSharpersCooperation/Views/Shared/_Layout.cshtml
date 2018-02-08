@@ -23,13 +23,13 @@
         <form asp-controller="Product" asp-action="Search" class="form-inline my-2 my-lg-0 ">
             <div class="input-group">
                 <div class="input-group-prepend search-panel">
-                    <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search_concept">Search By</span></button>
+                    <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search_concept">Αναζήτηση</span></button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#Name">Name</a>
-                        <a class="dropdown-item" href="#HighestFirst">Highest First</a>
-                        <a class="dropdown-item" href="#LowestFirst">Lowest Price First</a>
+                        <a class="dropdown-item" href="#Name">Όνομα</a>
+                        <a class="dropdown-item" href="#HighestFirst">Ακριβότερα Πρώτα</a>
+                        <a class="dropdown-item" href="#LowestFirst">Φθηνότερα Πρώτα</a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">All</a>
+                        <a class="dropdown-item" href="#">Όλα</a>
                     </div>
                 </div>
                 <input type="hidden" name="type" value="all" id="search_param" />
@@ -62,9 +62,9 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <h5>Newsletter</h5>
+                    <h5>Φρέσκα Ψάρια Καθημερινά στο e-mail σας</h5>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Subscribe to our newsletter for Great offers">
+                        <input type="text" class="form-control" placeholder="Your E-mail">
                         <span class="input-group-btn input-group-append">
                             <button class="btn btn-default" type="button" id="newsletterbutton"><span class="fa fa-envelope"></span></button>
                         </span>

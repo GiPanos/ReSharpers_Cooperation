@@ -1,9 +1,11 @@
 ﻿@model ReSharpersCooperation.Models.FiltersViewModel.FiltersViewModel
 
+ 
+<div class="py-3"></div>
 <a class="btn btn-block @(ViewBag.CurrentCategory == null ? "btn-info" : "btn-light")" asp-route="pagination" asp-route-productPage="1">All</a>
 <nav class="btn-group-vertical btn-block" id="accordionOne">
 
-    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseOne">Categories</a>
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseOne">Κατηγορίες</a>
     <div id="collapseOne" class="collapse-show @(ViewBag.CurrentCategory ==null||ViewBag.CurrentCatchType!=null ? "collapse" : "btn-light")  btn-block" data-parent="#accordionOne">
         @foreach (var cat in Model.Categories)
         {
@@ -14,7 +16,7 @@
 </nav>
 
 <nav class="btn-group-vertical btn-block" id="accordionTwo">
-    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseTwo">Catch Type</a>
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseTwo">Τύπος Ψαρέματος</a>
     <div id="collapseTwo" class="collapse-show @(ViewBag.CurrentCatchType ==null ? "collapse" : "btn-light") btn-block" data-parent="#accordionTwo">
         @foreach (var type in Model.CatchTypes)
         {
@@ -24,7 +26,7 @@
     </div>
 </nav>
 <nav class="btn-group-vertical btn-block" id="accordionThree">
-    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseThree">Location</a>
+    <a class="btn btn-info" data-toggle="collapse" data-target="#collapseThree">Περιοχή Ψαρέματος</a>
     <div id="collapseThree" class="collapse-show @(ViewBag.CurrentLocation ==null ? "collapse" : "btn-light") btn-block" data-parent="#accordionThree">
         @foreach (var type in Model.Locations)
         {
