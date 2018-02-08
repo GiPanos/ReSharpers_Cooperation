@@ -64,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                     @if (item.StockNo == 0 && wishlistRepo.IsItemInWishlist(item.ProductNo) == true)
                     {
-                        <button class="btn btn-warning btn-sm" disabled>A user has requested this product</button>
+                        <button class="btn btn-warning" disabled>A user has requested this product</button>
                     }
                 </td>
                

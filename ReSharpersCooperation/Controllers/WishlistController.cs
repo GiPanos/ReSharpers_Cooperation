@@ -15,6 +15,7 @@ namespace ReSharpersCooperation.Controllers
     {
         private readonly ProductRepository _repository;
         private readonly WishlistItemRepository _wishlistitemrepo;
+        private readonly CartItemRepository _cartItemRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
@@ -40,13 +41,13 @@ namespace ReSharpersCooperation.Controllers
             {
                 foreach (var product in _repository.Products)
                 {
-                   
+
                     if (item.ProductNo == product.ProductNo)
                     {
                         userwishlist.Add(new WishlistSummaryViewModel(product.ProductName, product.Price, product.ProductImage, product.ProductNo, product.StockNo));
                         itemSum++;
                     }
-                    
+
                 }
             }
 
@@ -55,7 +56,7 @@ namespace ReSharpersCooperation.Controllers
             return View(userwishlist);
         }
 
-        public async Task<IActionResult> AddToWishlist (int productNo, string returnUrl)
+        public async Task<IActionResult> AddToWishlist(int productNo, string returnUrl)
         {
             var user = await _userManager.GetUserAsync(User);
             Product product = _repository.Products.SingleOrDefault(x => x.ProductNo == productNo);
@@ -65,7 +66,7 @@ namespace ReSharpersCooperation.Controllers
                 _wishlistitemrepo.AddToWishlist(productNo, user.UserName);
             }
 
-            TempData["returnUrl"] = returnUrl;           
+            TempData["returnUrl"] = returnUrl;
             return RedirectToRoute("wishlist");
         }
 
