@@ -13,7 +13,7 @@
     <div class="col-md-6" class="col-md-4">
         @if (User.IsInRole("Admin") || User.IsInRole("Member"))
         {
-        <h4>Account Balance:@UserManager.Users.SingleOrDefault(u=>u.UserName==UserManager.GetUserName(User)).Balance.ToString("C")</h4>
+        <h4>Account Balance:@UserManager.Users.SingleOrDefault(u => u.UserName == UserManager.GetUserName(User)).Balance.ToString("F2") €</h4>
         }
 
         <form method="post">

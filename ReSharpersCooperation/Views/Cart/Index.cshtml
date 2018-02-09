@@ -47,7 +47,7 @@
                                 @for (int i = item.Quantity + 1; i <= item.StockNo && i <= 10; i++)
                                 {
 
-                                    <a asp-controller="cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" asp-route-quantity="@(i-item.Quantity)" class="dropdown-item">@i</a>
+                                    <a asp-controller="cart" asp-action="AddToCart" asp-route-productNo="@item.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()" asp-route-quantity="@(i-item.Quantity)" class="dropdown-item">@i</a>
                                 }
 
                             </div>
@@ -56,7 +56,7 @@
                         <a asp-controller="cart" asp-action="RemoveFromCart" asp-route-productNo="@item.ProductNo" asp-route-quantity="@(item.Quantity)"><i class="fa fa-times-circle fa-2x"></i></a>
                     </td>
                     <td class="text-right">
-                        @((item.Quantity * item.Cost).ToString("C"))
+                        @(item.Quantity * item.Cost) €
                     </td>
 
                 </tr>

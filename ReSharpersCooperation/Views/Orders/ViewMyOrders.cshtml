@@ -38,7 +38,7 @@
                     <thead>
                         <tr>
                             <th>Order Placed: @item.Select(x => x.OrderDate).First().ToString("dd/MM/yyyy")</th>
-                            <th>Total: @item.Select(x => x.TotalCost).First().ToString("C")</th>
+                            <th>Total: @item.Select(x => x.TotalCost).First() €</th>
                             <th>Order # @item.Key</th>
                             @if (item.Select(x => x.Shipped).First())
                             {

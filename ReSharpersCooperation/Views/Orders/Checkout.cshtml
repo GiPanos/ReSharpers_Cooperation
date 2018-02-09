@@ -126,8 +126,8 @@
             </div>
             @if (User.IsInRole("Admin") || User.IsInRole("Member"))
             {
-                <p style="font-weight: bold">Current Balance:@Model.CurrentBalance.ToString("C")</p>
-                <p style="font-weight: bold">Total Cost:@Model.TotalCost.ToString("C")</p>
+            <p style="font-weight: bold">Current Balance:@Model.CurrentBalance €</p>
+            <p style="font-weight: bold">Total Cost:@Model.TotalCost €</p>
             }
             <div class="form-group">
                 <input asp-controller="Orders" asp-action="Checkout" type="submit" value="Complete Order" class="btn btn-default" />

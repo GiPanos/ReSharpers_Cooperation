@@ -48,7 +48,7 @@
                     @Html.DisplayFor(modelItem => item.DestinationAccount)
                 </td>
                 <td>
-                    @item.Amount.ToString("C")
+                    @Html.DisplayFor(modelItem => item.Amount)  €
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TransactionType)

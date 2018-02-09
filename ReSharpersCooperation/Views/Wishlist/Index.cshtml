@@ -30,7 +30,7 @@
                     <td>
                         <img class="img-fluid" width="50" height="50" src="@item.ProductImage" />
                     </td>
-                    <td class="text-center">@(item.Cost.ToString("C")) /kg</td>
+                    <td class="text-center">@item.Cost €/ kg</td>
                     <td class="text-right">
                         <a asp-controller="Wishlist" asp-action="RemoveItemFromWishlist" asp-route-productNo="@item.ProductNo" class="btn btn-danger btn-sm">Remove Item</a>
                         @if (item.StockNo > 0)

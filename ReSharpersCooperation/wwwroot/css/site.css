@@ -335,3 +335,8 @@ table.tbOrdersBody {
 
 .m-1 {
     margin: 1rem !important;
+}
+.rounded-circle 
+{
+    border: solid 3px #86b7d4;
+}

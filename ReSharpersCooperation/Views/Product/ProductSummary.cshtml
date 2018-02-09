@@ -10,7 +10,7 @@
     <header class="bg-faded p-1">
         <h4>
             <span class="badge" ; style="margin-left: 2%">@Model.ProductName</span>
-            <span class="badge">@Model.Price.ToString("C")/kg</span>
+            <span class="badge">@Model.Price €/kg</span>
             <a class="btn btn-warning btn-sm" asp-controller="WishList" asp-action="AddToWishList" asp-route-productNo="@Model.ProductNo" asp-route-returnUrl="@ViewContext.HttpContext.Request.Path.ToString()">Add to Wish List</a>
             @if (Model.StockNo > 0)
             {
@@ -28,9 +28,9 @@
         <div class="card-body row">
             <div class="col-sm-5" style="inline-size: min-content;">
                 <img style="width: 100%; height: 50%" src="@Model.ProductImage" />
-                <p>@Model.ProductDesc</p>
+                <p class="py-3">@Model.ProductDesc</p>
                 <p class="font-weight-bold">Ψαρεύτηκε πριν:@(DateTime.Now.Subtract(@Model.CreatedDate).Days == 0 ? "" : $"{DateTime.Now.Subtract(@Model.CreatedDate).Days.ToString()} Ημέρες ,")  @DateTime.Now.Subtract(@Model.CreatedDate).Hours Ώρες,@DateTime.Now.Subtract(@Model.CreatedDate).Minutes Λεπτά</p>
-                <p class="font-weight-bold">Θαλλάσια Περιοχή: @Model.Location</p>
+                <p class="font-weight-bold">Περιοχή Ψαρέματος: @Model.Location</p>
                 <p class="font-weight-bold">Τρόπος Ψαρέματος: @Model.CatchType</p>
             </div>
             <div class="col-sm-7">

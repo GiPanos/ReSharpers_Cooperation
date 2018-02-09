@@ -88,11 +88,11 @@ namespace ReSharpersCooperation.Controllers
 
                 if ( await _userManager.IsInRoleAsync(user, "Admin"))
                 {
-                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("C2"), Role = "Admin" });
+                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("F2"), Role = "Admin" });
                 }
                 else if(await _userManager.IsInRoleAsync(user, "Member"))
                 {
-                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("C2"), Role = "Member" });
+                    users.Add(new UserViewModel { User = user, Balance = user.Balance.ToString("F2"), Role = "Member" });
                 }
                 else
                 {
